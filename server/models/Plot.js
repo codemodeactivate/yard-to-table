@@ -1,10 +1,12 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const plotSchema = new Schema({
   address: {
     type: String,
     required: true,
   },
+  name: String,
+  sqft: Number,
   category: [String],
   image: [String],
   user: {
