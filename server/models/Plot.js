@@ -1,4 +1,9 @@
+const mongoose = require("mongoose");
 const { Schema, model } = require("mongoose");
+
+if (mongoose.connection.models.Plot) {
+  delete mongoose.connection.models.Plot;
+}
 
 const plotSchema = new Schema({
   address: {

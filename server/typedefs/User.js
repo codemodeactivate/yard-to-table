@@ -1,7 +1,6 @@
-//comment
 const { gql } = require('apollo-server-express');
 
-const User = gql`
+const userTypeDefs = gql`
     type User {
         id: ID!
         name: String!
@@ -10,22 +9,8 @@ const User = gql`
         address: String!
         isGardener: Boolean!
         isHomeowner: Boolean!
-        gardenerProfile: GardenerProfile
-        homeownerProfile: HomeownerProfile
-    }
-
-    type: GardenerProfile {
-        experience: Int
-        areasServed: [String]
-        specialties: [String]
-        rating: Float
-        # more fields as needed...
-    }
-
-    type HomeownerProfile {
-        gardenType: String
-        plots: [Plot]
-        # more fields as needed...
+        gardenerProfile: ID
+        homeownerProfile: ID
     }
 
     extend type Query {
@@ -40,12 +25,29 @@ const User = gql`
             email: String!,
             password: String!,
             address: String!,
-            isGardener: Boolean!, #
+            isGardener: Boolean!,
             isHomeowner: Boolean!,
             gardenerProfile: ID,
-            homeownerProfile: ID,
+            homeownerProfile: ID
         ): User # return the user object that was created
-    )
+
+        editUser(
+            id: ID!,
+            name: String,
+            username: String,
+            email: String,
+            password: String,
+            address: String,
+            isGardener: Boolean,
+            isHomeowner: Boolean,
+            gardenerProfile: ID,
+            homeownerProfile: ID
+        ): User
+
+        deleteUser(
+            id: ID!
+        ): User
+    }
 `;
 
-module.exports = User;
+module.exports = userTypeDefs;
