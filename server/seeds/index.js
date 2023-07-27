@@ -1,3 +1,3 @@
-const seedUsers = require('./seedUsers');
+const seedUsers = require('./userSeeds');
 
 seedUsers();
