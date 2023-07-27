@@ -7,7 +7,7 @@ const plotTypeDefs = gql`
     sqft: Int
     category: String!
     image: String
-    user: ID
+    user:
   }
 
   type Query {
