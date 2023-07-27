@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-const plotTypeDefs = gql`
+const plot = gql`
   type Plot {
     _id: ID!
     name: String!
@@ -17,8 +17,8 @@ const plotTypeDefs = gql`
 
   type Mutation {
     createPlot(type: Plot) : Plot
-    update Plot(id: ID!, input: PlotInput): Plot
+    update Plot(id: ID!, type: Plot): Plot
   }
 `;
 
-module.exports = plotTypeDefs;
+module.exports = plot;
