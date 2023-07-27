@@ -1,14 +1,14 @@
 const { gql } = require('apollo-server-express');
 
-const jobTypeDefs = gql`
+const jobsTypeDefs = gql`
     type Job {
         _id: ID!
         title: String!
         description: String
         dateRequested: String!
-        homeowner: User
-        gardener: User
-        plot: Plot
+        homeowner: ID
+        gardener: ID
+        plot: ID
         status: String
     }
     type Query {
@@ -22,4 +22,4 @@ const jobTypeDefs = gql`
     }
 `;
 
-modeule.exports = jobTypeDefs;
+module.exports = jobsTypeDefs;
