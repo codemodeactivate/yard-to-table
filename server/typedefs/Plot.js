@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express');
 
-const plot = gql`
+const plotTypeDefs = gql`
   type Plot {
     _id: ID!
     name: String!
@@ -21,4 +21,4 @@ const plot = gql`
   }
 `;
 
-module.exports = plot;
+module.exports = plotTypeDefs;
