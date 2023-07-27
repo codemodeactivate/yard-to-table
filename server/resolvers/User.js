@@ -20,7 +20,7 @@ const userResolver = {
             return user;
         },
 
-        editUser: async (parent, { id, ...rest }, context) => {
+        editUser: async (parent, { id, ...rest }, context) => { // id is the user's id, rest is the rest of the data
             //find a user by ID and update it with new data.
             //option {new: true} returns updated data
             return await User.findbyIdAndUpdate(id, rest, { new: true });
