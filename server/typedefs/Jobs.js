@@ -13,7 +13,7 @@ const jobTypeDefs = gql`
     }
     type Query {
         jobs: [Job]
-        job(jobId: ID!): Job
+        job(id: ID!) : Job
     }
     type Mutation {
         addJob(title: String!, description: String, dateRequested: String!, homeowner: ID!, gardener: ID!, plot: ID!, status: String!): Job
