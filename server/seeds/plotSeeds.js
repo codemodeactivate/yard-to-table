@@ -4,11 +4,9 @@ const Plot = require('../models/Plot');
 
 async function seedPlots() {
   // Connect to the Mongo DB
-  await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
   });
 
   const plots = Array.from({ length: 10 }, (_, i) => ({
@@ -28,7 +26,7 @@ async function seedPlots() {
     process.exit(1);
   }
 
-  mongoose.connection.close();
+
 }
 
 module.exports = seedPlots;
