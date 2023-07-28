@@ -44,9 +44,13 @@ const userTypeDefs = gql`
             homeownerProfile: ID
         ): User
 
-        deleteUser(
-            id: ID!
-        ): User
+        deleteUser(id: ID!): DeletionResponse!
+    }
+
+    type DeletionResponse {
+      success: Boolean!
+      message: String
+      id: ID
     }
 `;
 
