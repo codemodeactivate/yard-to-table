@@ -9,7 +9,9 @@ const userResolver = {
     Query: {
         //get a single user by ID
         getUser: async (parent, { id }, context) => {
-            // parent
+            // parent is the parent schema, in this case it is not needed
+            // args are the arguments passed in the query
+            // context is an object containing the request and response objects
             return await User.findById(id);
         },
         // Get all users
