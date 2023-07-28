@@ -14,12 +14,12 @@ const homeownerProfileSchema = new Schema({
   // more fields as needed...
 });
 
-const plotSchema = new Schema({
-  name: String,
-  size: String,
-  userId: { type: Schema.Types.ObjectId, ref: 'User' }
-  // more fields as needed...
-});
+// const plotSchema = new Schema({
+//   name: String,
+//   size: String,
+//   userId: { type: Schema.Types.ObjectId, ref: 'User' }
+//   // more fields as needed...
+// });
 
 const userSchema = new Schema({
   name: {
@@ -82,11 +82,11 @@ userSchema.pre('save', async function (next) {
 const User = model('User', userSchema);
 const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
 const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
-const Plot = model('Plot', plotSchema);
+// const Plot = model('Plot', plotSchema);
 
 module.exports = {
   User,
   GardenerProfile,
   HomeownerProfile,
-  Plot
+  // Plot
 };

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db = require('../config/connection');
-const { Plot } = require('../models/Plot');
+const Plot = require('../models/Plot');
 
 async function seedPlots() {
   // Connect to the Mongo DB
@@ -16,7 +16,7 @@ async function seedPlots() {
     name: `Test Plot ${i + 1}`,
     sqft: `400${i + 1}`,
     category: i % 2 === 0 ? ['Vegetable'] : ['Pollinator'],
-    user: `1${i + 1}`,
+    username: `testuser${i + 1}`,
   }));
 
   try {
