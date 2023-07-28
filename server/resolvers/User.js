@@ -1,11 +1,16 @@
-const { User } = require("../models");
+const { User } = require("../models").User;
+console.log(User);
+console.log("User object: ", User);
+console.log("Type of User object: ", typeof User);
+console.log("User.create method: ", User.create);
+console.log("User.save method: ", User.save);
 
 const userResolver = {
     Query: {
         //get a single user by ID
         getUser: async (parent, { id }, context) => {
             // parent
-            return await User.findbyID(id);
+            return await User.findById(id);
         },
         // Get all users
         getUsers: async (parent, args, context) => {
@@ -16,14 +21,15 @@ const userResolver = {
     Mutation: {
         //add a new user
         addUser: async (parent, args, context) => {
-            const user = await User.create(args);
+            const user = new User(args);
+            await user.save();
             return user;
         },
 
         editUser: async (parent, { id, ...rest }, context) => { // id is the user's id, rest is the rest of the data
             //find a user by ID and update it with new data.
             //option {new: true} returns updated data
-            return await User.findbyIdAndUpdate(id, rest, { new: true });
+            return await User.findByIdAndUpdate(id, rest, { new: true });
         },
 
         deleteUser: async (parent, { id }, context) => {
@@ -34,4 +40,5 @@ const userResolver = {
     },
 };
 
+console.log('User Model loaded');
 module.exports = userResolver;
