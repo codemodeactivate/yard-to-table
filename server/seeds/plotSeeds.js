@@ -15,7 +15,7 @@ async function seedPlots() {
     address: `123 Test St ${i + 1}`,
     name: `Test Plot ${i + 1}`,
     sqft: `400${i + 1}`,
-    category: i % 2 === 0 ? ['Vegetable'] : ['Pollinator'],
+    category: i % 2 === 0 ? 'Vegetable' : 'Pollinator',
     username: `testuser${i + 1}`,
   }));
 

@@ -7,8 +7,8 @@ const plotSchema = new Schema({
   },
   name: String,
   sqft: Number,
-  category: [String],
-  image: [String],
+  category: String,
+  image: String,
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",

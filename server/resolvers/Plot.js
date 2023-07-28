@@ -1,4 +1,4 @@
-const { Plot } = require("../models/Plot");
+const Plot = require("../models/Plot");
 
 const resolvers = {
   Query: {
@@ -16,10 +16,10 @@ const resolvers = {
     editPlot: async (parent, { id, ...rest }, context) => {
       //find a user by ID and update it with new data.
       //option {new: true} returns updated data
-      return await Plot.findbyIdAndUpdate(id, rest, { new: true });
+      return await Plot.findByIdAndUpdate(id, rest, { new: true });
     },
     // delete a plot by ID
-    deletePlot: async (parent, args) => {
+    deletePlot: async (parent, { id } ) => {
       return await Plot.findByIdAndRemove(id);
     },
   },
