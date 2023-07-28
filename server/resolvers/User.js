@@ -2,7 +2,7 @@ const express = require("express");
 const { User } = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// require("dotenv").config();
+require('dotenv').config({ path: '../.env' });
 
 // console.log(User);
 // console.log("User object: ", User);
