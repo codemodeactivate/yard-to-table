@@ -33,10 +33,24 @@ const userResolver = {
         },
 
         deleteUser: async (parent, { id }, context) => {
-            // parent is the object that contains the result returned from the resolver on the parent field
-            // { id } is the destructured id argument from the deleteUser mutation
-            return await User.findByIdAndRemove(id);
-        },
+            // Find user and remove it
+            const user = await User.findByIdAndRemove(id);
+
+            // Check if user was actually found and removed
+            if (!user) {
+              return {
+                success: false,
+                message: "No user found with this id",
+                id,
+              };
+            }
+
+            return {
+              success: true,
+              message: "User successfully deleted",
+              id, // The id of the deleted user
+            };
+          },
     },
 };
 
