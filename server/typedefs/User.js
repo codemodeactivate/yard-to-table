@@ -6,11 +6,16 @@ const userTypeDefs = gql`
         name: String!
         username: String!
         email: String!
-        address: String!
-        isGardener: Boolean!
-        isHomeowner: Boolean!
+        address: String
+        isGardener: Boolean
+        isHomeowner: Boolean
         gardenerProfile: ID
         homeownerProfile: ID
+    }
+
+    type AuthPayload {
+        token: String!
+        user: User!
     }
 
     extend type Query {
@@ -24,12 +29,12 @@ const userTypeDefs = gql`
             username: String!,
             email: String!,
             password: String!,
-            address: String!,
-            isGardener: Boolean!,
-            isHomeowner: Boolean!,
+            address: String,
+            isGardener: Boolean,
+            isHomeowner: Boolean,
             gardenerProfile: ID,
             homeownerProfile: ID
-        ): User # return the user object that was created
+        ): AuthPayload # Return the AuthPayload object that was created
 
         editUser(
             id: ID!,
