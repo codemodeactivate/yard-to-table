@@ -2,14 +2,14 @@ const express = require("express");
 const { User } = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+// require("dotenv").config();
 
 // console.log(User);
 // console.log("User object: ", User);
 // console.log("Type of User object: ", typeof User);
 // console.log("User.create method: ", User.create);
 // console.log("User.save method: ", User.save);
-
+// console.log(process.env.JWT_SECRET);
 const userResolver = {
     Query: {
         //get a single user by ID
@@ -74,6 +74,7 @@ const userResolver = {
               await newUser.save();
 
               // sign jwt
+              console.log('JWT Secret:', process.env.JWT_SECRET);
               const token = jwt.sign(
                 {
                   id: newUser._id,
