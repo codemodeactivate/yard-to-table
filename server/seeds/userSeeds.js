@@ -10,7 +10,8 @@ async function seedUsers() {
   });
 
   const users = Array.from({ length: 10 }, (_, i) => ({
-    name: `Test User ${i + 1}`,
+    firstName: `Test User ${i + 1}`,
+    lastName: `Test Last ${i + 1}`,
     username: `testuser${i + 1}`,
     email: `testuser${i + 1}@example.com`,
     password: `password${i + 1}`,

@@ -27,8 +27,16 @@ const userResolver = {
 
     Mutation: {
         //add a new user
-        addUser: async (parent, { name, username, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile }) => {
-            if (!name ||
+        addUser: async (parent, { firstName, lastName, username, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile }) => {
+
+            firstName = firstName.trim();
+            lastName = lastName.trim();
+            username = username.trim();
+            email = email.trim();
+            password = password.trim();
+
+            if (!firstName ||
+                !lastName ||
                 !username ||
                 !email ||
                 !password
@@ -42,11 +50,19 @@ const userResolver = {
                 ) {
                 throw new Error("Please enter all required fields.");
               }
-
-              // check for password length
-              if (password.length < 8) {
-                throw new Error("Please enter a password of at least 8 characters.");
+              const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+              // check for password length meeting requirements of regex above
+              // this one checks for at least one uppercase, one lowercase, one number, one special character,
+              // and a minimum of 8 characters
+              if (!passwordPattern.test(password)) {
+                throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
               }
+
+              const emailPattern = /^\S+@\S+\.\S+$/;
+                // check for valid email address
+            if (!emailPattern.test(email)) {
+            throw new Error("Please enter a valid email address.");
+            }
 
               // check if username or email already in use
               const existingUser = await User.findOne({ $or: [{ username: username }, { email: email }] });
@@ -60,7 +76,8 @@ const userResolver = {
 
               // save new user
               const newUser = new User({
-                name,
+                firstName,
+                lastName,
                 username,
                 email,
                 password: passwordHash,
@@ -86,7 +103,8 @@ const userResolver = {
                 token,
                 user: {
                   id: newUser._id,
-                  name: newUser.name,
+                  firstName: newUser.firstName,
+                  lastName: newUserlastName,
                   username: newUser.username,
                   email: newUser.email,
                   address: newUser.address,
@@ -98,31 +116,62 @@ const userResolver = {
               };
         },
 
-        editUser: async (parent, { id, ...rest }, context) => { // id is the user's id, rest is the rest of the data
-            //find a user by ID and update it with new data.
-            //option {new: true} returns updated data
-            return await User.findByIdAndUpdate(id, rest, { new: true });
+        editUser: async (parent, { id, ...rest }, context) => {
+            // Check if user id exists in the database.
+            const user = await User.findById(id);
+            if (!user) {
+                throw new Error("No user found with this id");
+            }
+
+            // Validate the rest data according to your User model.
+            // For example, let's validate if the email provided is valid.
+            // Add more validations as per your requirements.
+            if (rest.email) {
+                const emailPattern = /^\S+@\S+\.\S+$/;
+                if (!emailPattern.test(rest.email)) {
+                    throw new Error("Please enter a valid email address.");
+                }
+
+                // Also check if the email is already in use
+                const existingUser = await User.findOne({ email: rest.email });
+                if (existingUser && String(existingUser._id) !== id) {
+                    throw new Error("A user with this email already exists.");
+                }
+            }
+
+            try {
+                // Update the user.
+                const updatedUser = await User.findByIdAndUpdate(id, rest, { new: true });
+                return updatedUser;
+            } catch (err) {
+                // Handle any database errors.
+                console.error(err);
+                throw new Error("An error occurred while updating the user");
+            }
         },
 
         deleteUser: async (parent, { id }, context) => {
-            // Find user and remove it
-            const user = await User.findByIdAndRemove(id);
-
-            // Check if user was actually found and removed
+            // Check if user id exists in the database.
+            const user = await User.findById(id);
             if (!user) {
-              return {
-                success: false,
-                message: "No user found with this id",
-                id,
-              };
+                throw new Error("No user found with this id");
             }
 
-            return {
-              success: true,
-              message: "User successfully deleted",
-              id, // The id of the deleted user
-            };
-          },
+            try {
+                // Delete the user.
+                await User.findByIdAndRemove(id);
+
+                return {
+                    success: true,
+                    message: "User successfully deleted",
+                    id,
+                };
+            } catch (err) {
+                // Handle any database errors.
+                console.error(err);
+                throw new Error("An error occurred while deleting the user");
+            }
+        }
     },
 };
 

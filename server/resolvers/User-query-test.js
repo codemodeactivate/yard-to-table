@@ -1,7 +1,8 @@
 query {
     getUser(id: "64c2fe199798343c88fc2e6f") {
       id
-      name
+      firstName
+      lastName
       username
       email
       address
@@ -16,7 +17,8 @@ query {
   query {
     getUsers {
       id
-      name
+      firstName
+      lastName
       username
       email
       address
