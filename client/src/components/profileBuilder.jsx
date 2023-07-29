@@ -7,6 +7,8 @@ const ProfileBuilder = () => {
     const [error, setError] = useState(null); // error is false by default
     const { register, handleSubmit, errors } = useForm(); // useForm hook
 
+    const { profileData, setProfileData } = useState({}); // profileData is an empty object by default, but keep it across dif steps
+
     const handleNext = (data) => {
         console.log("Profile Builder Data: ", { data }); // log data to console
         setStep(step + 1); // increment step by 1
@@ -81,8 +83,78 @@ const ProfileBuilder = () => {
                     </form>
                 </section>
             )}
-            {step === 2 && <section>{/* Step 2 Form */}</section>}
-            {/* Repeat for all steps */}
+            {step === 2 && (
+                <section>
+                    <p>All signed up!</p>
+                    <button onClick={handleNext}>Next</button>
+                </section>
+            )}
+                {/* Repeat for all steps */}
+
+
+
+                {step === 3 && (
+                    <section>
+                        {/*Step 3 Form */}
+                        <form onSubmit={handleSubmit(handleNext)}>
+                        {/* Fields for plot information, such as plotName, zip, address, etc. */}
+                        <label htmlFor="plotName">Plot Name</label>
+                        <input
+                            type="text"
+                            name="plotName"
+                            id="plotName"
+                            ref={register}
+                        />
+                        <label htmlFor="zip">Zip</label>
+                        <input
+                            type="text"
+                            name="zip"
+                            id="zip"
+                            ref={register}
+                            defaultValue="{profileData.zip}" // You can set this based on previous info
+                        />
+
+                        {/* Add the rest of the fields here */}
+                        <label htmlFor="Street Adress">Street Address</label>
+                        <input
+                            type="text"
+                            name="streetAddress"
+                            id="streetAddress"
+                            ref={register}
+                        />
+                        <label htmlFor="Lot Square Footage">Lot Square Footage</label>
+                        <input
+                            type="text"
+                            name="lotSquareFootage"
+                            id="lotSquareFootage"
+                            ref={register}
+                        />
+                        <label htmlFor="Plot Type">Plot Type</label>
+                        <select
+                            name="plotType"
+                            id="plotType"
+                            ref={register}
+                        >
+                            <option value="Pollinator">Pollinator</option>
+                            <option value="Vegetable">Vegetable</option>
+                            <option value="Flower">Flower</option>
+                            <option value="Herb">Herb</option>
+                            <option value="Mixed">Mixed</option>
+                        </select>
+                        <label htmlFor="profilePicture">Plot Picture</label>
+                        <input
+                            type="file"
+                            name="plotPicture"
+                            id="plotPicture"
+                            accept="image/*" // Restrict file types to images
+                            ref={register}  // This is optional if using react-hook-form
+                        />
+
+                        <button type="submit">Next</button>
+                        </form>
+                    </section>
+                    )}
+
             <div>
                 {loading && <p>Loading...</p>}{" "}
                 {/* Show loading message when loading */}
@@ -102,6 +174,6 @@ const ProfileBuilder = () => {
             </div>
         </div>
     );
-};
 
+};
 export default ProfileBuilder;
