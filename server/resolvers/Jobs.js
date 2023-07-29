@@ -15,13 +15,14 @@ const JobsResolver = {
   Mutation: {
     // Add a new job
     addJob: async (parent, args, context) => {
-      const job = await Jobs.create(args);
+      const job = new Jobs(args);
+      await job.save();
       return job;
     },
 
     // Edit a job
     editJob: async (parent, { id, ...rest }, context) => {
-      const job = await Jobs.create(id, rest, { new: true });
+      const job = await Jobs.findByIdAndUpdate(id, rest, { new: true });
       return job;
     },
 

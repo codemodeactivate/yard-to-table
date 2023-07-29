@@ -1,5 +1,13 @@
 const { Schema, model } = require('mongoose');
 
+function formatDate(date) {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+  
+    return `${month}/${day}/${year}`;
+  }
+
 const jobSchema = new Schema({
     title: {
         type: String,
@@ -8,7 +16,8 @@ const jobSchema = new Schema({
     description: String,
     dateRequested: {
         type: Date,
-        required: true
+        default: Date.now,
+        get: formatDate
     },
     homeowner: {
         type: Schema.Types.ObjectId,
