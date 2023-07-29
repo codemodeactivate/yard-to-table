@@ -7,29 +7,29 @@ mutation {
   }
 
   mutation {
-    editUser(id: "64c304d46b5bafa44a471ab1", name: "Jeff Zenko", address: "New Address") {
+    editUser(id: "64c44cb62339107f90dbd01d", firstName: "Jeffff", address: "New Address") {
       id
-      name
+      firstName
       address
     }
   }
 
   mutation {
     addUser(
-      name: "Jeff User",
-      username: "testuser",
-      email: "testuser@example.com",
-      password: "testpassword",
-      address: "123 Test St",
-      isGardener: false,
-      isHomeowner: true
+      firstName: "Jeff",
+      lastName: "Zenko",
+      username: "affdfnd444444",
+      email: "tteesssssssttt@example.com",
+      password: "Test$411"
     ) {
-      id
-      name
-      username
-      email
-      address
-      isGardener
-      isHomeowner
+      token
+      user {
+        id
+        firstName
+        lastName
+        username
+        email
+      }
     }
   }
+

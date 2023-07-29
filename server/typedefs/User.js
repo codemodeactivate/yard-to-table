@@ -3,14 +3,20 @@ const { gql } = require('apollo-server-express');
 const userTypeDefs = gql`
     type User {
         id: ID!
-        name: String!
+        firstName: String!
+        lastName: String!
         username: String!
         email: String!
-        address: String!
-        isGardener: Boolean!
-        isHomeowner: Boolean!
+        address: String
+        isGardener: Boolean
+        isHomeowner: Boolean
         gardenerProfile: ID
         homeownerProfile: ID
+    }
+
+    type AuthPayload {
+        token: String!
+        user: User!
     }
 
     extend type Query {
@@ -20,20 +26,22 @@ const userTypeDefs = gql`
 
     extend type Mutation {
         addUser(
-            name: String!,
+            firstName: String!,
+            lastName: String!,
             username: String!,
             email: String!,
             password: String!,
-            address: String!,
-            isGardener: Boolean!,
-            isHomeowner: Boolean!,
+            address: String,
+            isGardener: Boolean,
+            isHomeowner: Boolean,
             gardenerProfile: ID,
             homeownerProfile: ID
-        ): User # return the user object that was created
+        ): AuthPayload # Return the AuthPayload object that was created
 
         editUser(
             id: ID!,
-            name: String,
+            firstName: String,
+            lastName: String,
             username: String,
             email: String,
             password: String,

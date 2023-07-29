@@ -4,15 +4,14 @@ const { User } = require('../models/User');
 
 async function seedUsers() {
   // Connect to the Mongo DB
-  await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
   });
 
   const users = Array.from({ length: 10 }, (_, i) => ({
-    name: `Test User ${i + 1}`,
+    firstName: `Test User ${i + 1}`,
+    lastName: `Test Last ${i + 1}`,
     username: `testuser${i + 1}`,
     email: `testuser${i + 1}@example.com`,
     password: `password${i + 1}`,
@@ -27,10 +26,8 @@ async function seedUsers() {
     console.log(`${insertedUsers.length} users seeded!`);
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    throw err;  // This ensures that the error propagates to the calling function
   }
-
-  mongoose.connection.close();
 }
 
 module.exports = seedUsers;
