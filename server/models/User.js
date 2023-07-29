@@ -14,12 +14,12 @@ const homeownerProfileSchema = new Schema({
   // more fields as needed...
 });
 
-// const plotSchema = new Schema({
-//   name: String,
-//   size: String,
-//   userId: { type: Schema.Types.ObjectId, ref: 'User' }
-//   // more fields as needed...
-// });
+const plotSchema = new Schema({
+  name: String,
+  size: String,
+  userId: { type: Schema.Types.ObjectId, ref: 'User' }
+  // more fields as needed...
+});
 
 const userSchema = new Schema({
   firstName: {
