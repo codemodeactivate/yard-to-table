@@ -1,7 +1,16 @@
-const Profile = require('../models/Profile'); //import model profile
-
 
 const profileBuilderResolvers = {
+
+    Query: {
+      getNonCompletedProfiles: async (parent, args, context, info) => {
+        //TODO: ADD AUTHORIZATION DOUBLE CHECK TO MAKE SURE ONLY ADMIN CAN ACCESS THIS QUERY
+
+        //retrieve non completed profiles, ie profiles where isCompleted = false
+        const profiles = await Profile.find({ isCompleted: false });
+        return profiles;
+      },
+    },
+
     Mutation: {
       createProfileStep1: async (parent, args, context, info) => {
         // handle step 1 of the profile creation
@@ -63,4 +72,4 @@ const profileBuilderResolvers = {
     },
   };
 
-  export default profileBuilderResolvers;
+  module.exports = profileBuilderResolvers;
