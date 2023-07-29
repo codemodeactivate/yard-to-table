@@ -1,4 +1,4 @@
-const { Jobs } = require('../models/Jobs');
+const Jobs = require('../models/Jobs');
 const mongoose = require('mongoose');
 const db = require('../config/connection');
 
@@ -11,7 +11,7 @@ async function seedJobs() {
     useFindAndModify: false
   });
 
-  const users = Array.from({ length: 10 }, (_, i) => ({
+  const jobs = Array.from({ length: 10 }, (_, i) => ({
     title: `Test Job ${i + 1}`,
     dateRequested: "2021-05-01",
     homeowner: `testUser${i + 1}`,
@@ -23,7 +23,7 @@ async function seedJobs() {
   try {
     await Jobs.deleteMany({});
     console.log("Deleted old jobs from database.");
-    const insertedJobs = await Jobs.insertMany(Jobs);
+    const insertedJobs = await Jobs.insertMany(jobs);
     console.log(`${insertedJobs.length} jobs seeded!`);
   } catch (err) {
     console.error(err);
