@@ -21,6 +21,7 @@ async function seedPlots() {
     await Plot.deleteMany({});
     const insertedPlots = await Plot.insertMany(plots);
     console.log(`${insertedPlots.length} plots seeded!`);
+    return insertedPlots; // Return the inserted plots
   } catch (err) {
     console.error(err);
     process.exit(1);
