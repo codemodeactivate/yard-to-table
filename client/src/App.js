@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
 import ProfileBuilder from './components/ProfileBuilder';
-
+import Profile from './pages/ProfilePage';
 
 function App() {
   return (
@@ -14,9 +14,9 @@ function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
             <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
-
       </header>
     </div>
   );
