@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/HomePage';
-import ProfileBuilder from './pages/ProfileBuilder';
+import ProfileBuilder from './components/ProfileBuilder';
 
 
 function App() {
@@ -10,10 +10,10 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
-          <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/profile" exact component={ProfileBuilder} />
-          </Switch>
+          <Routes>
+            <Route path="/" exact element={<HomePage />} />
+            <Route path="/homeowner-profile" exact element={<ProfileBuilder />} />
+          </Routes>
         </Router>
 
       </header>
