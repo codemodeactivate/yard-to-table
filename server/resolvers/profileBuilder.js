@@ -44,9 +44,9 @@ const profileBuilderResolvers = {
       return profile;
     },
 
-    createProfileStep2: async (parent, args, context, info) => {
+    createProfileStep3: async (parent, args, context, info) => {
       // Handle step 2 of the profile creation
-      const step2Data = args.input;
+      const step3Data = args.input;
       const user = context.user;
 
       const profile = await Profile.findOne({ user: user.id });
@@ -54,14 +54,14 @@ const profileBuilderResolvers = {
         throw new Error('Profile not found');
       }
 
-      profile.step2 = step2Data;
+      profile.step3 = step3Data;
       await profile.save();
       return profile;
     },
 
-    updateProfileStep2: async (parent, args, context, info) => {
+    updateProfileStep3: async (parent, args, context, info) => {
       // Handle update for step 2
-      const step2Data = args.input;
+      const step3Data = args.input;
       const user = context.user;
 
       const profile = await Profile.findOne({ user: user.id });
@@ -69,7 +69,7 @@ const profileBuilderResolvers = {
         throw new Error('Profile not found');
       }
 
-      profile.step2 = step2Data;
+      profile.step3 = step2Data;
       await profile.save();
       return profile;
     },

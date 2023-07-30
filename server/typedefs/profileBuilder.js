@@ -37,7 +37,7 @@ input Step1Input {
     confirmPassword: String!
 }
 
-input Step2Input {
+input Step3Input {
     plotName: String
     zip: String
     streetAddress: String
@@ -52,8 +52,8 @@ input Step2Input {
 type Mutation {
     createProfileStep1(input: Step1Input!): Profile!
     updateProfileStep1(input: Step1Input!): Profile!
-    createProfileStep2(input: Step2Input!): Profile!
-    updateProfileStep2(input: Step2Input!): Profile!
+    createProfileStep3(input: Step3Input!): Profile!
+    updateProfileStep3(input: Step3Input!): Profile!
     # Add mutations for other steps if needed
     submitProfile: Profile!
     setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
@@ -63,6 +63,8 @@ type Query {
     getProfile(id: ID!): Profile
     getNonCompletedProfiles: [Profile]!
 }
+
+
 `;
 
 module.exports = profileBuilderTypeDefs;
