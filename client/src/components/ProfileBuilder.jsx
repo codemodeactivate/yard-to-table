@@ -52,50 +52,49 @@ const ProfileBuilder = () => {
                 <section>
                     <form onSubmit={handleSubmit(handleNext)}>
                         <div>
-                          <label htmlFor="firstName">First Name</label>
-                        <input
-                            type="text"
-                            name="firstName"
-                            {...register("firstName", { required: true })}
-                        />
-
-</div>
-<div>
-                        <label htmlFor="lastName">Last Name</label>
-                        <input
-                            type="text"
-                            name="lastName"
-                            {...register("lastName", { required: true })}
-                        />
-
-</div>
-<div>
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            name="email"
-                            {...register("email", { required: true })}
-                        />
+                            <label htmlFor="firstName">First Name</label>
+                            <input
+                                type="text"
+                                name="firstName"
+                                {...register("firstName", { required: true })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="lastName">Last Name</label>
+                            <input
+                                type="text"
+                                name="lastName"
+                                {...register("lastName", { required: true })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                name="email"
+                                {...register("email", { required: true })}
+                            />
                         </div>
 
-              <div>
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            {...register("password", { required: true })}
-                        />
-            </div>
-            <div>
-
-                        <label htmlFor="confirmPassword">
-                            Confirm Password
-                        </label>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            {...register("confirmPassword", { required: true })}
-                        />
+                        <div>
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type="password"
+                                name="password"
+                                {...register("password", { required: true })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="confirmPassword">
+                                Confirm Password
+                            </label>
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                {...register("confirmPassword", {
+                                    required: true,
+                                })}
+                            />
                         </div>
 
                         {/* ... other fields here ... */}
