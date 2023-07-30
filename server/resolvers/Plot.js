@@ -1,13 +1,17 @@
 const Plot = require("../models/Plot");
 
-const resolvers = {
+const plotResolvers = {
   Query: {
-    // get a single plot by ID
-    plots: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
-      return Plot.find(params);
+    //get a single plot by ID
+    getPlot: async (parent, { id }, context) => {
+      return await Plot.findById(id);
+    },
+    // Get all plots
+    getPlots: async (parent, args, context) => {
+      return await Plot.find({});
     },
   },
+
   Mutation: {
     // create a plot
     addPlot: async (parent, args) => {
@@ -19,10 +23,10 @@ const resolvers = {
       return await Plot.findByIdAndUpdate(id, rest, { new: true });
     },
     // delete a plot by ID
-    deletePlot: async (parent, { id } ) => {
+    deletePlot: async (parent, { id }) => {
       return await Plot.findByIdAndRemove(id);
     },
   },
 };
 
-module.exports = resolvers;
+module.exports = plotResolvers;

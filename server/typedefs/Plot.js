@@ -10,12 +10,12 @@ const plotTypeDefs = gql`
     user: ID!
   }
 
-  type Query {
-    plot(id: ID!): Plot
-    plots: [Plot]!
+  extend type Query {
+    getPlot(id: ID!): Plot
+    getPlots: [Plot]!
   }
 
-  type Mutation {
+  extend type Mutation {
     addPlot(name: String!, sqft: Int, category: String!, image: String, user: ID): Plot
     editPlot(id: ID!, name: String, sqft: Int, category: String, image: String, user: ID): Plot
     deletePlot(id: ID!): Plot
