@@ -8,7 +8,7 @@ const plotTypeDefs = gql`
     sqft: Int
     category: String!
     image: String
-    user: ID!
+  
   }
 
   extend type Query {
@@ -19,11 +19,11 @@ const plotTypeDefs = gql`
   extend type Mutation {
     addPlot(
       name: String!
-      address: String
-      sqft: Int
+      address: String!
+      sqft: Int!
       category: String!
       image: String
-      user: ID
+    
     ): Plot
     editPlot(
       id: ID!
@@ -32,7 +32,7 @@ const plotTypeDefs = gql`
       sqft: Int
       category: String
       image: String
-      user: ID
+     
     ): Plot
     deletePlot(id: ID!): Plot
   }
