@@ -1,26 +1,32 @@
 const mongoose = require('mongoose');
 const seedUsers = require('./userSeeds');
 const seedPlots = require('./plotSeeds');
+const seedJobs = require('./jobSeeds');
 
-async function seedDatabase() {
+// seedUsers();
+// seedPlots();
+// seedJobs();
+
+async function seedAll() {
   try {
-    // Open the connection
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    // Connect to the Mongo DB
 
-    // Perform seeding operations
+
+    // Run the seed functions sequentially
     await seedUsers();
+    console.log("Users seeded!");
     await seedPlots();
+    console.log("Plots seeded!");
+    await seedJobs();
+    console.log("Jobs seeded!");
 
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
+    console.log("All data seeded!");
+  } catch (err) {
+    console.error(err);
   } finally {
-    // Close the connection
-    await mongoose.connection.close();
+    // Close the connection to the database
+    mongoose.connection.close();
   }
 }
 
-seedDatabase();
+seedAll();
