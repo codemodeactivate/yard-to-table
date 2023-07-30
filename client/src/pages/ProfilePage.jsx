@@ -5,7 +5,7 @@ import PlotCard from '../components/plotCard';
 const GET_PLOTS = gql`
   query GetPlots {
     getPlots {
-      id
+      _id
       name
       address
       sqft
@@ -20,7 +20,8 @@ const ProfilePage = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) {
-    console.log(error);
+    console.log('Error message:' , error.message);
+    console.log('Full error object:' , error);
     return <p>Error :(</p>;
   }
 

@@ -26,7 +26,7 @@ const plotTypeDefs = gql`
     
     ): Plot
     editPlot(
-      id: ID!
+      _id: ID!
       name: String
       address: String
       sqft: Int
