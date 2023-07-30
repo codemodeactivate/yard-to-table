@@ -18,12 +18,11 @@ const HomePageCTA = ({ onProfileSelection }) => {
       return;
     }
     if (profileType === 'homeowner') {
-      navigate(`/homeowner-profile/${encodeURIComponent(zip)}`); //this is the URL they get pushed to going down this path
-    // onProfileSelection(profileType, zip);
-  } else {
-      navigate(`/gardener-profile/${encodeURIComponent(zip)}`); //this is the URL they get pushed to going down this path
-    // onProfileSelection(profileType, zip);
-  }}
+      navigate(`/homeowner-profile/${encodeURIComponent(zip)}`, { state: { zip } });
+    } else {
+      navigate(`/gardener-profile/${encodeURIComponent(zip)}`, { state: { zip } });
+    }
+  };
 
   return (
     <div>

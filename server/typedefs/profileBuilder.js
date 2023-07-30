@@ -3,10 +3,10 @@ const { gql } = require('apollo-server-express');
 const profileBuilderTypeDefs = gql`
 
 type Profile {
-    id: ID!
+    id: ID
     user: ID!
     step1: ProfileStep1
-    step2: ProfileStep2
+    step3: ProfileStep3
     # Add other steps if needed
     isCompleted: Boolean! # this will be used to determine if the user has completed the profile builder
 }
@@ -19,7 +19,7 @@ type ProfileStep1 {
     confirmPassword: String!
 }
 
-type ProfileStep2 {
+type ProfileStep3 {
     plotName: String
     zip: String
     streetAddress: String
@@ -49,20 +49,20 @@ input Step3Input {
 
 # Repeat for other steps if needed
 
+# union StepInput = Step1Input | Step3Input
+
 type Mutation {
-    createProfileStep1(input: Step1Input!): Profile!
-    updateProfileStep1(input: Step1Input!): Profile!
-    createProfileStep3(input: Step3Input!): Profile!
-    updateProfileStep3(input: Step3Input!): Profile!
-    # Add mutations for other steps if needed
-    submitProfile: Profile!
-    setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
+    createOrUpdateStep1(input: Step1Input!): Profile
+    createOrUpdateStep3(input: Step3Input!): Profile
+    # Add more mutations for each step as needed
+    submitProfile: Profile
 }
 
 type Query {
-    getProfile(id: ID!): Profile
-    getNonCompletedProfiles: [Profile]!
+  getProfile(id: ID): Profile
+  getNonCompletedProfiles: [Profile]!
 }
+
 
 
 `;
