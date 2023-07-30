@@ -24,24 +24,24 @@ input ProfileInput {
 }
 
 input Step1Input {
-    // fields for step 1
+    # fields for step 1
     firstName: String!
     lastName: String!
   }
 
   type ProfileStep1 {
-    // fields for profile step 1
+    # fields for profile step 1
     firstName: String!
     lastName: String!
   }
 
   input Step2Input {
-    // fields for step 2
+    # fields for step 2
     email: String!
   }
 
   type ProfileStep2 {
-    // fields for profile step 2
+    # fields for profile step 2
     email: String!
   }
 
