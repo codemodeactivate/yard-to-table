@@ -55,8 +55,8 @@ input Step1Input {
 type Mutation {
     createProfileStep1(input: Step1Input!): ProfileStep1!
     createProfileStep2(input: Step2Input!): ProfileStep2!
-    updateProfileStep1(profile: Profile1Input!): ProfileStep1!
-    updateProfileStep2(profile: Profile2Input!): ProfileStep2!
+    updateProfileStep1(profile: StepInput!): ProfileStep1!
+    updateProfileStep2(profile: Step2Input!): ProfileStep2!
     setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
 }
 
