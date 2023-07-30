@@ -3,19 +3,15 @@ const { gql } = require('apollo-server-express');
 const profileBuilderTypeDefs = gql`
 
 type Profile {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
+    id: ID
+    user: ID!
+    step1: ProfileStep1
+    step3: ProfileStep3
+    # Add other steps if needed
     isCompleted: Boolean! # this will be used to determine if the user has completed the profile builder
 }
 
-
-
-
-
-input ProfileInput {
+type ProfileStep1 {
     firstName: String!
     lastName: String!
     email: String!
@@ -23,49 +19,52 @@ input ProfileInput {
     confirmPassword: String!
 }
 
+type ProfileStep3 {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    plotType: String
+    plotPicture: String
+    # Add other fields if needed
+}
+
 input Step1Input {
-    // fields for step 1
     firstName: String!
     lastName: String!
-  }
-
-  type ProfileStep1 {
-    // fields for profile step 1
-    firstName: String!
-    lastName: String!
-  }
-
-  input Step2Input {
-    // fields for step 2
     email: String!
-  }
+    password: String!
+    confirmPassword: String!
+}
 
-  type ProfileStep2 {
-    // fields for profile step 2
-    email: String!
-  }
+input Step3Input {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    plotType: String
+    plotPicture: String
+    # Add other fields if needed
+}
 
+# Repeat for other steps if needed
 
-
-
-
-
-
+# union StepInput = Step1Input | Step3Input
 
 type Mutation {
-    createProfileStep1(input: Step1Input!): ProfileStep1!
-    createProfileStep2(input: Step2Input!): ProfileStep2!
-    updateProfileStep1(profile: Profile1Input!): ProfileStep1!
-    updateProfileStep2(profile: Profile2Input!): ProfileStep2!
-    setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
+    createOrUpdateStep1(input: Step1Input!): Profile
+    createOrUpdateStep3(input: Step3Input!): Profile
+    # Add more mutations for each step as needed
+    submitProfile: Profile
 }
-
-
 
 type Query {
-    getProfile(id: ID!): Profile
-    getNonCompletedProfiles: [Profile]!
+  getProfile(id: ID): Profile
+  getNonCompletedProfiles: [Profile]!
 }
+
+
+
 `;
 
-module.exports = profileBuilderTypeDefs
+module.exports = profileBuilderTypeDefs;

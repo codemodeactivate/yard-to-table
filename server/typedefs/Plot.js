@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const plotTypeDefs = gql`
   type Plot {
@@ -16,17 +16,22 @@ const plotTypeDefs = gql`
   }
 
   extend type Mutation {
-    addPlot(name: String!, sqft: Int, category: String!, image: String, user: ID): Plot
-    editPlot(id: ID!, name: String, sqft: Int, category: String, image: String, user: ID): Plot
-    deletePlot(id: ID!): Plot
     addPlot(
-      address: String!,
-      name: String,
-      sqft: Int,
-      category: [String],
-      image: [String],
-      userId: ID
-  ): Plot
+      name: String!
+      sqft: Int
+      category: String!
+      image: String
+      user: ID
+    ): Plot
+    editPlot(
+      id: ID!
+      name: String
+      sqft: Int
+      category: String
+      image: String
+      user: ID
+    ): Plot
+    deletePlot(id: ID!): Plot
   }
 `;
 
