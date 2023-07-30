@@ -1,6 +1,6 @@
 const Plot = require("../models/Plot");
 
-const resolvers = {
+const plotResolvers = {
   Query: {
     //get a single plot by ID
     getPlot: async (parent, { id }, context) => {
@@ -29,4 +29,4 @@ const resolvers = {
   },
 };
 
-module.exports = resolvers;
+module.exports = plotResolvers;
