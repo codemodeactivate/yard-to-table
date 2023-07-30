@@ -4,6 +4,7 @@ const plotTypeDefs = gql`
   type Plot {
     _id: ID!
     name: String!
+    address: String
     sqft: Int
     category: String!
     image: String
@@ -18,6 +19,7 @@ const plotTypeDefs = gql`
   extend type Mutation {
     addPlot(
       name: String!
+      address: String
       sqft: Int
       category: String!
       image: String
@@ -26,6 +28,7 @@ const plotTypeDefs = gql`
     editPlot(
       id: ID!
       name: String
+      address: String
       sqft: Int
       category: String
       image: String
