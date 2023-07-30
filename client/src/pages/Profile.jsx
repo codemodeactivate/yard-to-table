@@ -1,19 +1,20 @@
-// ProfilePage.jsx
 import React from 'react';
-import PlotCard from './PlotCard'; // update the path as per your directory structure
+import PlotCard from './PlotCard';
 
 const ProfilePage = () => {
+  // Create an array of plot data
+
+  const plots = []; // TODO: replace this with actual data fetching
+  
+  // Render a heading and a PlotCard component for each plot
+  // Map over the array of plots and render a PlotCard for each plot
+  // Pass the plot object as a prop to the PlotCard component
   return (
-    <div className="container">
+    <div>
       <h1>Your Plots</h1>
-      <div className="row">
-        {/* Render the PlotCard component for each plot. This assumes you've fetched the data elsewhere. */}
-        {plots.map((plot) => (
-          <div className="col-sm-4" key={plot.id}>
-            <PlotCard plot={plot} />
-          </div>
-        ))}
-      </div>
+      {plots.map(plot => (
+        <PlotCard key={plot.id} plot={plot} />
+      ))}
     </div>
   );
 };
