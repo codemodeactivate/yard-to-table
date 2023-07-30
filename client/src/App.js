@@ -12,7 +12,8 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" exact element={<HomePage />} />
-            <Route path="/homeowner-profile" exact element={<ProfileBuilder />} />
+            <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
+            <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
           </Routes>
         </Router>
 

@@ -3,19 +3,15 @@ const { gql } = require('apollo-server-express');
 const profileBuilderTypeDefs = gql`
 
 type Profile {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
+    id: ID!
+    user: ID!
+    step1: ProfileStep1
+    step2: ProfileStep2
+    # Add other steps if needed
     isCompleted: Boolean! # this will be used to determine if the user has completed the profile builder
 }
 
-
-
-
-
-input ProfileInput {
+type ProfileStep1 {
     firstName: String!
     lastName: String!
     email: String!
@@ -23,44 +19,45 @@ input ProfileInput {
     confirmPassword: String!
 }
 
-input Step1Input {
-    # fields for step 1
-    firstName: String!
-    lastName: String!
-  }
-
-  type ProfileStep1 {
-    # fields for profile step 1
-    firstName: String!
-    lastName: String!
-  }
-
-  input Step2Input {
-    # fields for step 2
-    email: String!
-  }
-
-  type ProfileStep2 {
-    # fields for profile step 2
-    email: String!
-  }
-
-
-
-
-
-
-
-
-type Mutation {
-    createProfileStep1(input: Step1Input!): ProfileStep1!
-    createProfileStep2(input: Step2Input!): ProfileStep2!
-    updateProfileStep1(profile: StepInput!): ProfileStep1!
-    updateProfileStep2(profile: Step2Input!): ProfileStep2!
-    setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
+type ProfileStep2 {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    plotType: String
+    plotPicture: String
+    # Add other fields if needed
 }
 
+input Step1Input {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
+}
 
+input Step2Input {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    plotType: String
+    plotPicture: String
+    # Add other fields if needed
+}
+
+# Repeat for other steps if needed
+
+type Mutation {
+    createProfileStep1(input: Step1Input!): Profile!
+    updateProfileStep1(input: Step1Input!): Profile!
+    createProfileStep2(input: Step2Input!): Profile!
+    updateProfileStep2(input: Step2Input!): Profile!
+    # Add mutations for other steps if needed
+    submitProfile: Profile!
+    setProfileCompletedStatus(id: ID!, isCompleted: Boolean!): Profile!
+}
 
 type Query {
     getProfile(id: ID!): Profile
@@ -68,4 +65,4 @@ type Query {
 }
 `;
 
-module.exports = profileBuilderTypeDefs
+module.exports = profileBuilderTypeDefs;

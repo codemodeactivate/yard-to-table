@@ -13,11 +13,15 @@ const HomePageCTA = ({ onProfileSelection }) => {
   };
 
   const handleProfileSelection = (profileType) => {
-    if (profileType === 'homeowner-profile') {
-      navigate('/homeowner-profile'); //this is the URL they get pushed to going down this path
+    if (zip.length !== 5 || isNaN(zip)) { // assuming a 5-digit zip code
+      alert('Please enter a valid 5-digit zip code.');
+      return;
+    }
+    if (profileType === 'homeowner') {
+      navigate(`/homeowner-profile/${encodeURIComponent(zip)}`); //this is the URL they get pushed to going down this path
     // onProfileSelection(profileType, zip);
   } else {
-      navigate('/gardener-profile'); //this is the URL they get pushed to going down this path
+      navigate(`/gardener-profile/${encodeURIComponent(zip)}`); //this is the URL they get pushed to going down this path
     // onProfileSelection(profileType, zip);
   }}
 

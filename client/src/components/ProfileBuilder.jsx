@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 
 const ProfileBuilder = () => {
     const [step, setStep] = useState(1); // step 1 is the first step
     const [loading, setLoading] = useState(false); // loading is false by default
     const [error, setError] = useState(null); // error is false by default
     const { register, handleSubmit, errors } = useForm(); // useForm hook
-
-    const { profileData, setProfileData } = useState({}); // profileData is an empty object by default, but keep it across dif steps
+    const { zip } = useParams(); // get zip from URL
+    const [ profileData, setProfileData ] = useState({}); // profileData is an empty object by default, but keep it across dif steps
 
     const handleNext = (data) => {
         console.log("Profile Builder Data: ", { data }); // log data to console
@@ -21,7 +22,7 @@ const ProfileBuilder = () => {
     const handleFormSubmit = () => {
         // submit profile to backend
     };
-
+    
     return (
         <div>
             {step === 1 && (
@@ -103,15 +104,15 @@ const ProfileBuilder = () => {
                             type="text"
                             name="plotName"
                             id="plotName"
-                            ref={register}
+                            ref={register({})}
                         />
                         <label htmlFor="zip">Zip</label>
                         <input
                             type="text"
                             name="zip"
                             id="zip"
-                            ref={register}
-                            defaultValue="{profileData.zip}" // You can set this based on previous info
+                            ref={register({})}
+                            defaultValue={zip} // You can set this based on previous info
                         />
 
                         {/* Add the rest of the fields here */}
@@ -120,20 +121,20 @@ const ProfileBuilder = () => {
                             type="text"
                             name="streetAddress"
                             id="streetAddress"
-                            ref={register}
+                            ref={register({})}
                         />
                         <label htmlFor="Lot Square Footage">Lot Square Footage</label>
                         <input
                             type="text"
                             name="lotSquareFootage"
                             id="lotSquareFootage"
-                            ref={register}
+                            ref={register({})}
                         />
                         <label htmlFor="Plot Type">Plot Type</label>
                         <select
                             name="plotType"
                             id="plotType"
-                            ref={register}
+                            ref={register({})}
                         >
                             <option value="Pollinator">Pollinator</option>
                             <option value="Vegetable">Vegetable</option>
@@ -147,7 +148,7 @@ const ProfileBuilder = () => {
                             name="plotPicture"
                             id="plotPicture"
                             accept="image/*" // Restrict file types to images
-                            ref={register}  // This is optional if using react-hook-form
+                            ref={register({})}  // This is optional if using react-hook-form
                         />
 
                         <button type="submit">Next</button>
