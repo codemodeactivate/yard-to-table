@@ -29,23 +29,16 @@ const ProfileBuilder = () => {
   const [saveFormData, { loading, error }] = useMutation(SAVE_FORM_DATA_MUTATION);
 
   const handleNext = async (formStepData) => {
-    // Merge the new form data with the existing data
-    const updatedFormData = {
-      ...formData,
-      ...formStepData,
-      zip: zip, // Set zip code here
-    };
-
     // If this is the first step, submit the data to the server
     if (step === 1) {
       try {
         // Create an object with the required fields for step 1
         const input = {
-          firstName: updatedFormData.firstName,
-          lastName: updatedFormData.lastName,
-          email: updatedFormData.email,
-          password: updatedFormData.password,
-          confirmPassword: updatedFormData.confirmPassword,
+          firstName: formStepData.firstName,
+          lastName: formStepData.lastName,
+          email: formStepData.email,
+          password: formStepData.password,
+          confirmPassword: formStepData.confirmPassword,
         };
 
         // Call the mutation with the input object
@@ -57,33 +50,70 @@ const ProfileBuilder = () => {
 
         console.log("SaveFormData Response", data.saveFormData); // Log the response
         // You can also use the response to show a success message, navigate, etc.
+
+        // Now, update the formData object with the data from Step #1
+        setFormData({
+          ...formData,
+          firstName: formStepData.firstName,
+          lastName: formStepData.lastName,
+          email: formStepData.email,
+          password: formStepData.password,
+          confirmPassword: formStepData.confirmPassword,
+        });
+
+        // Advance to the next step
+        setStep(step + 1);
       } catch (err) {
         console.error("An error occurred while saving data:", err);
         // Handle the error as needed
       }
+    } else if (step === 3) {
+      try {
+        // Call the mutation with the updated form data (including data from Step #3)
+        const { data } = await saveFormData({
+          variables: {
+            input: {
+              ...formData, // Include data from Steps #1 and #2
+              ...formStepData, // Include data from Step #3
+            },
+          },
+        });
+
+        console.log("Step 3 Submit Response", data.saveFormData);
+
+        // Advance to the next step
+        setStep(step + 1);
+      } catch (err) {
+        console.error("An error occurred while saving data:", err);
+        // Handle the error as needed
+      }
+    } else {
+      // If this is not the first or third step, just update the form data and advance to the next step
+      setFormData({
+        ...formData,
+        ...formStepData,
+      });
+      setStep(step + 1);
     }
-
-    // Update the form data in the state
-    setFormData(updatedFormData);
-
-    // Advance to the next step
-    setStep(step + 1);
   };
+
+
+
 
   const handleBack = () => {
     setStep(step - 1);
   };
 
   const handleFormSubmit = async (formStepData) => {
-    // Merge the new form data with the existing data
+    // Merge the new form data with the existing data (excluding the data from Step #3)
     const updatedFormData = {
       ...formData,
       ...formStepData,
       zip: zip, // Set zip code here
     };
-
+    console.log("Form Step Data (Step 3):", formStepData);
     try {
-      // Call the mutation with the updated form data
+      // Call the mutation with the updated form data (excluding the data from Step #3)
       const { data } = await saveFormData({
         variables: {
           input: {
@@ -93,25 +123,32 @@ const ProfileBuilder = () => {
             password: updatedFormData.password,
             confirmPassword: updatedFormData.confirmPassword,
             zip: updatedFormData.zip,
-            address: updatedFormData.address,
-            isGardener: updatedFormData.isGardener,
-            isHomeowner: updatedFormData.isHomeowner,
-            plotName: updatedFormData.plotName,
-            streetAddress: updatedFormData.streetAddress,
-            lotSquareFootage: updatedFormData.lotSquareFootage,
-            gardenType: updatedFormData.gardenType,
-            photo: updatedFormData.photo,
+            plotName: formStepData.plotName, // Include data from Step #3
+            streetAddress: formStepData.streetAddress, // Include data from Step #3
+            lotSquareFootage: formStepData.lotSquareFootage, // Include data from Step #3
+            gardenType: formStepData.gardenType, // Include data from Step #3
+            photo: formStepData.photo, // Include data from Step #3
           },
         },
       });
 
-      console.log("Submit Response", data.saveFormData); // Log the response
-      // You can also use the response to show a success message, navigate, etc.
+      console.log("Step 1 and 2 Submit Response", data.saveFormData);
+
+      // Now, update the formData object with the data from Step #3
+      setFormData({
+        ...updatedFormData, // Include data from Step #1 and Step #2
+        ...formStepData, // Include data from Step #3
+        zip: zip, // Set zip code here
+      });
+
+      // Advance to the next step
+      setStep(step + 1);
     } catch (err) {
       console.error("An error occurred while saving data:", err);
       // Handle the error as needed
     }
   };
+
 
 
     // console.log("formData:", formData); // Log formData here
@@ -197,7 +234,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="text"
                                 name="plotName"
-                                defaultValue={formData.plotName}
+
                                 {...register("plotName", { required: true })}
                             />
                         </div>
@@ -218,7 +255,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="text"
                                 name="streetAddress"
-                                defaultValue={formData.streetAddress}
+
                                 {...register("streetAddress", {
                                     required: true,
                                 })}
@@ -231,7 +268,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="number"
                                 name="lotSquareFootage"
-                                defaultValue={formData.lotSquareFootage}
+
                                 {...register("lotSquareFootage", {
                                     required: true,
                                 })}
@@ -242,7 +279,7 @@ const ProfileBuilder = () => {
                             <select
                                 name="gardenType"
                                 {...register("gardenType", { required: true })}
-                                defaultValue={formData.gardenType}
+
                             >
                                 <option value="pollinator">Pollinator</option>
                                 <option value="vegetable">Vegetable</option>
@@ -254,7 +291,7 @@ const ProfileBuilder = () => {
                             <label htmlFor="photo">Upload Photo</label>
                             <input
                                 type="file"
-                                defaultValue={formData.photo}
+
                                 name="photo"
                                 {...register("photo")}
                             />
@@ -270,7 +307,7 @@ const ProfileBuilder = () => {
                     <button onClick={handleSubmit(handleNext)}>Next</button>
                 )}
                 {step === 3 && (
-                    <button onClick={handleFormSubmit}>Submit</button>
+                    <button onClick={() => handleFormSubmit(getValues())}>Submit</button>
                 )}
             </div>
         </div>
