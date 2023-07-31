@@ -1,14 +1,14 @@
 import React from 'react';
-import LoginPage from '../components/Login.jsx';
+import LoginForm from '../components/Login.jsx';
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <div>
       <p>Welcome Back Young Blood</p>
-      <LoginPage />
+      <LoginForm />
       {/* Other components and content as needed */}
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;
