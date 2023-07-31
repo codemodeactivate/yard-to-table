@@ -18,7 +18,10 @@ const server = new ApolloServer({
         return {
             user: req.user
         }
-     }
+     },
+     cors: {
+        origin: 'http://localhost:3000', // <- allow request from all domains
+     },
 });
 
 app.use(express.urlencoded({ extended: false }));

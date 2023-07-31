@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { SAVE_FORM_DATA } from "../utils/mutations";
+
 
 const ProfileBuilder = () => {
     const [step, setStep] = useState(1);
@@ -25,6 +28,7 @@ const ProfileBuilder = () => {
         photo: null, // To handle file upload later
     });
 
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -33,12 +37,15 @@ const ProfileBuilder = () => {
         }));
     };
 
-    const handleNext = (formData) => {
-        console.log("Step 1 Form Data:", formData);
-        setFormData({
-          ...formData,
-          zip: zip // Set zip code here
-        });
+    const [saveFormData, { loading, error }] = useMutation(SAVE_FORM_DATA);
+
+    const handleNext = (formStepData) => {
+        console.log("Step 1 Form Data:", formStepData);
+        setFormData((prevData) => ({
+          ...prevData,
+          ...formStepData,
+          zip: zip, // Set zip code here
+        }))
 
         setStep(step + 1);
     };
@@ -47,9 +54,30 @@ const ProfileBuilder = () => {
         setStep(step - 1);
     };
 
-    const handleFormSubmit = () => {
-        // submit profile to backend
-    };
+    const handleFormSubmit = async () => {
+        // Since the next is a submit button, next submits, too :) ..or at least it should once this works.
+        try {
+          const { data } = await saveFormData({
+            variables: {
+              input: {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                password: formData.password,
+                confirmPassword: formData.confirmPassword,
+                zip: formData.zip,
+              },
+            },
+          });
+          console.log("Submit Response", data.saveFormData); // Log the response
+          // You can also use the response to show a success message, navigate, etc.
+        } catch (err) {
+          console.error("An error occurred while saving data:", err);
+          // Handle the error as needed
+        }
+      };
+
+
     console.log("formData:", formData); // Log formData here
     return (
         <div>
@@ -61,6 +89,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="text"
                                 name="firstName"
+                                defaultValue={formData.firstName}
                                 {...register("firstName", { required: true })}
                             />
                         </div>
@@ -69,6 +98,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="text"
                                 name="lastName"
+                                defaultValue={formData.lastName}
                                 {...register("lastName", { required: true })}
                             />
                         </div>
@@ -77,6 +107,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="email"
                                 name="email"
+                                defaultValue={formData.email}
                                 {...register("email", { required: true })}
                             />
                         </div>
@@ -86,6 +117,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="password"
                                 name="password"
+                                defaultValue={formData.password}
                                 {...register("password", { required: true })}
                             />
                         </div>
@@ -96,6 +128,7 @@ const ProfileBuilder = () => {
                             <input
                                 type="password"
                                 name="confirmPassword"
+                                defaultValue={formData.confirmPassword}
                                 {...register("confirmPassword", {
                                     required: true,
                                 })}
@@ -122,7 +155,7 @@ const ProfileBuilder = () => {
             {step === 3 && (
                 <section>
                     <h2>Profile</h2>
-                    <form onSubmit={handleSubmit(handleNext)}>
+                    <form onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="plotName">Plot Name</label>
                             <input
@@ -195,7 +228,7 @@ const ProfileBuilder = () => {
                 {step < 3 && (
                     <button onClick={handleSubmit(handleNext)}>Next</button>
                 )}
-                {step === 2 && (
+                {step === 3 && (
                     <button onClick={handleFormSubmit}>Submit</button>
                 )}
             </div>

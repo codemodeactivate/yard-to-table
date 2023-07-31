@@ -1,3 +1,6 @@
+const { User: { User } } = require('../models');
+const models = require('../models');
+console.log(models);
 const profileBuilderResolvers = {
 
   Query: {
@@ -80,7 +83,53 @@ const profileBuilderResolvers = {
 
       return profile;
     },
-  },
+    saveFormData: async (parent, { input }, context, info) => {
+      console.log('Input received: ', input);
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        confirmPassword,
+        zip,
+        isGardener,
+        isHomeowner,
+        username,
+        address,
+      } = input;
+
+      if (password !== confirmPassword) {
+        throw new Error('Password and Confirm Password must match');
+      }
+
+      // const existingUser = await User.findOne({ email });
+      // if (existingUser) {
+      //   throw new Error('Email already exists');
+      // }
+
+      const user = new User({
+        firstName,
+        lastName,
+        email,
+        password, // Will be hashed by the pre-save hook
+        zip,
+        username, // These fields are now optional and will be included if they exist
+        address,
+        isGardener,
+        isHomeowner,
+      });
+      console.log('User before save: ', user);
+
+      await user.save();
+
+      return {
+        success: true,
+        message: 'User created successfully',
+      };
+    },
+
+    }
+
 };
 
 module.exports = profileBuilderResolvers;

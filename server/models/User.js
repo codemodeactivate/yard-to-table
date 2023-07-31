@@ -30,11 +30,6 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true
-  },
   email: {
     type: String,
     required: true,
@@ -46,6 +41,10 @@ const userSchema = new Schema({
     required: true
   },
   address: {
+    type: String,
+    required: false
+  },
+  zip: {
     type: String,
     required: false
   },

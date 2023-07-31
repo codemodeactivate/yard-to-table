@@ -5,8 +5,8 @@ const userTypeDefs = gql`
         id: ID!
         firstName: String!
         lastName: String!
-        username: String!
         email: String!
+        zip: String
         address: String
         isGardener: Boolean
         isHomeowner: Boolean
@@ -28,10 +28,10 @@ const userTypeDefs = gql`
         addUser(
             firstName: String!,
             lastName: String!,
-            username: String!,
             email: String!,
             password: String!,
             address: String,
+            zip: String,
             isGardener: Boolean,
             isHomeowner: Boolean,
             gardenerProfile: ID,
@@ -42,10 +42,10 @@ const userTypeDefs = gql`
             id: ID!,
             firstName: String,
             lastName: String,
-            username: String,
             email: String,
             password: String,
             address: String,
+            zip: String,
             isGardener: Boolean,
             isHomeowner: Boolean,
             gardenerProfile: ID,

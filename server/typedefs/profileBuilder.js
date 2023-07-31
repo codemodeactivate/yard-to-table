@@ -35,6 +35,7 @@ input Step1Input {
     email: String!
     password: String!
     confirmPassword: String!
+    zip: String # Optional ZIP field
 }
 
 input Step3Input {
@@ -47,13 +48,25 @@ input Step3Input {
     # Add other fields if needed
 }
 
-# Repeat for other steps if needed
+type MutationResponse {
+    success: Boolean!
+    message: String
+}
 
-# union StepInput = Step1Input | Step3Input
+input SaveFormDataInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    confirmPassword: String!
+    zip: String
+  }
 
+  
 type Mutation {
     createOrUpdateStep1(input: Step1Input!): Profile
     createOrUpdateStep3(input: Step3Input!): Profile
+    saveFormData(input: Step1Input!): MutationResponse # Use the Step1Input type for saving the form data
     # Add more mutations for each step as needed
     submitProfile: Profile
 }
@@ -62,8 +75,6 @@ type Query {
   getProfile(id: ID): Profile
   getNonCompletedProfiles: [Profile]!
 }
-
-
 
 `;
 
