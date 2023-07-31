@@ -17,7 +17,12 @@ const ProfileBuilder = () => {
         email: "",
         password: "",
         confirmPassword: "",
-        // any other fields needed
+        plotName: "",
+        zip: zip, // Initialized with zip from the previous step if it exists
+        streetAddress: "",
+        lotSquareFootage: "",
+        gardenType: "",
+        photo: null, // To handle file upload later
     });
 
     const handleInputChange = (e) => {
@@ -29,9 +34,13 @@ const ProfileBuilder = () => {
     };
 
     const handleNext = (formData) => {
-      console.log("Step 1 Form Data:", formData);
-      setFormData(formData);
-      setStep(step + 1);
+        console.log("Step 1 Form Data:", formData);
+        setFormData({
+          ...formData,
+          zip: zip // Set zip code here
+        });
+
+        setStep(step + 1);
     };
 
     const handleBack = () => {
@@ -101,20 +110,95 @@ const ProfileBuilder = () => {
             )}
             {step === 2 && (
                 <section>
-                    <h2>Progress Status</h2>
+                    <h2>All signed up!</h2>
                     <p>
-                        Your profile is almost complete! Please review and
-                        submit.
+                        Next step is to fill out your profile so you can find
+                        the right gardener for you!
                     </p>
                     {/* Here you can display any other information about the user's progress */}
                 </section>
             )}
 
-          <div>
-            {step > 1 && <button onClick={handleBack}>Back</button>}
-            {step < 3 && <button onClick={handleSubmit(handleNext)}>Next</button>}
-            {step === 2 && <button onClick={handleFormSubmit}>Submit</button>}
-          </div>
+            {step === 3 && (
+                <section>
+                    <h2>Profile</h2>
+                    <form onSubmit={handleSubmit(handleNext)}>
+                        <div>
+                            <label htmlFor="plotName">Plot Name</label>
+                            <input
+                                type="text"
+                                name="plotName"
+                                {...register("plotName", { required: true })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="zip">Zip</label>
+                            <input
+                                type="text"
+                                name="zip"
+                                value={formData.zip} // Prefilled with zip if it exists
+                                onChange={handleInputChange}
+                                {...register("zip", { required: true })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="streetAddress">
+                                Street Address
+                            </label>
+                            <input
+                                type="text"
+                                name="streetAddress"
+                                {...register("streetAddress", {
+                                    required: true,
+                                })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="lotSquareFootage">
+                                Lot Square Footage
+                            </label>
+                            <input
+                                type="number"
+                                name="lotSquareFootage"
+                                {...register("lotSquareFootage", {
+                                    required: true,
+                                })}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="gardenType">Garden Type</label>
+                            <select
+                                name="gardenType"
+                                {...register("gardenType", { required: true })}
+                            >
+                                <option value="pollinator">Pollinator</option>
+                                <option value="vegetable">Vegetable</option>
+                                <option value="mixed">Mixed</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label htmlFor="photo">Upload Photo</label>
+                            <input
+                                type="file"
+                                name="photo"
+                                {...register("photo")}
+                            />
+                        </div>
+                        {/* Other fields and buttons here */}
+                    </form>
+                </section>
+            )}
+
+            <div>
+                {step > 1 && <button onClick={handleBack}>Back</button>}
+                {step < 3 && (
+                    <button onClick={handleSubmit(handleNext)}>Next</button>
+                )}
+                {step === 2 && (
+                    <button onClick={handleFormSubmit}>Submit</button>
+                )}
+            </div>
         </div>
     );
 };
