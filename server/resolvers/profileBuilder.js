@@ -115,23 +115,21 @@ const profileBuilderResolvers = {
             const existingUser = await User.findOne({ email });
 
             if (existingUser) {
-              existingUser.profile = {
-                ...existingUser.profile, // Preserve existing step 1 data
-                step3: {
-                  plotName,
-                  zip,
-                  streetAddress,
-                  lotSquareFootage,
-                  plotType: gardenType,
-                  // Add other fields from step 3 as needed
-                },
-                isCompleted: true,
+              // User already exists, update their profile
+              existingUser.profile.step3 = {
+                plotName,
+                zip,
+                streetAddress,
+                lotSquareFootage,
+                plotType: gardenType,
+                // Add other fields from step 3 as needed
               };
+              existingUser.profile.isCompleted = true;
 
-              console.log("Saving the updated profile to the database...");
+              console.log("Updating the user's profile in the database...");
               await existingUser.save();
 
-              console.log("Profile saved successfully!");
+              console.log("Profile updated successfully!");
               await clearTemporaryData(existingUser.id);
 
               return {
@@ -139,7 +137,7 @@ const profileBuilderResolvers = {
                 message: "Profile updated successfully",
               };
             } else {
-              // User doesn't exist, create a new user with step 3 information
+              // User doesn't exist, create a new user and profile
               const user = new User({
                 firstName,
                 lastName,
@@ -168,9 +166,9 @@ const profileBuilderResolvers = {
                 },
               });
 
-              console.log("Saving the new user to the database...");
+              console.log("Saving the new user and profile to the database...");
               await user.save();
-              console.log("User saved successfully!");
+              console.log("User and profile created successfully!");
 
               await clearTemporaryData(user.id);
 

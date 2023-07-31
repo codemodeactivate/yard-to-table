@@ -4,6 +4,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SAVE_FORM_DATA_MUTATION } from "../utils/mutations";
 import Dropzone from "react-dropzone";
+import { Link } from "react-router-dom";
 
 const ProfileBuilder = () => {
   const [step, setStep] = useState(1);
@@ -14,22 +15,28 @@ const ProfileBuilder = () => {
   const zip = location?.state?.zip || "";
   const [photoFile, setPhotoFile] = useState(null);
 
-  const handlePhotoDrop = (files) => {
-    // Assuming you only want to handle a single photo, you can access the first file from the 'files' array
-    const selectedPhotoFile = files[0];
-    setPhotoFile(selectedPhotoFile);
-    getBase64FromFile(selectedPhotoFile); // Convert the selected file to base64
+  const handlePhotoDrop = async (files) => {
+    try {
+      const selectedPhotoFile = files[0];
+      const base64String = await getBase64FromFile(selectedPhotoFile);
+      setPhotoFile(base64String); // Set the base64 string in state
+    } catch (error) {
+      console.error("Error converting photo to base64:", error);
+    }
   };
 
-  const getBase64FromFile = (file) => {
+const getBase64FromFile = (file) => {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      // reader.result contains the base64-encoded string
-      console.log("Base64-encoded photo:", reader.result);
-      // You can set the result to state or use it as needed
+      resolve(reader.result);
     };
-  };
+    reader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -137,16 +144,16 @@ const ProfileBuilder = () => {
 
     try {
 
-      let base64String = null;
-      if (photoFile) {
-        base64String = await getBase64FromFile(photoFile);
-
-      }
+        let base64String = null;
+        if (photoFile) {
+          base64String = await getBase64FromFile(photoFile);
+        }
 
       // Call the mutation with the updated form data (excluding the data from Step #3)
 
 
-      const { data } = await saveFormData({
+    // Call the mutation with the updated form data (including data from Step #3)
+    const { data } = await saveFormData({
         variables: {
           input: {
             firstName: updatedFormData.firstName,
@@ -155,11 +162,11 @@ const ProfileBuilder = () => {
             password: updatedFormData.password,
             confirmPassword: updatedFormData.confirmPassword,
             zip: updatedFormData.zip,
-            plotName: formStepData.plotName, // Include data from Step #3
-            streetAddress: formStepData.streetAddress, // Include data from Step #3
-            lotSquareFootage: formStepData.lotSquareFootage, // Include data from Step #3
-            gardenType: formStepData.gardenType, // Include data from Step #3
-            photo: base64String, // Include data from Step #3
+            plotName: updatedFormData.plotName,
+            streetAddress: updatedFormData.streetAddress,
+            lotSquareFootage: updatedFormData.lotSquareFootage,
+            gardenType: updatedFormData.gardenType,
+            photo: base64String, // Use the base64String for the photo
           },
         },
       });
@@ -172,6 +179,8 @@ const ProfileBuilder = () => {
         ...formStepData, // Include data from Step #3
         zip: zip, // Set zip code here
       });
+
+      setStep(4);
 
       // Advance to the next step
       setStep(step + 1);
@@ -337,6 +346,13 @@ const ProfileBuilder = () => {
                         {/* Other fields and buttons here */}
                     </form>
                 </section>
+            )}
+            {step === 4 && (
+              <section>
+                <h1>Your Profile</h1>
+                <p>Your profile has been saved!</p>
+                <Link to="/user-dashboard">Go to User Dashboard</Link>
+              </section>
             )}
 
             <div>
