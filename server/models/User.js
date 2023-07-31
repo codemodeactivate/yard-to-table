@@ -86,11 +86,11 @@ userSchema.pre('save', async function (next) {
 const User = model('User', userSchema);
 const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
 const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
-// const Plot = model('Plot', plotSchema);
+const Plot = model('Plot', plotSchema);
 
 module.exports = {
   User,
   GardenerProfile,
   HomeownerProfile,
-  // Plot
+  Plot
 };
