@@ -106,7 +106,7 @@ const profileBuilderResolvers = {
       // if (existingUser) {
       //   throw new Error('Email already exists');
       // }
-
+      console.log('Creating a new user instance...');
       const user = new User({
         firstName,
         lastName,
@@ -120,7 +120,14 @@ const profileBuilderResolvers = {
       });
       console.log('User before save: ', user);
 
-      await user.save();
+      try {
+        console.log('Saving the new user to the database...');
+        await user.save();
+        console.log('User saved successfully!');
+      } catch (err) {
+        console.error('Error saving user:', err);
+        throw new Error('Failed to save user. Please try again.');
+      }
 
       return {
         success: true,

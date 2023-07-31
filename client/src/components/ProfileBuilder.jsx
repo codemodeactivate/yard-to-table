@@ -2,18 +2,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { SAVE_FORM_DATA } from "../utils/mutations";
+import { SAVE_FORM_DATA_MUTATION } from "../utils/mutations";
 
 
 const ProfileBuilder = () => {
     const [step, setStep] = useState(1);
-    const { register, handleSubmit, errors } = useForm();
+    const { register, handleSubmit, errors, getValues } = useForm();
     const { id } = useParams(); // If you need to get an id from the URL
     const navigate = useNavigate();
     const location = useLocation();
     const zip = location?.state?.zip || "";
     console.log("Location State:", location?.state);
     console.log("ZIP Code:", zip);
+
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -37,47 +38,50 @@ const ProfileBuilder = () => {
         }));
     };
 
-    const [saveFormData, { loading, error }] = useMutation(SAVE_FORM_DATA);
+    const [saveFormData, { loading, error }] = useMutation(SAVE_FORM_DATA_MUTATION);
 
     const handleNext = async (formStepData) => {
-      console.log("Step 1 Form Data:", formStepData);
-
-      // Merge the new form data with the existing data
-      const updatedFormData = {
+        // Merge the new form data with the existing data
+        const updatedFormData = {
           ...formData,
           ...formStepData,
           zip: zip, // Set zip code here
+        };
+
+        // If this is the first step, submit the data to the server
+        if (step === 1) {
+          try {
+            // Create an object with the required fields for step 1
+            const input = {
+              firstName: updatedFormData.firstName,
+              lastName: updatedFormData.lastName,
+              email: updatedFormData.email,
+              password: updatedFormData.password,
+              confirmPassword: updatedFormData.confirmPassword,
+            };
+
+            // Call the mutation with the input object
+            const { data } = await saveFormData({
+              variables: {
+                input: input,
+              },
+            });
+
+            console.log("SaveFormData Response", data.saveFormData); // Log the response
+            // You can also use the response to show a success message, navigate, etc.
+          } catch (err) {
+            console.error("An error occurred while saving data:", err);
+            // Handle the error as needed
+          }
+        }
+
+        // Update the form data in the state
+        setFormData(updatedFormData);
+
+        // Advance to the next step
+        setStep(step + 1);
       };
 
-      // If this is the first step, submit the data to the server
-      if (step === 1) {
-          try {
-              const { data } = await saveFormData({
-                  variables: {
-                      input: {
-                          firstName: updatedFormData.firstName,
-                          lastName: updatedFormData.lastName,
-                          email: updatedFormData.email,
-                          password: updatedFormData.password,
-                          confirmPassword: updatedFormData.confirmPassword,
-                          zip: updatedFormData.zip,
-                      },
-                  },
-              });
-              console.log("SaveFormData Response", data.saveFormData); // Log the response
-              // You can also use the response to show a success message, navigate, etc.
-          } catch (err) {
-              console.error("An error occurred while saving data:", err);
-              // Handle the error as needed
-          }
-      }
-
-      // Update the form data in the state
-      setFormData(updatedFormData);
-
-      // Advance to the next step
-      setStep(step + 1);
-  };
 
 
     const handleBack = () => {
@@ -96,6 +100,9 @@ const ProfileBuilder = () => {
                 password: formData.password,
                 confirmPassword: formData.confirmPassword,
                 zip: formData.zip,
+                address: formData.address,
+                isGardener: formData.isGardener,
+                isHomeowner: formData.isHomeowner,
               },
             },
           });
@@ -108,7 +115,7 @@ const ProfileBuilder = () => {
       };
 
 
-    console.log("formData:", formData); // Log formData here
+    // console.log("formData:", formData); // Log formData here
     return (
         <div>
             {step === 1 && (
