@@ -27,7 +27,7 @@ async function seedJobs() {
     const insertedJobs = await Jobs.insertMany(jobs);
     console.log(`${insertedJobs.length} jobs seeded!`);
   } catch (err) {
-    console.error(err);
+    console.error("Error in seedJobs:", err);
     process.exit(1);
   }
 

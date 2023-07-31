@@ -94,7 +94,7 @@ const profileBuilderResolvers = {
         zip,
         isGardener,
         isHomeowner,
-        username,
+        // username,
         address,
       } = input;
 
@@ -113,7 +113,7 @@ const profileBuilderResolvers = {
         email,
         password, // Will be hashed by the pre-save hook
         zip,
-        username, // These fields are now optional and will be included if they exist
+        // username, // These fields are now optional and will be included if they exist
         address,
         isGardener,
         isHomeowner,

@@ -62,14 +62,15 @@ input SaveFormDataInput {
     zip: String
   }
 
-  
-type Mutation {
+
+  type Mutation {
     createOrUpdateStep1(input: Step1Input!): Profile
     createOrUpdateStep3(input: Step3Input!): Profile
     saveFormData(input: Step1Input!): MutationResponse # Use the Step1Input type for saving the form data
     # Add more mutations for each step as needed
     submitProfile: Profile
 }
+
 
 type Query {
   getProfile(id: ID): Profile

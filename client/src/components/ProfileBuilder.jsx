@@ -39,16 +39,46 @@ const ProfileBuilder = () => {
 
     const [saveFormData, { loading, error }] = useMutation(SAVE_FORM_DATA);
 
-    const handleNext = (formStepData) => {
-        console.log("Step 1 Form Data:", formStepData);
-        setFormData((prevData) => ({
-          ...prevData,
+    const handleNext = async (formStepData) => {
+      console.log("Step 1 Form Data:", formStepData);
+
+      // Merge the new form data with the existing data
+      const updatedFormData = {
+          ...formData,
           ...formStepData,
           zip: zip, // Set zip code here
-        }))
+      };
 
-        setStep(step + 1);
-    };
+      // If this is the first step, submit the data to the server
+      if (step === 1) {
+          try {
+              const { data } = await saveFormData({
+                  variables: {
+                      input: {
+                          firstName: updatedFormData.firstName,
+                          lastName: updatedFormData.lastName,
+                          email: updatedFormData.email,
+                          password: updatedFormData.password,
+                          confirmPassword: updatedFormData.confirmPassword,
+                          zip: updatedFormData.zip,
+                      },
+                  },
+              });
+              console.log("SaveFormData Response", data.saveFormData); // Log the response
+              // You can also use the response to show a success message, navigate, etc.
+          } catch (err) {
+              console.error("An error occurred while saving data:", err);
+              // Handle the error as needed
+          }
+      }
+
+      // Update the form data in the state
+      setFormData(updatedFormData);
+
+      // Advance to the next step
+      setStep(step + 1);
+  };
+
 
     const handleBack = () => {
         setStep(step - 1);

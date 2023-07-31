@@ -34,6 +34,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
+    sparse: true,
     match: [/.+@.+\..+/, 'Must use a valid email address'],
   },
   password: {
