@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SAVE_FORM_DATA_MUTATION } from "../utils/mutations";
+import Dropzone from "react-dropzone";
 
 const ProfileBuilder = () => {
   const [step, setStep] = useState(1);
@@ -11,6 +12,24 @@ const ProfileBuilder = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const zip = location?.state?.zip || "";
+  const [photoFile, setPhotoFile] = useState(null);
+
+  const handlePhotoDrop = (files) => {
+    // Assuming you only want to handle a single photo, you can access the first file from the 'files' array
+    const selectedPhotoFile = files[0];
+    setPhotoFile(selectedPhotoFile);
+    getBase64FromFile(selectedPhotoFile); // Convert the selected file to base64
+  };
+
+  const getBase64FromFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      // reader.result contains the base64-encoded string
+      console.log("Base64-encoded photo:", reader.result);
+      // You can set the result to state or use it as needed
+    };
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -32,6 +51,8 @@ const ProfileBuilder = () => {
     // If this is the first step, submit the data to the server
     if (step === 1) {
       try {
+
+
         // Create an object with the required fields for step 1
         const input = {
           firstName: formStepData.firstName,
@@ -112,8 +133,19 @@ const ProfileBuilder = () => {
       zip: zip, // Set zip code here
     };
     console.log("Form Step Data (Step 3):", formStepData);
+
+
     try {
+
+      let base64String = null;
+      if (photoFile) {
+        base64String = await getBase64FromFile(photoFile);
+
+      }
+
       // Call the mutation with the updated form data (excluding the data from Step #3)
+
+
       const { data } = await saveFormData({
         variables: {
           input: {
@@ -127,7 +159,7 @@ const ProfileBuilder = () => {
             streetAddress: formStepData.streetAddress, // Include data from Step #3
             lotSquareFootage: formStepData.lotSquareFootage, // Include data from Step #3
             gardenType: formStepData.gardenType, // Include data from Step #3
-            photo: formStepData.photo, // Include data from Step #3
+            photo: base64String, // Include data from Step #3
           },
         },
       });
@@ -288,14 +320,20 @@ const ProfileBuilder = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="photo">Upload Photo</label>
-                            <input
-                                type="file"
-
-                                name="photo"
-                                {...register("photo")}
-                            />
-                        </div>
+              <label htmlFor="photo">Upload Photo</label>
+              <Dropzone onDrop={handlePhotoDrop} accept="image/*">
+                {({ getRootProps, getInputProps }) => (
+                  <div className="dropzone" {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {photoFile ? (
+                      <p>File selected: {photoFile.name}</p>
+                    ) : (
+                      <p>Drag 'n' drop a photo here, or click to select files</p>
+                    )}
+                  </div>
+                )}
+              </Dropzone>
+            </div>
                         {/* Other fields and buttons here */}
                     </form>
                 </section>
