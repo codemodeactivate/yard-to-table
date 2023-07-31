@@ -1,5 +1,5 @@
 const Plot = require("../models/Plot");
-const User = require("../models/User");
+const { User } = require("../models/User");
 
 const plotResolvers = {
   Query: {
@@ -18,7 +18,7 @@ const plotResolvers = {
     addPlot: async (parent, { name, address, sqft, category, image, userID }) => {
       const newPlot = await Plot.create({ name, address, sqft, category, image, userID }); //create plot with provided arguments, including userID
        // Then, update the User document with the new plot ID
-       await User.updateOne(
+       await User.findOneAndUpdate(
         { _id: userID },
         { $push: { plots: newPlot._id } }
       );
