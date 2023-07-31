@@ -106,7 +106,7 @@ const userResolver = {
                 user: {
                   id: newUser._id,
                   firstName: newUser.firstName,
-                  lastName: newUserlastName,
+                  lastName: newUser.lastName,
                   username: newUser.username,
                   email: newUser.email,
                   address: newUser.address,
