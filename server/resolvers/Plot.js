@@ -20,9 +20,13 @@ const plotResolvers = {
       await User.updateOne({ _id: userID }, { $push: { plots: plot.id } }); //add plot to user's plots array
       return plot; // return plot
     },
-    editPlot: async (parent, { id, ...rest }, context) => {
+    editPlot: async (parent, { id, userID, ...rest }, context) => {
       //find a plot by ID and update it with new data.
       //option {new: true} returns updated data
+      const user = await User.findById(userID);
+      if (!user) {
+        throw new Error("Couldn't find user with this id!");
+      }
       return await Plot.findByIdAndUpdate(id, rest, { new: true });
     },
     // delete a plot by ID
