@@ -15,10 +15,15 @@ const plotResolvers = {
 
   Mutation: {
     // create a plot
-    addPlot: async (parent, { userID, ...args}) => {
-      const plot = await Plot.create( {userID, ...args}); //create plot with provided arguments, including userID
-      await User.updateOne({ _id: userID }, { $push: { plots: plot.id } }); //add plot to user's plots array
-      return plot; // return plot
+    addPlot: async (parent, { name, address, sqft, category, image, userID }) => {
+      const newPlot = await Plot.create({ name, address, sqft, category, image, userID }); //create plot with provided arguments, including userID
+       // Then, update the User document with the new plot ID
+       await User.updateOne(
+        { _id: userID },
+        { $push: { plots: newPlot._id } }
+      );
+
+      return newPlot;
     },
     editPlot: async (parent, { id, ...rest }, context) => {
       // find a plot by ID and update it with new data.
