@@ -12,6 +12,24 @@ type Profile {
 }
 
 type ProfileStep1 {
+    id: ID
+    user: ID!
+    step1: ProfileStep1
+    step3: ProfileStep3
+    # Add other steps if needed
+}
+
+type ProfileStep3 {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    plotType: String
+    plotPicture: String
+    # Add other fields if needed
+}
+
+input Step1Input {
     firstName: String!
     lastName: String!
     email: String!
@@ -81,10 +99,9 @@ type Mutation {
 }
 
 type Query {
-    getProfile(id: ID): Profile
+    getProfile(id: ID!): Profile
     getNonCompletedProfiles: [Profile]!
 }
-
 `;
 
-module.exports = profileBuilderTypeDefs;
+module.exports = profileBuilderTypeDefs
