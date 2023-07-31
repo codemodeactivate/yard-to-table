@@ -43,21 +43,26 @@ input Step3Input {
     zip: String
     streetAddress: String
     lotSquareFootage: String
-    plotType: String
-    plotPicture: String
+    gardenType: String
+    photo: String
     # Add other fields if needed
 }
 
 input SaveFormDataInput {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
-    zip: String
-    address: String
-    isGardener: Boolean
-    isHomeowner: Boolean
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
+  zip: String
+  address: String
+  isGardener: Boolean
+  isHomeowner: Boolean
+  plotName: String   # Add the missing fields
+  streetAddress: String   # Add the missing fields
+  lotSquareFootage: String   # Add the missing fields
+  gardenType: String   # Add the missing fields
+  photo: String   # Add the missing fields (if you're passing a file URL, use String)
   }
 
 
