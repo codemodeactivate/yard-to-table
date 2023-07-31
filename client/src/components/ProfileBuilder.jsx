@@ -29,13 +29,9 @@ const ProfileBuilder = () => {
     };
 
     const handleNext = (formData) => {
-        console.log(formData);
-        if (step === 1) {
-            console.log("Step 1 Form Data:", formData);
-            navigate(`/next-step/${zip}`, { state: { formData } });
-        }
-
-        setStep(step + 1);
+      console.log("Step 1 Form Data:", formData);
+      setFormData(formData);
+      setStep(step + 1);
     };
 
     const handleBack = () => {
@@ -103,14 +99,22 @@ const ProfileBuilder = () => {
                     </form>
                 </section>
             )}
+            {step === 2 && (
+                <section>
+                    <h2>Progress Status</h2>
+                    <p>
+                        Your profile is almost complete! Please review and
+                        submit.
+                    </p>
+                    {/* Here you can display any other information about the user's progress */}
+                </section>
+            )}
 
-            <div>
-                {step > 1 && <button onClick={handleBack}>Back</button>}
-                {step < 2 && <button onClick={handleNext}>Next</button>}
-                {step === 2 && (
-                    <button onClick={handleFormSubmit}>Submit</button>
-                )}
-            </div>
+          <div>
+            {step > 1 && <button onClick={handleBack}>Back</button>}
+            {step < 3 && <button onClick={handleSubmit(handleNext)}>Next</button>}
+            {step === 2 && <button onClick={handleFormSubmit}>Submit</button>}
+          </div>
         </div>
     );
 };

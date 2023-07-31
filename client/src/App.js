@@ -18,6 +18,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage />} />
             <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
+            {/* <Route path="/homeowner-profile/next-step/:zip" exact element={<NextStep />} /> */}
             <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
           </Routes>
         </Router>
@@ -26,4 +27,4 @@ function App() {
   )
 }
 
-export default App; 
+export default App;
