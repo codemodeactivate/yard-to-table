@@ -1,4 +1,5 @@
 const Plot = require("../models/Plot");
+const User = require("../models/User");
 
 const plotResolvers = {
   Query: {
@@ -14,11 +15,13 @@ const plotResolvers = {
 
   Mutation: {
     // create a plot
-    addPlot: async (parent, args) => {
-      return await Plot.create(args);
+    addPlot: async (parent, { userID, ...args}) => {
+      const plot = await Plot.create( {userID, ...args}); //create plot with provided arguments, including userID
+      await User.updateOne({ _id: userID }, { $push: { plots: plot.id } }); //add plot to user's plots array
+      return plot; // return plot
     },
     editPlot: async (parent, { id, ...rest }, context) => {
-      //find a user by ID and update it with new data.
+      //find a plot by ID and update it with new data.
       //option {new: true} returns updated data
       return await Plot.findByIdAndUpdate(id, rest, { new: true });
     },
