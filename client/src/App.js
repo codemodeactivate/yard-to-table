@@ -1,7 +1,18 @@
 import React from 'react';
+//import ReactDOM from 'react-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import './App.css';
 import HomePage from './pages/HomePage';
+import ProfileBuilder from './components/ProfileBuilder';
+// const { ApolloServer } = require('apollo-server-express');
+
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql', // Replace with your server URL
+  cache: new InMemoryCache(),
+});
 import ProfileBuilder from './components/profileBuilder';
 import Profile from './pages/ProfilePage';
 
