@@ -8,7 +8,7 @@ const plotTypeDefs = gql`
     sqft: Int
     category: String!
     image: String
-  
+    userID: ID!
   }
 
   extend type Query {
@@ -23,6 +23,7 @@ const plotTypeDefs = gql`
       sqft: Int!
       category: String!
       image: String
+      userID: ID!
     
     ): Plot
     editPlot(
@@ -32,6 +33,7 @@ const plotTypeDefs = gql`
       sqft: Int
       category: String
       image: String
+      userID: ID
      
     ): Plot
     deletePlot(id: ID!): Plot
