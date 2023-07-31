@@ -74,7 +74,6 @@ const userSchema = new Schema({
       ref: 'Plot'
     }
   ]
-  // more fields as needed...
 });
 
 userSchema.pre('save', async function (next) {

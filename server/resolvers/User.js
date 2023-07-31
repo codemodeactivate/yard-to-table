@@ -27,7 +27,7 @@ const userResolver = {
 
     Mutation: {
         //add a new user
-        addUser: async (parent, { firstName, lastName, username, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile }) => {
+        addUser: async (parent, { firstName, lastName, username, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile, plots }) => {
 
             firstName = firstName.trim();
             lastName = lastName.trim();
@@ -47,6 +47,7 @@ const userResolver = {
                 // !address ||
                 // isGardener == null ||
                 // isHomeowner == null
+                // plots == null
                 ) {
                 throw new Error("Please enter all required fields.");
               }
@@ -85,7 +86,8 @@ const userResolver = {
                 isGardener,
                 isHomeowner,
                 gardenerProfile,
-                homeownerProfile
+                homeownerProfile,
+                plots
               });
 
               await newUser.save();
@@ -112,6 +114,7 @@ const userResolver = {
                   isHomeowner: newUser.isHomeowner,
                   gardenerProfile: newUser.gardenerProfile,
                   homeownerProfile: newUser.homeownerProfile,
+                  plots: newUser.plots,
                 },
               };
         },
