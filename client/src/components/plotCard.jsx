@@ -11,6 +11,7 @@ const PlotCard = ({ plot }) => {
         <h5>{plot.name}</h5>
         <h6>{plot.category}</h6>
         <p>{plot.sqft} sqft</p>
+        <p>User: {plot.userID}</p>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ const userTypeDefs = gql`
         isHomeowner: Boolean
         gardenerProfile: ID
         homeownerProfile: ID
+        plots: [Plot]
     }
 
     type AuthPayload {
@@ -36,6 +37,7 @@ const userTypeDefs = gql`
             isHomeowner: Boolean,
             gardenerProfile: ID,
             homeownerProfile: ID
+            plots: [ID]
         ): AuthPayload # Return the AuthPayload object that was created
 
         editUser(
@@ -50,6 +52,7 @@ const userTypeDefs = gql`
             isHomeowner: Boolean,
             gardenerProfile: ID,
             homeownerProfile: ID
+            plots: [ID]
         ): User
 
         deleteUser(id: ID!): DeletionResponse!
@@ -62,4 +65,5 @@ const userTypeDefs = gql`
     }
 `;
 
-module.exports = userTypeDefs;
+module.exports = userTypeDefs; 
+
