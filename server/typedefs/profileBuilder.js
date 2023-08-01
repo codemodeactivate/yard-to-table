@@ -4,7 +4,6 @@ const profileBuilderTypeDefs = gql`
 
 type Profile {
     id: ID
-    user: ID!
     step1: ProfileStep1
     step3: ProfileStep3
     # Add other steps if needed
@@ -13,7 +12,6 @@ type Profile {
 
 type ProfileStep1 {
     id: ID
-    user: ID!
     step1: ProfileStep1
     step3: ProfileStep3
     # Add other steps if needed
@@ -30,11 +28,11 @@ type ProfileStep3 {
 }
 
 input Step1Input {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    confirmPassword: String
 }
 
 type ProfileStep3 {
@@ -48,10 +46,10 @@ type ProfileStep3 {
 }
 
 input Step1Input {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
+    firstName: String
+    lastName: String
+    email: String
+    password: String
     confirmPassword: String!
     zip: String # Optional ZIP field
 }
@@ -67,11 +65,11 @@ input Step3Input {
 }
 
 input SaveFormDataInput {
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-  confirmPassword: String!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  confirmPassword: String
   zip: String
   address: String
   isGardener: Boolean
@@ -85,8 +83,8 @@ input SaveFormDataInput {
 
 
 type SaveFormDataResponse {
-    success: Boolean!
-    message: String!
+    success: Boolean
+    message: String
     # You can include additional fields in the response if needed
 }
 
@@ -99,7 +97,7 @@ type Mutation {
 }
 
 type Query {
-    getProfile(id: ID!): Profile
+    getProfile(id: ID): Profile
     getNonCompletedProfiles: [Profile]!
 }
 `;

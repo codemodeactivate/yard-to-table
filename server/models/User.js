@@ -43,22 +43,22 @@ const profileSchema = new Schema({
 const userSchema = new Schema({
   firstName: {
     type: String,
-    required: true
+    // required: true
   },
   lastName: {
     type: String,
-    required: true
+    // required: true
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
     sparse: true,
     match: [/.+@.+\..+/, 'Must use a valid email address'],
   },
   password: {
     type: String,
-    required: true
+    // required: true
   },
   address: {
     type: String,
@@ -70,12 +70,12 @@ const userSchema = new Schema({
   },
   isGardener: {
     type: Boolean,
-    required: true,
+    // required: true,
     default: false
   },
   isHomeowner: {
     type: Boolean,
-    required: true,
+    // required: true,
     default: false
   },
   profile: profileSchema, // Store the step 1 and step 3 information in the profile field

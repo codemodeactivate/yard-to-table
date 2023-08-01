@@ -12,8 +12,8 @@ const HomePage = () => {
 
   return (
     <>
-    <button onClick={() => setShowLoginPage(true)}>Login</button>
-    {showLoginPage && <LoginPage />}
+    {/* <button onClick={() => setShowLoginPage(true)}>Login</button>
+    {showLoginPage && <LoginPage />} */}
     <div>
       <p>Marketing YAY !!</p>
       <HomePageCTA onProfileSelection={onProfileSelection} />
