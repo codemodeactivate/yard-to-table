@@ -4,7 +4,6 @@ const profileBuilderTypeDefs = gql`
 
 type Profile {
     id: ID
-    user: ID!
     step1: ProfileStep1
     step3: ProfileStep3
     # Add other steps if needed
@@ -12,11 +11,10 @@ type Profile {
 }
 
 type ProfileStep1 {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
+    id: ID
+    step1: ProfileStep1
+    step3: ProfileStep3
+    # Add other steps if needed
 }
 
 type ProfileStep3 {
@@ -30,14 +28,14 @@ type ProfileStep3 {
 }
 
 input Step1Input {
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    confirmPassword: String!
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    confirmPassword: String
 }
 
-input Step3Input {
+type ProfileStep3 {
     plotName: String
     zip: String
     streetAddress: String
@@ -47,24 +45,61 @@ input Step3Input {
     # Add other fields if needed
 }
 
-# Repeat for other steps if needed
+input Step1Input {
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    confirmPassword: String!
+    zip: String # Optional ZIP field
+}
 
-# union StepInput = Step1Input | Step3Input
+input Step3Input {
+    plotName: String
+    zip: String
+    streetAddress: String
+    lotSquareFootage: String
+    gardenType: String
+    photo: String
+    # Add other fields if needed
+}
+
+input SaveFormDataInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  confirmPassword: String
+  zip: String
+  address: String
+  isGardener: Boolean
+  isHomeowner: Boolean
+  plotName: String   # Add the missing fields
+  streetAddress: String   # Add the missing fields
+  lotSquareFootage: String   # Add the missing fields
+  gardenType: String   # Add the missing fields
+  photo: String   # Add the missing fields (if you're passing a file URL, use String)
+  }
+
+
+type SaveFormDataResponse {
+    success: Boolean
+    message: String
+    # You can include additional fields in the response if needed
+}
 
 type Mutation {
     createOrUpdateStep1(input: Step1Input!): Profile
     createOrUpdateStep3(input: Step3Input!): Profile
+    saveFormData(input: SaveFormDataInput!): SaveFormDataResponse!
     # Add more mutations for each step as needed
     submitProfile: Profile
 }
 
 type Query {
-  getProfile(id: ID): Profile
-  getNonCompletedProfiles: [Profile]!
+    getProfile(id: ID): Profile
+    getNonCompletedProfiles: [Profile]!
 }
-
-
-
 `;
 
-module.exports = profileBuilderTypeDefs;
+module.exports = profileBuilderTypeDefs

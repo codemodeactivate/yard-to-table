@@ -1,10 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
-import HomePage from './pages/HomePage';
-import ProfileBuilder from './components/profileBuilder';
-import Profile from './pages/ProfilePage';
-import ProfilePage from './pages/ProfilePage';
+import React from "react";
+//import ReactDOM from 'react-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import ProfilePage from "./pages/ProfilePage";
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import ProfileBuilder from "./components/ProfileBuilder";
+
+import LoginPage from "./pages/LoginPage";
+
+const client = new ApolloClient({
+  uri: "http://localhost:3000/graphql", // Replace with your server URL
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
@@ -13,9 +21,20 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" exact element={<HomePage />} />
-            <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
-            <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
+            <Route
+              path="/homeowner-profile/:zip"
+              exact
+              element={<ProfileBuilder />}
+            />
+            <Route
+              path="/gardener-profile/:zip"
+              exact
+              element={<ProfileBuilder />}
+            />
+
             <Route path="/profile" element={<ProfilePage />} />
+
+            <Route path="/login" element={<LoginPage />} />
           </Routes>
         </Router>
       </header>

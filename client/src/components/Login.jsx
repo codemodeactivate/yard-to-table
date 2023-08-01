@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { useMutation, gql } from '@apollo/client';
 // const bcrypt = require('bcrypt');
 
-function LoginPage() {
+function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // Add login logic here, e.g., authenticate the user with the backend
-
+    // TODO: Add Logic for handling login
+    // bcrypt.hash(password, 10, (err, hash) => {
+    
+    
     console.log('Username:', username);
     console.log('Password:', password);
   };
@@ -44,4 +46,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginForm;

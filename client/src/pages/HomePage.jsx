@@ -1,22 +1,22 @@
 import React from 'react';
 import HomePageCTA from '../components/HomePageCTA.jsx';
-import Login from '../components/Login.jsx';
+import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage.jsx';
 
 const HomePage = () => {
     const onProfileSelection = (profileType, zip) => {
         console.log(`Selected profile: ${profileType}, ZIP: ${zip}`);
     };
-    const LoginPage = () => {
-      return <Login/>;
-    };
 
   return (
     <>
-    {/* <button onClick={() => setShowLoginPage(true)}>Login</button> */}
-    {/* {showLoginPage && <LoginPage />} */}
+
     <div>
       <p>Marketing YAY !!</p>
       <HomePageCTA onProfileSelection={onProfileSelection} />
+      {/* <p className="text-center"> Already a member? <Link href="/src/compnents/LoginPage">Login</Link> Here!</p> */}
+      <p className="text-center"> Already a member? <Link to="/login">Login</Link> Here!</p>
       {/* Other components and content as needed */}
     </div>
     </>
