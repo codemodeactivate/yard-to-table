@@ -4,6 +4,7 @@ import './App.css';
 import HomePage from './pages/HomePage';
 import ProfileBuilder from './components/profileBuilder';
 import Profile from './pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
             <Route path="/" exact element={<HomePage />} />
             <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
             <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Router>
       </header>
