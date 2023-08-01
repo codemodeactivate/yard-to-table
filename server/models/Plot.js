@@ -1,18 +1,23 @@
 const { Schema, model } = require("mongoose");
 
 const plotSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   address: {
     type: String,
     required: true,
   },
-  name: String,
-  sqft: Number,
-  category: String,
-  image: String,
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
+  sqft: {
+    type: Number,
+    required: true,
   },
+  category: {
+   type: String,
+   required: true,
+  }
+ 
 });
 
 const Plot = model("Plot", plotSchema);

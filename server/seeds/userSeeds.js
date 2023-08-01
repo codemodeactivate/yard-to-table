@@ -36,7 +36,6 @@ async function seedUsers() {
       const user = {
         firstName: `Test User ${i + 1}`,
         lastName: `Test Last ${i + 1}`,
-        username: `testuser${i + 1}`,
         email: `testuser${i + 1}@example.com`,
         password: `password${i + 1}`,
         address: `123 Test St ${i + 1}`,
@@ -51,7 +50,7 @@ async function seedUsers() {
 
     const insertedUsers = await User.insertMany(users);
     console.log(`${insertedUsers.length} users seeded!`);
-    return insertedUsers; // Return the inserted users 
+    return insertedUsers; // Return the inserted users
   } catch (err) {
     console.error(err);
     throw err; // This ensures that the error propagates to the calling function

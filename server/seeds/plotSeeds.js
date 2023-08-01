@@ -14,7 +14,6 @@ async function seedPlots() {
     name: `Test Plot ${i + 1}`,
     sqft: `400${i + 1}`,
     category: i % 2 === 0 ? 'Vegetable' : 'Pollinator',
-    username: `testuser${i + 1}`,
   }));
 
   try {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx postcss src/index.css -o src/tailwind.css",
-    "start": "node server/server.js --ignore client",
+    "start": "react-app-rewired start",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.7.17",
     "apollo-server-express": "^3.12.0",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.3.1",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "nodemon": "^3.0.1",
+    "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.3.3"
   }
 }

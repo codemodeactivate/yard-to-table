@@ -27,17 +27,17 @@ const userResolver = {
 
     Mutation: {
         //add a new user
-        addUser: async (parent, { firstName, lastName, username, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile }) => {
+        addUser: async (parent, { firstName, lastName, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile }) => {
 
             firstName = firstName.trim();
             lastName = lastName.trim();
-            username = username.trim();
+            // username = username.trim();
             email = email.trim();
             password = password.trim();
 
             if (!firstName ||
                 !lastName ||
-                !username ||
+                // !username ||
                 !email ||
                 !password
                 /*Commenting these out because we dont' want them to be required
@@ -65,9 +65,9 @@ const userResolver = {
             }
 
               // check if username or email already in use
-              const existingUser = await User.findOne({ $or: [{ username: username }, { email: email }] });
+              const existingUser = await User.findOne({ email: email } );
               if (existingUser) {
-                throw new Error("A user with this username or email already exists.");
+                throw new Error("A user with this email already exists.");
               }
 
               // hash password
@@ -78,7 +78,7 @@ const userResolver = {
               const newUser = new User({
                 firstName,
                 lastName,
-                username,
+                // username,
                 email,
                 password: passwordHash,
                 address,
@@ -105,7 +105,7 @@ const userResolver = {
                   id: newUser._id,
                   firstName: newUser.firstName,
                   lastName: newUserlastName,
-                  username: newUser.username,
+                //   username: newUser.username,
                   email: newUser.email,
                   address: newUser.address,
                   isGardener: newUser.isGardener,

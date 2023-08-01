@@ -2,10 +2,10 @@ require('dotenv').config({ path: './.env' });
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-
+const db = require('./config/connection');
 const typeDefs = require('./typedefs');
 const resolvers = require('./resolvers');
-const db = require('./config/connection');
+
 
 
 const PORT = process.env.PORT || 3001;
@@ -13,6 +13,15 @@ const app = express();
 const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req }) => {
+        //auth logic goes here
+        return {
+            user: req.user
+        }
+     },
+     cors: {
+        origin: 'http://localhost:3000', // <- allow request from all domains
+     },
 });
 
 app.use(express.urlencoded({ extended: false }));
