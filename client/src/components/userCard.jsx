@@ -1,21 +1,20 @@
 // Import necessary libraries
 import React from 'react';
 
-// The PlotCard component receives a 'plot' object as a prop
-const PlotCard = ({ plot }) => {
-  // The plot data is then displayed inside the component
+// The userCard component receives a 'user' object as a prop
+const userCard = ({ user }) => {
+  // The user data is then displayed inside the component
   return (
-    <div key={plot.id}>
-      <img src={plot.image} alt={plot.name} />
+    <div key={user.id}>
       <div>
-        <h5>{plot.name}</h5>
-        <h6>{plot.category}</h6>
-        <p>{plot.sqft} sqft</p>
-        <p>User: {plot.userID}</p>
+        <h5>{user.firstName}</h5>
+        <h6>{user.lastName}</h6>
+        <p>Gardener: {user.isHomeowner}</p>
+        <p>Homeowner: {user.isGardener}</p>
       </div>
     </div>
   );
 };
 
-// Export the PlotCard component so it can be imported and used in other files
-export default PlotCard;
+// Export the userCard component so it can be imported and used in other files
+export default userCard;
