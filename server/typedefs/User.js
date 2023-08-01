@@ -2,10 +2,10 @@ const { gql } = require('apollo-server-express');
 
 const userTypeDefs = gql`
     type User {
-        id: ID!
-        firstName: String!
-        lastName: String!
-        email: String!
+        id: ID
+        firstName: String
+        lastName: String
+        email: String
         zip: String
         address: String
         isGardener: Boolean
@@ -15,21 +15,21 @@ const userTypeDefs = gql`
     }
 
     type AuthPayload {
-        token: String!
-        user: User!
+        token: String
+        user: User
     }
 
     extend type Query {
-        getUser(id: ID!): User
+        getUser(id: ID): User
         getUsers: [User]
     }
 
     extend type Mutation {
         addUser(
-            firstName: String!,
-            lastName: String!,
-            email: String!,
-            password: String!,
+            firstName: String,
+            lastName: String,
+            email: String,
+            password: String,
             address: String,
             zip: String,
             isGardener: Boolean,
@@ -39,7 +39,7 @@ const userTypeDefs = gql`
         ): AuthPayload # Return the AuthPayload object that was created
 
         editUser(
-            id: ID!,
+            id: ID,
             firstName: String,
             lastName: String,
             email: String,
@@ -56,7 +56,7 @@ const userTypeDefs = gql`
     }
 
     type DeletionResponse {
-      success: Boolean!
+      success: Boolean
       message: String
       id: ID
     }

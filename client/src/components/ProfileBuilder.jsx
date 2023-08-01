@@ -93,6 +93,9 @@ const getBase64FromFile = (file) => {
         setStep(step + 1);
       } catch (err) {
         console.error("An error occurred while saving data:", err);
+        console.log("Error Details", err?.graphQLErrors?.[0]?.extensions?.exception?.errors);
+        //console.log(error.message);
+        console.log(error);
         // Handle the error as needed
       }
     } else if (step === 3) {
