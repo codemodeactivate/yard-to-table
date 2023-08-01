@@ -65,8 +65,5 @@ const userTypeDefs = gql`
     }
 `;
 
-<<<<<<< HEAD
 module.exports = userTypeDefs; 
-=======
-module.exports = userTypeDefs;
->>>>>>> main
+
