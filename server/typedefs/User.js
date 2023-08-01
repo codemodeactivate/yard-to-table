@@ -53,6 +53,10 @@ const userTypeDefs = gql`
         ): User
 
         deleteUser(id: ID!): DeletionResponse!
+
+        login(email: String!, password: String!): AuthPayload
+
+        logout: Boolean
     }
 
     type DeletionResponse {
