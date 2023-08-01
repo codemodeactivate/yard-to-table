@@ -24,18 +24,11 @@ function App() {
       <header className="App-header">
         <Router>
           <Routes>
-            <Route path="/" exact element={<Router>
-          <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
             <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/login" element={<LoginPage />} />
-          </Routes>
-        </Router>} />
-            <Route path="/homeowner-profile/:zip" exact element={<ProfileBuilder />} />
-            <Route path="/gardener-profile/:zip" exact element={<ProfileBuilder />} />
-            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Router>
       </header>
