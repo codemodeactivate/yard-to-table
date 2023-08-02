@@ -11,14 +11,20 @@ const GardenerSearch = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
+  if (!data || !data.getUsers) {
+    console.error("Unexpected data structure:", data);
+    return <p>Unexpected data structure</p>;
+  }
+
   const handleSearch = (value) => {
     setSearchTerm(value);
   };
 
   const filteredUsers = data.getUsers.filter(user => {
-    return user.isGardener && (searchTerm === '' || user.name.includes(searchTerm));
+    if (!user.firstName) return false; // Exclude users without a name
+    return user.isGardener && (searchTerm === '' || user.firstName.includes(searchTerm) || user.lastName.includes(searchTerm));
   });
-
+  console.log('filteredUsers:', filteredUsers);
   return (
     <div>
       <h1>Users</h1>
@@ -26,9 +32,12 @@ const GardenerSearch = () => {
         placeholder="Search for Gardeners..."
         onSearch={handleSearch}
       />
+
       {filteredUsers.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
+
+
     </div>
   );
 };

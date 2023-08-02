@@ -4,6 +4,7 @@ import GardenerSearch from './../components/GardenerSearch';
 const SearchPage = () => (
   <div>
     <h1>Search Page</h1>
+    {/* Figure we can reuse this and present gardenersearch if that's what they want to do or if it's a homeowner logged in or something.  */}
     <GardenerSearch />
     {/* Other components or features can be added here */}
   </div>
