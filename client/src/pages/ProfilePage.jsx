@@ -6,7 +6,11 @@ import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations"
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
-  const { showAddPlotModal, setShowAddPlotModal } = useState(false);
+  const [showAddPlotModal, setShowAddPlotModal] = useState(false);
+
+  const toggleAddPlotModal = () => {
+    setShowAddPlotModal(!showAddPlotModal);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) {
@@ -17,13 +21,21 @@ const ProfilePage = () => {
 
   return (
     <div>
-  
       <h1>Your Plots</h1>
       {data.getPlots.map((plot) => (
         <PlotCard key={plot.id} plot={plot} />
       ))}
-        <AddPlot />
-        <button href="#">+</button>
+      {showAddPlotModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={toggleAddPlotModal}>
+              &times;
+            </span>
+            <AddPlot />
+          </div>
+        </div>
+      )}
+      <button onClick={toggleAddPlotModal}>+</button>
     </div>
   );
 };
