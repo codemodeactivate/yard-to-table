@@ -29,7 +29,7 @@ const SearchPage = () => {
   return (
     <div>
       <h1>Users</h1>
-      {data.getUsers.map((user) => (
+      {data.getUsers.filter(user => user.isGardener).map((user) => (
         <UserCard key={user.id} user={user} />
       ))}
     </div>
