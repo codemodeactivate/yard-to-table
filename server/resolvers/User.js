@@ -28,7 +28,7 @@ const userResolver = {
     Mutation: {
         //add a new user
 
-        addUser: async (parent, { firstName, lastName, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile, plots }) => {
+        signUp: async (parent, { firstName, lastName, email, password }) => {
 
 
             firstName = firstName.trim();
@@ -53,13 +53,13 @@ const userResolver = {
                 ) {
                 throw new Error("Please enter all required fields.");
               }
-              const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
               // check for password length meeting requirements of regex above
               // this one checks for at least one uppercase, one lowercase, one number, one special character,
               // and a minimum of 8 characters
-              if (!passwordPattern.test(password)) {
-                throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
-              }
+            //   if (!passwordPattern.test(password)) {
+            //     throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
+            //   }
 
               const emailPattern = /^\S+@\S+\.\S+$/;
                 // check for valid email address
@@ -84,12 +84,12 @@ const userResolver = {
                 // username,
                 email,
                 password: passwordHash,
-                address,
-                isGardener,
-                isHomeowner,
-                gardenerProfile,
-                homeownerProfile,
-                plots
+                // address,
+                // isGardener,
+                // isHomeowner,
+                // gardenerProfile,
+                // homeownerProfile,
+                // plots
               });
 
               await newUser.save();
@@ -103,21 +103,17 @@ const userResolver = {
                 process.env.JWT_SECRET
               );
 
-              return {
-                token,
+              const response = {
                 user: {
-                  id: newUser._id,
-                  firstName: newUser.firstName,
-                  lastName: newUser.lastName,
-                  email: newUser.email,
-                  address: newUser.address,
-                  isGardener: newUser.isGardener,
-                  isHomeowner: newUser.isHomeowner,
-                  gardenerProfile: newUser.gardenerProfile,
-                  homeownerProfile: newUser.homeownerProfile,
-                  plots: newUser.plots,
+                    id: newUser._id,
+                    firstName: newUser.firstName,
+                    lastName: newUser.lastName,
+                    email: newUser.email,
+                    // Add other fields related to the user
                 },
-              };
+            };
+
+            return response;
         },
 
         editUser: async (parent, { id, ...rest }, context) => {

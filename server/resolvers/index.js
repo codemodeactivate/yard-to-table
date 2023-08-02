@@ -1,8 +1,9 @@
 const userResolvers = require('./User');
 const plotResolvers = require('./Plot');
 //const jobResolvers = require('./Jobs');
-const profileBuilderResolvers = require('./profileBuilder');
+const profileBuilderResolvers = require('./ProfileBuilder');
 const jobResolvers = require('./Jobs');
+
 
 // merge all of the resolver objects together
 
