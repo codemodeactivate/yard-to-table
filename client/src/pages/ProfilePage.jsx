@@ -7,13 +7,20 @@ import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations"
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
   const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
+ // Create state variables for each input field
+ const [name, setName] = useState("");
+ const [address, setAddress] = useState("");
+ const [sqft, setSqft] = useState("");
+ const [category, setCategory] = useState("");
+ const [image, setImage] = useState("");
+ const [userID, setUserID] = useState("");
 
 // Form State
 const [plotData, setPlotData] = useState({
-  name: "",
-  address: "",
-  sqft: 0,
-  category: "",
+  name: "default",
+  address: "default",
+  sqft: 999,
+  category: "Pollinator",
   // image: "",
   // userID: "" // Need to make this the logged in user's ID
 });
@@ -30,7 +37,14 @@ const handleCreatePlot = async (event) => {
   event.preventDefault();
   addPlot({
     variables: {
-      plotData
+      plotData: {
+        name,
+        address,
+        sqft,
+        category,
+        // image,
+        // userID
+      }
     }
   });
 };
@@ -49,45 +63,12 @@ const handleCreatePlot = async (event) => {
         <PlotCard key={plot.id} plot={plot} />
       ))}
       <form onSubmit={handleCreatePlot}>
-        <input
-          type="text"
-          name="name"
-          value={plotData.name}
-          onChange={handleInputChange}
-          placeholder="Plot Name"
-          required
-        />
-        <input
-          type="text"
-          name="address"
-          value={plotData.address}
-          onChange={handleInputChange}
-          placeholder="Address"
-          required
-        />
-        <input
-          type="number"
-          name="sqft"
-          value={plotData.sqft}
-          onChange={handleInputChange}
-          placeholder="Square Feet"
-          required
-        />
-        <input
-          type="text"
-          name="category"
-          value={plotData.category}
-          onChange={handleInputChange}
-          placeholder="Category"
-          required
-        />
-        {/* <input
-          type="text"
-          name="image"
-          value={plotData.image}
-          onChange={handleInputChange}
-          placeholder="Image URL"
-        /> */}
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
+        <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
+        <input type="text" value={sqft} onChange={(e) => setSqft(e.target.value)} placeholder="Sqft" />
+        <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" />
+        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
+        <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" />
         <button type="submit">Create Plot</button>
       </form>
     </div>
