@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
-const AddPlot = () => {
+const AddPlot = ( { plot }) => {
   const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
 
   // Create state variables for each input field
@@ -32,7 +32,7 @@ const AddPlot = () => {
   return (
     <div>
   
-      <h1>Add New Plot</h1>
+  <h1>{plot ? "Edit Plot" : "Add New Plot"}</h1>
       <form onSubmit={handleCreatePlot}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />

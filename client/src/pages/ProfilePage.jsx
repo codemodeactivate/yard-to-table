@@ -3,9 +3,17 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import PlotCard from "../components/PlotCard";
 import AddPlot from "../components/AddPlot";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
+import { set } from "mongoose";
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
+  const [showAddPlotModal, setShowAddPlotModal] = useState(false);
+  const [selectedPlot, setSelectedPlot] = useState(null);
+
+  const toggleAddPlotModal = (plot) => {
+    setSelectedPlot(plot);
+    setShowAddPlotModal(!showAddPlotModal);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) {
@@ -16,13 +24,21 @@ const ProfilePage = () => {
 
   return (
     <div>
-  
       <h1>Your Plots</h1>
       {data.getPlots.map((plot) => (
         <PlotCard key={plot.id} plot={plot} />
       ))}
-        <AddPlot />
-        <p>+</p>
+      {showAddPlotModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close-button" onClick={toggleAddPlotModal}>
+              &times;
+            </span>
+            <AddPlot />
+          </div>
+        </div>
+      )}
+      <button onClick={toggleAddPlotModal}>+</button>
     </div>
   );
 };
