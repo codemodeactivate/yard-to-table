@@ -12,8 +12,8 @@ const ProfilePage = () => {
   const [address, setAddress] = useState("");
   const [sqft, setSqft] = useState(0);
   const [category, setCategory] = useState("");
-  const [image, setImage] = useState("");
-  const [userID, setUserID] = useState("");
+  // const [image, setImage] = useState("");
+  // const [userID, setUserID] = useState("");
 
   const handleCreatePlot = async (event) => {
     event.preventDefault();
