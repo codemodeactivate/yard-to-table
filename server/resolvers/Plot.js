@@ -12,8 +12,8 @@ const plotResolvers = {
       return await Plot.find({});
     },
     // Get all plots for a specific user
-getUserPlots: async (parent, args, context) => {
-  return await Plot.find({ userID: user.id });
+    getUserPlots: async (parent, args, context) => {
+      return await Plot.find({ userID: user.id });
    
 
   },
