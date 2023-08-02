@@ -10,7 +10,15 @@ require('dotenv').config({ path: '../.env' });
 // console.log("User.create method: ", User.create);
 // console.log("User.save method: ", User.save);
 // console.log(process.env.JWT_SECRET);
+const getAllUsers = async () => {
+    return await User.find({});
+};
+
 const userResolver = {
+
+
+
+
     Query: {
         //get a single user by ID
         getUser: async (parent, { id }, context) => {
@@ -20,8 +28,25 @@ const userResolver = {
             return await User.findById(id);
         },
         // Get all users
-        getUsers: async (parent, args, context) => {
-            return await User.find({});
+        getUsers: async (parent, args, context, info) => {
+            // Start with all users, or however you retrieve users from your data source
+            let users = await getAllUsers();
+
+            // Apply filters based on the provided arguments
+            if (args.isGardener !== undefined) {
+                users = users.filter(user => user.isGardener === args.isGardener);
+            }
+            if (args.firstName) {
+                users = users.filter(user => user.firstName.includes(args.firstName));
+            }
+            if (args.lastName) {
+                users = users.filter(user => user.lastName.includes(args.lastName));
+            }
+            if (args.address) {
+                users = users.filter(user => user.address.includes(args.address));
+            }
+
+            return users;
         },
     },
 

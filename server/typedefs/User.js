@@ -68,7 +68,7 @@ type DeletionResponse {
 
 type Query {
     getUser(id: ID): User
-    getUsers: [User]
+    getUsers(isGardener: Boolean, firstName: String, lastName: String, address: String): [User]
 }
 
 input signUpInput {
