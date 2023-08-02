@@ -3,7 +3,9 @@ import { gql, useMutation } from "@apollo/client";
 import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
 const AddPlot = ( { plot }) => {
-  const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
+    const [addPlot, { loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
+    const [editPlot, { loading: editPlotLoading, error: editPlotError }] = useMutation(EDIT_PLOT);
+    
 
   // Create state variables for each input field
   const [name, setName] = useState("");
