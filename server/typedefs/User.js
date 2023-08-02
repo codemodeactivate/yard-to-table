@@ -17,7 +17,7 @@ type User {
 
 }
 
-type homeOwnerProfile {
+type HomeownerProfile {
     plots: [ID]
 }
 
@@ -27,17 +27,17 @@ type GardenerProfile {
     areaServed: [String] # Array of strings
     ## storing rating directly since it will be read
     ## more often than it will be updated
-    rating: Number,
+    rating: Float,
     costTier: CostTier
 }
 
 
 
 enum CostTier {
-    $      # Represents $10-$30
-    $$     # Represents $31-$60
-    $$$    # Represents $61-$100
-    $$$$   # Represents $101+
+    TIER1      # Represents $10-$30
+    TIER2     # Represents $31-$60
+    TIER3    # Represents $61-$100
+    TIER4   # Represents $101+
 }
 
 

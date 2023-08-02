@@ -5,7 +5,7 @@ const gardenerProfileSchema = new Schema({
   yearsExperience: Number,
   areaServed: [String],
   specialty: [String],
-  rating: Float,
+  rating: Number,
   // more fields as needed...
 });
 
@@ -95,7 +95,7 @@ const userSchema = new Schema({
   },
   homeownerProfile: {
     type: Schema.Types.ObjectId,
-    ref: 'HomeownerProfile',
+    ref: 'homeownerProfile',
   }
   // plots: [
   //   {
@@ -113,14 +113,14 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = model('User', userSchema);
-const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
-const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
+const gardenerProfile = model('gardenerProfile', gardenerProfileSchema);
+const homeownerProfile = model('homeownerProfile', homeownerProfileSchema);
 // Removing this as I moved it to the Plot.js model - MT
 // const Plot = model('Plot', plotSchema);
 
 
 module.exports = {
   User,
-  GardenerProfile,
-  HomeownerProfile,
+  gardenerProfile,
+  homeownerProfile,
 };
