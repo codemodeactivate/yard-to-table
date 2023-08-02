@@ -68,3 +68,13 @@ export const EDIT_PLOT = gql`
     }
   }
 `;
+export const SIGN_UP_MUTATION = gql`
+mutation signUp($input: signUpInput!) {
+  signUp(input: $input) {
+    firstName
+    lastName
+    email
+  }
+}
+`;
+

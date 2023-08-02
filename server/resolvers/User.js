@@ -28,9 +28,9 @@ const userResolver = {
     Mutation: {
         //add a new user
 
-        addUser: async (parent, { firstName, lastName, email, password, address, isGardener, isHomeowner, gardenerProfile, homeownerProfile, plots }) => {
-
-
+        signUp: async (parent, args, context, info) => {
+            const { input } = args;
+            let { firstName, lastName, email, password } = input;
             firstName = firstName.trim();
             lastName = lastName.trim();
             // username = username.trim();
@@ -53,13 +53,13 @@ const userResolver = {
                 ) {
                 throw new Error("Please enter all required fields.");
               }
-              const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
               // check for password length meeting requirements of regex above
               // this one checks for at least one uppercase, one lowercase, one number, one special character,
               // and a minimum of 8 characters
-              if (!passwordPattern.test(password)) {
-                throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
-              }
+            //   if (!passwordPattern.test(password)) {
+            //     throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
+            //   }
 
               const emailPattern = /^\S+@\S+\.\S+$/;
                 // check for valid email address
@@ -84,16 +84,16 @@ const userResolver = {
                 // username,
                 email,
                 password: passwordHash,
-                address,
-                isGardener,
-                isHomeowner,
-                gardenerProfile,
-                homeownerProfile,
-                plots
+                // address,
+                // isGardener,
+                // isHomeowner,
+                // gardenerProfile,
+                // homeownerProfile,
+                // plots
               });
 
               await newUser.save();
-
+              console.log('New User:', newUser); // Add this line
               // sign jwt
               console.log('JWT Secret:', process.env.JWT_SECRET);
               const token = jwt.sign(
@@ -103,21 +103,18 @@ const userResolver = {
                 process.env.JWT_SECRET
               );
 
-              return {
-                token,
-                user: {
-                  id: newUser._id,
-                  firstName: newUser.firstName,
-                  lastName: newUser.lastName,
-                  email: newUser.email,
-                  address: newUser.address,
-                  isGardener: newUser.isGardener,
-                  isHomeowner: newUser.isHomeowner,
-                  gardenerProfile: newUser.gardenerProfile,
-                  homeownerProfile: newUser.homeownerProfile,
-                  plots: newUser.plots,
-                },
-              };
+              const signUpResponse = {
+
+                    id: newUser._id,
+                    firstName: newUser.firstName,
+                    lastName: newUser.lastName,
+                    email: newUser.email,
+                    token: token
+                    // Add other fields related to the user
+
+            };
+
+            return signUpResponse;
         },
 
         editUser: async (parent, { id, ...rest }, context) => {
