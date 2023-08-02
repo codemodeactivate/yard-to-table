@@ -1,19 +1,15 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import userCard from '../components/userCard';
+import UserCard from '../components/UserCard';
 
 const GET_USERS = gql`
   query GetUsers {
     getUsers {
-      _id
+      id
       firstName
       lastName
-      email
       address
-      zip
-      isHomeowner
       isGardener
-      
     }
   }
 `;
@@ -25,14 +21,16 @@ const SearchPage = () => {
   if (error) {
     console.log('Error message:' , error.message);
     console.log('Full error object:' , error);
+    console.log('Network error:', error.networkError);
+    console.log('GraphQL errors:', error.graphQLErrors);
     return <p>Error :(</p>;
   }
 
   return (
     <div>
       <h1>Users</h1>
-      {data.getPlots.map((user) => (
-        <userCard key={user.id} plot={user} />
+      {data.getUsers.map((user) => (
+        <UserCard key={user.id} user={user} />
       ))}
     </div>
   );
