@@ -15,16 +15,24 @@ const plotResolvers = {
 
   Mutation: {
     // create a plot
-    addPlot: async (parent, { name, address, sqft, category, image, userID }) => {
-      const newPlot = await Plot.create({ name, address, sqft, category, image, userID }); //create plot with provided arguments, including userID
-       // Then, update the User document with the new plot ID
-       await User.findOneAndUpdate(
-        { id: userID },
-        { $push: { plots: newPlot.id } }
-      );
+ addPlot: async (parent, { plotData }, context) => {
+  // Log the plotData argument to see what's being passed to the resolver
+  console.log("Received plotData:", plotData);
 
-      return newPlot;
-    },
+  // Create the new plot and log the result to see what's being returned from the database
+  const newPlot = await Plot.create(plotData);
+  console.log("New plot created:", newPlot);
+
+  // Then, update the User document with the new plot ID
+  const userUpdateResult = await User.findOneAndUpdate(
+    { id: plotData.userID },
+    { $push: { plots: newPlot.id } }
+  );
+  console.log("User update result:", userUpdateResult);
+
+  return newPlot;
+},
+
     editPlot: async (parent, { id, ...rest }, context) => {
       // find a plot by ID and update it with new data.
       const plot = await Plot.findByIdAndUpdate(id, rest, { new: true });

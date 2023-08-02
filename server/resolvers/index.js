@@ -1,7 +1,7 @@
 const userResolvers = require('./User');
 const plotResolvers = require('./Plot');
 //const jobResolvers = require('./Jobs');
-const profileBuilderResolvers = require('./ProfileBuilder');
+// const profileBuilderResolvers = require('./ProfileBuilder');
 const jobResolvers = require('./Jobs');
 
 
@@ -12,14 +12,14 @@ const resolvers = {
         ...userResolvers.Query,
         ...plotResolvers.Query,
         //...jobResolvers.Query,
-        ...profileBuilderResolvers.Query,
+        // ...profileBuilderResolvers.Query,
         ...jobResolvers.Query,
     },
     Mutation: {
         ...userResolvers.Mutation,
         ...plotResolvers.Mutation,
         //...jobResolvers.Mutation,
-        ...profileBuilderResolvers.Mutation,
+        // ...profileBuilderResolvers.Mutation,
         ...jobResolvers.Mutation,
     },
 };
