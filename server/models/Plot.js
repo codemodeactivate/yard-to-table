@@ -17,6 +17,9 @@ const plotSchema = new Schema({
    type: String,
   //  required: true,
   },
+  image :{
+    type: String,
+  },
   userID: {
     type: Schema.Types.ObjectId,
     ref: "User",
