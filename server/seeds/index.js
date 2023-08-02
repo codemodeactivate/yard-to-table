@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const seedUsers = require('./userSeeds');
-const seedPlots = require('./plotSeeds');
+// const seedPlots = require('./plotSeeds');
 const seedJobs = require('./jobSeeds');
 
 // seedUsers();
@@ -15,11 +15,10 @@ async function seedAll() {
     // Run the seed functions sequentially
     await seedUsers();
     console.log("Users seeded!");
-    await seedPlots();
-    console.log("Plots seeded!");
+    // await seedPlots();
+    // console.log("Plots seeded!");
     await seedJobs();
     console.log("Jobs seeded!");
-
     console.log("All data seeded!");
   } catch (err) {
     console.error(err);
