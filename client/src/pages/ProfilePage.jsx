@@ -40,6 +40,7 @@ const ProfilePage = () => {
 
   return (
     <div>
+  
       <h1>Your Plots</h1>
       {data.getPlots.map((plot) => (
         <PlotCard key={plot.id} plot={plot} />
