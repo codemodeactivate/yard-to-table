@@ -22,6 +22,11 @@ function LoginForm() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!email || !password) {
+      console.log('Please enter all required fields.');
+      return;
+    }
+
     try {
       const { data } = await login({
         variables: { email, password },
