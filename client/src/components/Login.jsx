@@ -1,46 +1,58 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
-// const bcrypt = require('bcrypt');
+
+const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        id
+        email
+      }
+    }
+  }
+`;
 
 function LoginForm() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const [login, { loading }] = useMutation(LOGIN_MUTATION);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // TODO: Add Logic for handling login
-    // bcrypt.hash(password, 10, (err, hash) => {
-    
-    
-    console.log('Username:', username);
-    console.log('Password:', password);
+
+    try {
+      const { data } = await login({
+        variables: { email, password },
+      });
+      // if successful redirect to user's profile page
+      console.log('Login data:', data);
+      window.location.replace('/profile');
+    } catch (error) {
+     // if unsuccessful, display error message
+      console.log('Incorrect Email or Password', error);
+    }
   };
 
   return (
     <div className="login-page">
-      <h2>Login Page</h2>
+      <h2>Ready to grow more magic?</h2>
       <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+        <label htmlFor="email">Email:</label>
+        <input
+          type="text"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div className="login-page">
+        <label htmlFor="password">Password:</label>
+        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );
