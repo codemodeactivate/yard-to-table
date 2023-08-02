@@ -6,6 +6,7 @@ import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations"
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
+  const { showAddPlotModal, setShowAddPlotModal } = useState(false);
 
   if (loading) return <p>Loading...</p>;
   if (error) {
@@ -22,7 +23,7 @@ const ProfilePage = () => {
         <PlotCard key={plot.id} plot={plot} />
       ))}
         <AddPlot />
-        <p>+</p>
+        <button href="#">+</button>
     </div>
   );
 };
