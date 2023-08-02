@@ -11,7 +11,7 @@ const UserCard = ({ user }) => {
         <h6>{user.lastName}</h6>
         <p>Address: {user.address}</p>
         <p>Gardener: {user.isGardener.toString()}</p>
-        <p>Homeowner: {user.isHomeowner}</p>
+        <p>Homeowner: {user.isHomeowner.toString()}</p>
       </div>
     </div>
   );
