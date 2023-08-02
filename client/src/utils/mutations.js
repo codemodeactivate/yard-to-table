@@ -40,7 +40,6 @@ export const ADD_PLOT = gql`
       sqft
       category
       image
-      userID
     }
   }
 `;
@@ -54,7 +53,6 @@ export const EDIT_PLOT = gql`
       sqft
       category
       image
-      userID
     }
   }
 `;
