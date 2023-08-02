@@ -12,7 +12,7 @@ export const SAVE_FORM_DATA_MUTATION = gql`
 export const GET_USERS = gql`
   query GetUsers {
     getUsers {
-      id
+      _id
       firstName
       lastName
       address
