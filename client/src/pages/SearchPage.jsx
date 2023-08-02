@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import UserCard from '../components/UserCard';
+import UserCard from '../components/userCard';
 
 const GET_USERS = gql`
   query GetUsers {
