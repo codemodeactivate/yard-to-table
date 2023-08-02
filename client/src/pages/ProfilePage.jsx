@@ -14,8 +14,8 @@ const [plotData, setPlotData] = useState({
   address: "",
   sqft: 0,
   category: "",
-  image: "",
-  userID: "" // Need to make this the logged in user's ID
+  // image: "",
+  // userID: "" // Need to make this the logged in user's ID
 });
 
 const handleInputChange = (event) => {
@@ -81,13 +81,13 @@ const handleCreatePlot = async (event) => {
           placeholder="Category"
           required
         />
-        <input
+        {/* <input
           type="text"
           name="image"
           value={plotData.image}
           onChange={handleInputChange}
           placeholder="Image URL"
-        />
+        /> */}
         <button type="submit">Create Plot</button>
       </form>
     </div>
