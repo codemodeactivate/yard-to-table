@@ -7,7 +7,13 @@ const userTypeDefs = gql`
         lastName: String!
         password: String!
         email: String!
-        # Add other fields related to the user
+        address: String,
+        zip: String,
+        isGardener: Boolean,
+        isHomeowner: Boolean,
+        gardenerProfile: ID,
+        homeownerProfile: ID
+        plots: [ID]
     }
 
     type SaveFormDataResponse {

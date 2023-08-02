@@ -19,8 +19,8 @@ const plotResolvers = {
       const newPlot = await Plot.create({ name, address, sqft, category, image, userID }); //create plot with provided arguments, including userID
        // Then, update the User document with the new plot ID
        await User.findOneAndUpdate(
-        { _id: userID },
-        { $push: { plots: newPlot._id } }
+        { id: userID },
+        { $push: { plots: newPlot.id } }
       );
 
       return newPlot;

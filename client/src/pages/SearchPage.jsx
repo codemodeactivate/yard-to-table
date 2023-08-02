@@ -1,18 +1,10 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import UserCard from '../components/UserCard';
 
-const GET_USERS = gql`
-  query GetUsers {
-    getUsers {
-      id
-      firstName
-      lastName
-      address
-      isGardener
-    }
-  }
-`;
+import UserCard from '../components/UserCard';
+import { GET_USERS } from "../utils/mutations";
+
+
 
 const SearchPage = () => {
   const { loading, error, data } = useQuery(GET_USERS);
