@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import PlotCard from "../components/PlotCard";
+import AddPlot from "../components/AddPlot";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
 const ProfilePage = () => {
@@ -45,6 +46,7 @@ const ProfilePage = () => {
       {data.getPlots.map((plot) => (
         <PlotCard key={plot.id} plot={plot} />
       ))}
+        <AddPlot />
       <form onSubmit={handleCreatePlot}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
@@ -54,6 +56,7 @@ const ProfilePage = () => {
         <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
         <button type="submit">Create Plot</button>
       </form>
+      
     </div>
   );
 };
