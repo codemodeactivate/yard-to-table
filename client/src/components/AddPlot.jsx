@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import PlotCard from "../components/PlotCard";
-import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
+import { gql, useMutation } from "@apollo/client";
+import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
 const AddPlot = () => {
-  const { loading, error, data } = useQuery(GET_PLOTS);
   const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
 
   // Create state variables for each input field
@@ -31,13 +29,6 @@ const AddPlot = () => {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) {
-    console.log("Error message:", error.message);
-    console.log("Full error object:", error);
-    return <p>Error :(</p>;
-  }
-
   return (
     <div>
   
@@ -51,7 +42,7 @@ const AddPlot = () => {
         <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
         <button type="submit">Create Plot</button>
       </form>
-
+      {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
 
     </div>
   );

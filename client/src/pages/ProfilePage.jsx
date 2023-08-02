@@ -6,7 +6,6 @@ import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations"
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
-  const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
 
   if (loading) return <p>Loading...</p>;
   if (error) {
