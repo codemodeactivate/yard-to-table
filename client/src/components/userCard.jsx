@@ -10,8 +10,8 @@ const UserCard = ({ user }) => {
         <h5>{user.firstName}</h5>
         <h6>{user.lastName}</h6>
         <p>Address: {user.address}</p>
-        <p>Gardener: {user.isGardener.toString()}</p>
-        <p>Homeowner: {user.isHomeowner.toString()}</p>
+        <p>Gardener: {user.isGardener ? user.isGardener.toString() : 'N/A'}</p>
+        <p>Homeowner: {user.isHomeowner ? user.isHomeowner.toString() : 'N/A'}</p>
       </div>
     </div>
   );
