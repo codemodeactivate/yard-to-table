@@ -22,6 +22,7 @@ const ProfilePage = () => {
         <PlotCard key={plot.id} plot={plot} />
       ))}
         <AddPlot />
+        <p>+</p>
     </div>
   );
 };
