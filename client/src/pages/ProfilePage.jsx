@@ -49,8 +49,8 @@ const ProfilePage = () => {
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
         <input type="number" value={sqft} onChange={(e) => setSqft(e.target.value)} placeholder="Sqft" />
         <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" />
-        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
-        <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" />
+        {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
+        <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
         <button type="submit">Create Plot</button>
       </form>
     </div>
