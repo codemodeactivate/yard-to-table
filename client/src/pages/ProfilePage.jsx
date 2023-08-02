@@ -1,6 +1,6 @@
 import React from 'react';
 import { gql, useQuery } from '@apollo/client';
-import PlotCard from '../components/plotCard';
+import PlotCard from '../components/PlotCard';
 
 const GET_PLOTS = gql`
   query GetPlots {
