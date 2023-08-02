@@ -11,6 +11,16 @@ const plotTypeDefs = gql`
     userID: ID
   }
 
+  input PlotInput {
+    name: String!
+    address: String!
+    sqft: Int
+    category: String!
+    image: String
+    userID: ID
+  }
+  
+  
   extend type Query {
     getPlot(id: ID!): Plot
     getPlots: [Plot]!

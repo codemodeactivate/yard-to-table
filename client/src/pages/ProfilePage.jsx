@@ -16,8 +16,8 @@ const GET_PLOTS = gql`
 `;
 
 const CREATE_PLOT = gql`
-  mutation CreatePlot($name: String!, $address: String!, $sqft: Int!, $category: String!, $image: String!) {
-    createPlot(name: $name, address: $address, sqft: $sqft, category: $category, image: $image) {
+mutation CreatePlot($plotData: PlotInput!) {
+  createPlot(plotData: $plotData) {
       _id
       name
       address
@@ -30,8 +30,16 @@ const CREATE_PLOT = gql`
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
+  const [createPlot, { data: createPlotData, loading: createPlotLoading, error: createPlotError }] = useMutation(CREATE_PLOT);
 
-  
+  const handleCreatePlot = async () => {
+    createPlot({
+      variables: {
+        plotData: {}
+      }
+    });
+  };
+
   if (loading) return <p>Loading...</p>;
   if (error) {
     console.log("Error message:", error.message);
