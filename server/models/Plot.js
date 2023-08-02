@@ -3,19 +3,19 @@ const { Schema, model } = require("mongoose");
 const plotSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    // required: true,
   },
   address: {
     type: String,
-    required: true,
+    // required: true,
   },
   sqft: {
     type: Number,
-    required: true,
+    // required: true,
   },
   category: {
    type: String,
-   required: true,
+  //  required: true,
   },
   userID: {
     type: Schema.Types.ObjectId,

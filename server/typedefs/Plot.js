@@ -3,19 +3,19 @@ const { gql } = require("apollo-server-express");
 const plotTypeDefs = gql`
   type Plot {
     _id: ID!
-    name: String!
+    name: String
     address: String
     sqft: Int
-    category: String!
+    category: String
     image: String
     userID: ID
   }
 
   input PlotInput {
-    name: String!
-    address: String!
+    name: String
+    address: String
     sqft: Int
-    category: String!
+    category: String
     image: String
     userID: ID
   }

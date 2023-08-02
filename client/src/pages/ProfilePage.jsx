@@ -3,51 +3,33 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import PlotCard from "../components/PlotCard";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
-
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
   const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
- // Create state variables for each input field
- const [name, setName] = useState("");
- const [address, setAddress] = useState("");
- const [sqft, setSqft] = useState("");
- const [category, setCategory] = useState("");
- const [image, setImage] = useState("");
- const [userID, setUserID] = useState("");
 
-// Form State
-const [plotData, setPlotData] = useState({
-  name: "default",
-  address: "default",
-  sqft: 999,
-  category: "Pollinator",
-  // image: "",
-  // userID: "" // Need to make this the logged in user's ID
-});
+  // Create state variables for each input field
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [sqft, setSqft] = useState(0);
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [userID, setUserID] = useState("");
 
-const handleInputChange = (event) => {
-  const { name, value } = event.target;
-  setPlotData({
-    ...plotData,
-    [name]: value
-  });
-};
-
-const handleCreatePlot = async (event) => {
-  event.preventDefault();
-  addPlot({
-    variables: {
-      plotData: {
-        name,
-        address,
-        sqft,
-        category,
-        // image,
-        // userID
+  const handleCreatePlot = async (event) => {
+    event.preventDefault();
+    addPlot({
+      variables: {
+        plotData: {
+          name,
+          address,
+          sqft: Number(sqft), // Convert sqft to a number
+          category,
+          image,
+          userID
+        }
       }
-    }
-  });
-};
+    });
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) {
@@ -65,7 +47,7 @@ const handleCreatePlot = async (event) => {
       <form onSubmit={handleCreatePlot}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
         <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Address" />
-        <input type="text" value={sqft} onChange={(e) => setSqft(e.target.value)} placeholder="Sqft" />
+        <input type="number" value={sqft} onChange={(e) => setSqft(e.target.value)} placeholder="Sqft" />
         <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="Category" />
         <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
         <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" />
