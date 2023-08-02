@@ -2,15 +2,24 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const gardenerProfileSchema = new Schema({
-  experience: Number,
-  areasServed: [String],
-  specialties: [String],
+  yearsExperience: Number,
+  areaServed: [String],
+  specialty: [String],
   rating: Number,
   // more fields as needed...
 });
 
 const homeownerProfileSchema = new Schema({
-  gardenType: String,
+  //a user is a person that hs a plot but since the plot can be
+  //many and inside of a plot there's many things
+  //this is the object that is part of the homeowner
+  //that is part of the user
+  plots: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Plot'
+    }
+  ]
   // more fields as needed...
 });
 
@@ -86,14 +95,14 @@ const userSchema = new Schema({
   },
   homeownerProfile: {
     type: Schema.Types.ObjectId,
-    ref: 'HomeownerProfile',
-  },
-  plots: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Plot'
-    }
-  ]
+    ref: 'homeownerProfile',
+  }
+  // plots: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Plot'
+  //   }
+  // ]
 });
 
 userSchema.pre('save', async function (next) {
@@ -104,14 +113,14 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = model('User', userSchema);
-const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
-const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
+const gardenerProfile = model('gardenerProfile', gardenerProfileSchema);
+const homeownerProfile = model('homeownerProfile', homeownerProfileSchema);
 // Removing this as I moved it to the Plot.js model - MT
 // const Plot = model('Plot', plotSchema);
 
 
 module.exports = {
   User,
-  GardenerProfile,
-  HomeownerProfile,
+  gardenerProfile,
+  homeownerProfile,
 };

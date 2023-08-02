@@ -4,11 +4,13 @@ const plotTypeDefs = require('./Plot');
 const userTypeDefs = require('./User');
 const  profileBuildertypeDefs  = require('./profileBuilder');
 
+
 const typeDefs = [
     jobsTypeDefs,
     plotTypeDefs,
     userTypeDefs,
-    profileBuildertypeDefs
+    profileBuildertypeDefs,
+
 ]
 
 module.exports = typeDefs;
