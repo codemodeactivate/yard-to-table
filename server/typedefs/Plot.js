@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express");
 
 const plotTypeDefs = gql`
   type Plot {
-    _id: ID!
+    id: ID!
     name: String
     address: String
     sqft: Int

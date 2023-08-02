@@ -12,11 +12,11 @@ export const SAVE_FORM_DATA_MUTATION = gql`
 export const GET_USERS = gql`
   query GetUsers {
     getUsers {
-      _id
+      id
       firstName
       lastName
-      address
-      isGardener
+      #address
+      #isGardener
     }
   }
 `;
@@ -33,7 +33,7 @@ export const ADD_NEW_PLOT_MUTATION = gql`
 export const GET_PLOTS = gql`
   query GetPlots {
     getPlots {
-      _id
+      id
       name
       address
       sqft
@@ -46,7 +46,7 @@ export const GET_PLOTS = gql`
 export const ADD_PLOT = gql`
   mutation AddPlot($plotData: PlotInput!) {
     addPlot(plotData: $plotData) {
-      _id
+      id
       name
       address
       sqft
@@ -59,7 +59,7 @@ export const ADD_PLOT = gql`
 export const EDIT_PLOT = gql`
   mutation EditPlot($id: ID!, $plotData: PlotInput) {
     editPlot(id: $id, plotData: $plotData) {
-      _id
+      id
       name
       address
       sqft
