@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import { useSessionStorage } from 'react-session-storage';
 import PlotCard from "../components/PlotCard";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
 const ProfilePage = () => {
-  const { loading, error, data } = useQuery(GET_PLOTS);
+  // Get logged in user's ID from sessionStorage
+  const [user] = useSessionStorage('user', null);
+  
+  const { loading, error, data } = useQuery(GET_PLOTS, {
+    variables: { userID: user.id }, //modify query to accept user ids
+  });
+
   const [addPlot, { data: addPlotData, loading: addPlotLoading, error: addPlotError }] = useMutation(ADD_PLOT);
 
   // Create state variables for each input field
@@ -25,7 +32,7 @@ const ProfilePage = () => {
           sqft: Number(sqft), // Convert sqft to a number
           category,
           // image,
-          // userID
+          userID: user.id, // include the user's ID when creating the plot
         }
       }
     });
