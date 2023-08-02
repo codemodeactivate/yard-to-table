@@ -8,3 +8,13 @@ export const SAVE_FORM_DATA_MUTATION = gql`
     }
   }
 `;
+
+export const SIGN_UP_MUTATION = gql`
+mutation signUp($input: signUpInput!) {
+  signUp(input: $input) {
+    firstName
+    lastName
+    email
+  }
+}
+`;
