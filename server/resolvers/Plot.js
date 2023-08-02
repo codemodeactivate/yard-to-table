@@ -16,7 +16,7 @@ const plotResolvers = {
       return await Plot.find({ userID: user.id });
   },
   },
-};
+
 
   Mutation: {
     // create a plot
