@@ -3,70 +3,55 @@ import { useMutation } from "@apollo/client";
 import { SIGN_UP_MUTATION } from "../utils/mutations";
 
 const SignUpForm = () => {
-    //Manage form inputs
+    // Manage form inputs
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     });
 
     const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION);
 
-    //Form Submission
+    // Form Submission
     const handleSubmit = async (event) => {
-        //we say event because we're not l337, yet
-        event.preventDefault();
+      event.preventDefault();
 
-        const { firstName, lastName, email, password, confirmPassword } =
-            formData;
+      const { firstName, lastName, email, password, confirmPassword } = formData;
 
-        // Validate the form data before submitting
-        if (
-            !firstName ||
-            !lastName ||
-            !email ||
-            !password ||
-            !confirmPassword
-        ) {
-            // Show an error message or handle form validation here
-            console.log("Please enter all required fields.");
-            return;
+      // Validate the form data before submitting
+      if (!firstName || !lastName || !email || !password || !confirmPassword) {
+        console.log("Please enter all required fields.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        console.log("Passwords do not match.");
+        return;
+      }
+
+      try {
+        const { data } = await signUp({
+          variables: {
+            input: {
+              firstName,
+              lastName,
+              email,
+              password,
+            },
+          },
+        });
+
+        if (data?.signUp?.user) {
+          console.log("Sign-up successful!", data.signUp.user);
+          // Do something after successful sign-up, like redirecting to another page
+        } else {
+          console.log("Sign-up failed. Please try again.");
         }
-
-        if (password !== confirmPassword) {
-            // Show an error message or handle form validation here
-            console.log("Passwords do not match.");
-            return;
-        }
-
-        try {
-            const { data } = await signUp({
-                variables: {
-                    input: {
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                    },
-                },
-            });
-
-            // Handle the response from the server
-            if (data?.signUp?.success) {
-                // Sign-up was successful, show a success message or redirect the user
-                console.log("Sign-up successful!");
-            } else {
-                // Sign-up failed, show an error message
-                console.log("Sign-up failed. Please try again.");
-            }
-        } catch (error) {
-            // Handle any errors from the server
-            console.log(
-                "An error occurred while signing up. Please try again later."
-            );
-        }
+      } catch (error) {
+        console.log("An error occurred while signing up. Please try again later.");
+      }
     };
 
     const handleChange = (event) => {

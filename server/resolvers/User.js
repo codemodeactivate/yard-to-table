@@ -28,9 +28,9 @@ const userResolver = {
     Mutation: {
         //add a new user
 
-        signUp: async (parent, { firstName, lastName, email, password }) => {
-
-
+        signUp: async (parent, { input }) => {
+            console.log("Received input:", input);
+            const { firstName, lastName, email, password } = input;
             firstName = firstName.trim();
             lastName = lastName.trim();
             // username = username.trim();
