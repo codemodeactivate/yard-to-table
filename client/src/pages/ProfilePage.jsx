@@ -24,8 +24,8 @@ const ProfilePage = () => {
           address,
           sqft: Number(sqft), // Convert sqft to a number
           category,
-          image,
-          userID
+          // image,
+          // userID
         }
       }
     });
