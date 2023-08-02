@@ -3,13 +3,15 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import PlotCard from "../components/PlotCard";
 import AddPlot from "../components/AddPlot";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
+import { set } from "mongoose";
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
   const [showAddPlotModal, setShowAddPlotModal] = useState(false);
   const [selectedPlot, setSelectedPlot] = useState(null);
 
-  const toggleAddPlotModal = () => {
+  const toggleAddPlotModal = (plot) => {
+    setSelectedPlot(plot);
     setShowAddPlotModal(!showAddPlotModal);
   };
 
