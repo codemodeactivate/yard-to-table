@@ -2,15 +2,24 @@ const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const gardenerProfileSchema = new Schema({
-  experience: Number,
-  areasServed: [String],
-  specialties: [String],
-  rating: Number,
+  yearsExperience: Number,
+  areaServed: [String],
+  specialty: [String],
+  rating: Float,
   // more fields as needed...
 });
 
 const homeownerProfileSchema = new Schema({
-  gardenType: String,
+  //a user is a person that hs a plot but since the plot can be
+  //many and inside of a plot there's many things
+  //this is the object that is part of the homeowner
+  //that is part of the user
+  plots: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Plot'
+    }
+  ]
   // more fields as needed...
 });
 
@@ -87,13 +96,13 @@ const userSchema = new Schema({
   homeownerProfile: {
     type: Schema.Types.ObjectId,
     ref: 'HomeownerProfile',
-  },
-  plots: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Plot'
-    }
-  ]
+  }
+  // plots: [
+  //   {
+  //     type: Schema.Types.ObjectId,
+  //     ref: 'Plot'
+  //   }
+  // ]
 });
 
 userSchema.pre('save', async function (next) {
