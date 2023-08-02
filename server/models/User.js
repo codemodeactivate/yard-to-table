@@ -31,24 +31,24 @@ const homeownerProfileSchema = new Schema({
 //   // more fields as needed...
 // });
 
-const profileSchema = new Schema({
-  step1: {
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String,
-    confirmPassword: String,
-  },
-  step3: {
-    plotName: String,
-    zip: String,
-    streetAddress: String,
-    lotSquareFootage: Number,
-    plotType: String,
-    // Add other fields from step 3 as needed
-  },
-  isCompleted: Boolean,
-});
+// const profileSchema = new Schema({
+//   step1: {
+//     firstName: String,
+//     lastName: String,
+//     email: String,
+//     password: String,
+//     confirmPassword: String,
+//   },
+//   step3: {
+//     plotName: String,
+//     zip: String,
+//     streetAddress: String,
+//     lotSquareFootage: Number,
+//     plotType: String,
+//     // Add other fields from step 3 as needed
+//   },
+//   isCompleted: Boolean,
+// });
 
 const userSchema = new Schema({
   firstName: {
@@ -88,7 +88,7 @@ const userSchema = new Schema({
     // required: true,
     default: false
   },
-  profile: profileSchema, // Store the step 1 and step 3 information in the profile field
+  // profile: profileSchema, // Store the step 1 and step 3 information in the profile field
   gardenerProfile: {
     type: Schema.Types.ObjectId,
     ref: 'GardenerProfile',

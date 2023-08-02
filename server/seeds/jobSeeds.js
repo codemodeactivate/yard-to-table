@@ -8,19 +8,32 @@ async function seedJobs() {
   await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
     //...rest of the options...
   });
-
+  const { users, plots } = await seedUsers();
   try {
-    const users = await seedUsers();
-    const plots = await seedPlots();
+    // const { users, plots } = await seedUsers(); // Destructure users and plots
+    // const users = await seedUsers();
+    // const plots = await seedPlots();
 
-    const jobs = Array.from({ length: 10 }, (_, i) => ({
+    let plotIndex = 0;
+const jobs = users.reduce((acc, user, i) => {
+  if (user.isHomeowner && plotIndex < plots.length) {
+    const homeownerId = user._id;
+    const gardenerId = users[(i + 1) % 10]._id;
+    const plotId = plots[plotIndex]._id;
+
+    acc.push({
       title: `Test Job ${i + 1}`,
       dateRequested: "2021-05-01",
-      homeowner: users[i]._id, // Use ObjectId from users
-      gardener: users[(i + 1) % 10]._id, // Use ObjectId from users
-      plot: plots[i]._id, // Use ObjectId from plots
+      homeowner: homeownerId,
+      gardener: gardenerId,
+      plot: plotId,
       status: 'pending'
-    }));
+    });
+
+    plotIndex++;
+  }
+  return acc;
+}, []);
 
     await Jobs.deleteMany({});
     console.log("Deleted old jobs from database.");

@@ -1,37 +1,25 @@
 const mongoose = require('mongoose');
 const db = require('../config/connection');
-const { User, GardenerProfile, HomeownerProfile } = require('../models/User');
+const { User, gardenerProfile, homeownerProfile } = require('../models/User');
+const Plot = require('../models/Plot');
 
 async function seedUsers() {
-  // Connect to the Mongo DB
-  mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
+  await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
   try {
-    await User.deleteMany({});
-    await GardenerProfile.deleteMany({});
-    await HomeownerProfile.deleteMany({});
-
     const users = [];
+    const plots = [];
+    await User.deleteMany({});
+    await gardenerProfile.deleteMany({});
+    await homeownerProfile.deleteMany({});
+    await Plot.deleteMany({});
 
     for (let i = 0; i < 10; i++) {
-      let gardenerProfile = null;
-      let homeownerProfile = null;
-
-      if (i % 2 === 0) {
-        gardenerProfile = await GardenerProfile.create({
-          experience: i * 2,
-          areasServed: [`Area ${i}`],
-          specialties: [`Specialty ${i}`],
-          rating: i % 5,
-        });
-      } else {
-        homeownerProfile = await HomeownerProfile.create({
-          gardenType: `Type ${i}`,
-        });
-      }
+      let gardenerProfileDocument = null;
+      let homeownerProfileDocument = null;
 
       const user = {
         firstName: `Test User ${i + 1}`,
@@ -41,19 +29,47 @@ async function seedUsers() {
         address: `123 Test St ${i + 1}`,
         isGardener: i % 2 === 0,
         isHomeowner: i % 2 !== 0,
-        gardenerProfile: gardenerProfile ? gardenerProfile._id : undefined,
-        homeownerProfile: homeownerProfile ? homeownerProfile._id : undefined,
       };
 
-      users.push(user);
+      const userDocument = await User.create(user);
+
+      if (i % 2 === 0) {
+        gardenerProfileDocument = await gardenerProfile.create({
+          yearsExperience: i * 2,
+          areaServed: [`Area ${i}`],
+          specialty: [`Specialty ${i}`],
+          rating: i % 5,
+        });
+      } else {
+        const plot = await Plot.create({
+          name: `Plot ${i}`,
+          address: `123 Plot St ${i}`,
+          sqft: i * 100,
+          category: `Category ${i}`,
+          userID: userDocument._id,
+        });
+
+        plots.push(plot); // Add the plot to the array
+
+        homeownerProfileDocument = await homeownerProfile.create({
+          plots: [plot._id],
+        });
+      }
+
+      const updatedUser = await User.findByIdAndUpdate(userDocument._id, {
+        gardenerProfile: gardenerProfileDocument ? gardenerProfileDocument._id : undefined,
+        homeownerProfile: homeownerProfileDocument ? homeownerProfileDocument._id : undefined,
+      }, { new: true }); // Update the user and return it
+
+      users.push(updatedUser); // Add the user to the array
     }
 
-    const insertedUsers = await User.insertMany(users);
-    console.log(`${insertedUsers.length} users seeded!`);
-    return insertedUsers; // Return the inserted users
+    console.log('Seed complete!');
+
+    return { users, plots }; // Return the users and plots
   } catch (err) {
     console.error(err);
-    throw err; // This ensures that the error propagates to the calling function
+    throw err;
   }
 }
 
