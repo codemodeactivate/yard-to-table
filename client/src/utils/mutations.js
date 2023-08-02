@@ -18,7 +18,7 @@ export const ADD_NEW_PLOT_MUTATION = gql`
   }
 `;
 
-const GET_PLOTS = gql`
+export const GET_PLOTS = gql`
   query GetPlots {
     getPlots {
       _id
@@ -31,7 +31,7 @@ const GET_PLOTS = gql`
   }
 `;
 
-const ADD_PLOT = gql`
+export const ADD_PLOT = gql`
   mutation AddPlot($plotData: PlotInput!) {
     addPlot(plotData: $plotData) {
       _id
@@ -45,7 +45,7 @@ const ADD_PLOT = gql`
   }
 `;
 
-const EDIT_PLOT = gql`
+export const EDIT_PLOT = gql`
   mutation EditPlot($id: ID!, $plotData: PlotInput) {
     editPlot(id: $id, plotData: $plotData) {
       _id
