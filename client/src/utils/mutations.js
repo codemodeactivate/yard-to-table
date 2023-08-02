@@ -18,3 +18,43 @@ export const ADD_NEW_PLOT_MUTATION = gql`
   }
 `;
 
+const GET_PLOTS = gql`
+  query GetPlots {
+    getPlots {
+      _id
+      name
+      address
+      sqft
+      category
+      image
+    }
+  }
+`;
+
+const ADD_PLOT = gql`
+  mutation AddPlot($plotData: PlotInput!) {
+    addPlot(plotData: $plotData) {
+      _id
+      name
+      address
+      sqft
+      category
+      image
+      userID
+    }
+  }
+`;
+
+const EDIT_PLOT = gql`
+  mutation EditPlot($id: ID!, $plotData: PlotInput) {
+    editPlot(id: $id, plotData: $plotData) {
+      _id
+      name
+      address
+      sqft
+      category
+      image
+      userID
+    }
+  }
+`;
