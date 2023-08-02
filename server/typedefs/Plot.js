@@ -27,27 +27,11 @@ const plotTypeDefs = gql`
   }
 
   extend type Mutation {
-    addPlot(
-      name: String!
-      address: String!
-      sqft: Int!
-      category: String!
-      image: String
-      userID: ID
-    
-    ): Plot
-    editPlot(
-      _id: ID!
-      name: String
-      address: String
-      sqft: Int
-      category: String
-      image: String
-      userID: ID
-     
-    ): Plot
+    addPlot(plotData: PlotInput!): Plot
+    editPlot(id: ID!, plotData: PlotInput): Plot
     deletePlot(id: ID!): Plot
   }
+  
 `;
 
 module.exports = plotTypeDefs;
