@@ -31,14 +31,14 @@ const ProfilePage = () => {
       {showAddPlotModal && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close-button" onClick={toggleAddPlotModal}>
+            <span className="close-button" onClick={() => toggleAddPlotModal(null)}>
               &times;
             </span>
-            <AddPlot />
+            <AddPlot plot={selectedPlot} />
           </div>
         </div>
       )}
-      <button onClick={toggleAddPlotModal}>+</button>
+           <button onClick={() => toggleAddPlotModal(null)}>+</button>
     </div>
   );
 };

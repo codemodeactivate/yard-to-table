@@ -1,11 +1,11 @@
 // Import necessary libraries
 import React from 'react';
 
-// The PlotCard component receives a 'plot' object as a prop
-const PlotCard = ({ plot }) => {
+// The PlotCard component receives a 'plot' object as a prop and an onClick function
+const PlotCard = ({ plot, onClick }) => {
   // The plot data is then displayed inside the component
   return (
-    <div key={plot.id}>
+    <div key={plot.id} onClick={onClick}>
       <img src={plot.image} alt={plot.name} />
       <div>
         <h5>{plot.name}</h5>
