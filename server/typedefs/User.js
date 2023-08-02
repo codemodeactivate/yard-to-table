@@ -2,9 +2,10 @@ const { gql } = require('apollo-server-express');
 
 const userTypeDefs = gql`
     type User {
-        id: ID!
+        # id: ID!
         firstName: String!
         lastName: String!
+        password: String!
         email: String!
         # Add other fields related to the user
     }
@@ -15,9 +16,11 @@ const userTypeDefs = gql`
     }
 
     type SignUpResponse {
-        token: String
-        user: User
-      }
+        firstName: String!
+        lastName: String!
+        email: String!
+        token: String!
+    }
 
     type AuthPayload {
         token: String
@@ -33,6 +36,20 @@ const userTypeDefs = gql`
     extend type Query {
         getUser(id: ID): User
         getUsers: [User]
+    }
+
+    input SignUpInput {
+        firstName: String!
+        lastName: String!
+        email: String!
+        password: String!
+    }
+
+    input signUpInput {
+        firstName: String!
+        lastName: String!
+        email: String!
+        password: String!
     }
 
     extend type Mutation {
@@ -65,22 +82,15 @@ const userTypeDefs = gql`
             plots: [ID]
         ): User
 
+        signUp(input: signUpInput!): SignUpResponse!
+
         deleteUser(id: ID!): DeletionResponse!
 
         login(email: String!, password: String!): AuthPayload
 
         logout: Boolean
 
-        signUp(firstName: String!, lastName: String!, email: String!, password: String!): SignUpResponse!
-
-
-    }
-
-    input SignUpInput {
-        firstName: String
-        lastName: String
-        email: String
-        password: String
+        signUp(input: SignUpInput!): SignUpResponse!
     }
 `;
 

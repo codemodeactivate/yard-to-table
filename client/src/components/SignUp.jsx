@@ -1,6 +1,18 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { SIGN_UP_MUTATION } from "../utils/mutations";
+import { useMutation, gql } from "@apollo/client";
+//import { SIGN_UP_MUTATION } from "../utils/mutations";
+import { useHistory } from "react-router-dom";
+
+
+const CREATE_USER = gql`
+  mutation signUp($input: signUpInput!) {
+    signUp(input: $input) {
+      firstName
+      lastName
+      email
+    }
+  }
+`;
 
 const SignUpForm = () => {
     // Manage form inputs
@@ -12,7 +24,7 @@ const SignUpForm = () => {
       confirmPassword: "",
     });
 
-    const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION);
+    const [signUp, { loading, error }] = useMutation(CREATE_USER);
 
     // Form Submission
     const handleSubmit = async (event) => {
