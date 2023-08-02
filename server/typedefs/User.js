@@ -38,13 +38,6 @@ const userTypeDefs = gql`
         getUsers: [User]
     }
 
-    input SignUpInput {
-        firstName: String!
-        lastName: String!
-        email: String!
-        password: String!
-    }
-
     input signUpInput {
         firstName: String!
         lastName: String!

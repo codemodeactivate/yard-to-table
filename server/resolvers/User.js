@@ -93,7 +93,7 @@ const userResolver = {
               });
 
               await newUser.save();
-
+              console.log('New User:', newUser); // Add this line
               // sign jwt
               console.log('JWT Secret:', process.env.JWT_SECRET);
               const token = jwt.sign(
@@ -103,14 +103,15 @@ const userResolver = {
                 process.env.JWT_SECRET
               );
 
-              const response = {
-                user: {
+              const signUpResponse = {
+
                     id: newUser._id,
                     firstName: newUser.firstName,
                     lastName: newUser.lastName,
                     email: newUser.email,
+                    token: token
                     // Add other fields related to the user
-                },
+
             };
 
             return signUpResponse;

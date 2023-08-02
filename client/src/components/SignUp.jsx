@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-//import { SIGN_UP_MUTATION } from "../utils/mutations";
-import { useHistory } from "react-router-dom";
+import { SIGN_UP_MUTATION } from "../utils/mutations";
+import { useNavigate } from "react-router-dom";
 
 
-const CREATE_USER = gql`
-  mutation signUp($input: signUpInput!) {
-    signUp(input: $input) {
-      firstName
-      lastName
-      email
-    }
-  }
-`;
+
 
 const SignUpForm = () => {
+    const navigate = useNavigate();
     // Manage form inputs
     const [formData, setFormData] = useState({
       firstName: "",
@@ -24,7 +17,7 @@ const SignUpForm = () => {
       confirmPassword: "",
     });
 
-    const [signUp, { loading, error }] = useMutation(CREATE_USER);
+    const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION);
 
     // Form Submission
     const handleSubmit = async (event) => {
@@ -55,8 +48,9 @@ const SignUpForm = () => {
           },
         });
 
-        if (data?.signUp?.user) {
+        if (data?.signUp) {
           console.log("Sign-up successful!", data.signUp.user);
+          navigate('/profile'); //redirect to profile page after signup
           // Do something after successful sign-up, like redirecting to another page
         } else {
           console.log("Sign-up failed. Please try again.");
