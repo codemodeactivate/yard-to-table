@@ -24,6 +24,7 @@ const plotTypeDefs = gql`
   extend type Query {
     getPlot(id: ID!): Plot
     getPlots: [Plot]!
+    getUserPlots (userID: ID!): [Plot]!
   }
 
   extend type Mutation {
