@@ -4,6 +4,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
+import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
 // import ProfileBuilder from "./components/ProfileBuilder";
 import LoginPage from "./pages/LoginPage";
@@ -20,6 +21,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Router>
+          <Nav />
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             {/* <Route
