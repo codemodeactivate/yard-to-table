@@ -9,6 +9,18 @@ export const SAVE_FORM_DATA_MUTATION = gql`
   }
 `;
 
+export const GET_USERS = gql`
+  query GetUsers {
+    getUsers {
+      id
+      firstName
+      lastName
+      address
+      isGardener
+    }
+  }
+`;
+
 export const ADD_NEW_PLOT_MUTATION = gql`
   mutation AddNewPlot($input: AddNewPlotInput!) {
     addNewPlot(input: $input) {
