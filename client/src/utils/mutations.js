@@ -15,8 +15,8 @@ export const GET_USERS = gql`
       id
       firstName
       lastName
-      #address
-      #isGardener
+      address
+      isGardener
     }
   }
 `;
