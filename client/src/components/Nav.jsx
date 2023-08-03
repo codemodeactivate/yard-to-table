@@ -25,29 +25,29 @@ const Nav = () => {
   };
 
   return (
-    <nav>
-      <ul>
-        <li>
+    <nav className="flex float-right p-8">
+      <ul className="text-yard-blue ">
+        <li className="hover:text-yard-orange">
           <Link to="/profile-master">Profile Master</Link>
         </li>
 
         {loggedIn ? ( // if logged in, show logout button
-          <li>
+          <li className="hover:text-yard-orange">
             <button onClick={handleLogout}>Logout</button>
           </li>
         ) : (
           // else show login button
-          <li>
+          <li className="hover:text-yard-orange">
             <Link to="/login">Login</Link>
           </li>
         )}
-        <li>
+        <li id="nav-search" className="hover:text-yard-orange">
           <Link to="/search">{searchIcon}</Link>
         </li>
-        <li>
+        <li id="nav-jobs" className="hover:text-yard-orange">
           <Link to="/jobs">{trowelIcon}</Link>
         </li>
-        <li>
+        <li id="nav-profile" className="hover:text-yard-orange">
           <Link to="/profile">{userIcon}</Link>
         </li>
       </ul>
