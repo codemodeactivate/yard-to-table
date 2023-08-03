@@ -80,6 +80,8 @@ type SignUpResponse {
     token: String!
 }
 
+
+
 type AuthPayload {
     token: String
     user: User
@@ -96,6 +98,7 @@ type Query {
     getUsers(isGardener: Boolean, firstName: String, lastName: String, address: String): [User]
     getAllGardeners: [User]
     getAllHomeowners: [User]
+
 }
 
 input signUpInput {
@@ -104,6 +107,13 @@ input signUpInput {
     email: String!
     password: String!
 }
+
+type loginInput {
+    token: String!
+    user: User!
+}
+
+
 
 type Mutation {
     addUser(
@@ -146,7 +156,7 @@ type Mutation {
 
     logout: Boolean
 
-    signUp(input: SignUpInput!): SignUpResponse!
+
     }
 `;
 

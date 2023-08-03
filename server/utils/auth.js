@@ -1,53 +1,38 @@
+const jwt = require('jsonwebtoken');
+const secret = process.env.JWT_SECRET;
+const expiration = '2h';
 
-const decode = require('jwt-decode');
-
-class AuthService {
-  getProfile() {
-    return decode(this.getToken());
+module.exports = {
+  authMiddleware: function (reqOrObject, res, next) {
+    // allows token to be sent via req.body, req.query, or headers
+    let req;
+  // Check if the function was called with three arguments (as middleware)
+  if (res && next) {
+    req = reqOrObject;
+    // If you need to call next() as middleware, you can do it here
+    next();
+  } else {
+    // Otherwise, it was called with one argument (as context)
+    req = reqOrObject.req;
   }
 
-  loggedIn() {
-    // Checks if there is a saved token and it's still valid
-    const token = this.getToken();
-    return !!token && !this.isTokenExpired(token);
+  let token = req.body.token || req.query.token || req.headers.authorization;
+
+  if (req.headers.authorization) {
+    token = token.split(' ').pop().trim();
   }
 
-  isTokenExpired(token) {
-    try {
-      const decoded = decode(token);
-      if (decoded.exp < Date.now() / 1000) { // Change 1000000000000000 to 1000
-        return true;
-      } else {
-        return false;
-      }
-    } catch (err) {
-      return false;
-    }
+  if (!token) {
+    return req;
   }
 
-  getToken() {
-    // Retrieves the user token from localStorage
-    return localStorage.getItem('id_token'); // Use localStorage instead of sessionStorage
+  try {
+    const { data } = jwt.verify(token, secret, { maxAge: expiration });
+    req.user = data;
+  } catch {
+    console.log('Invalid token');
   }
 
-  login(idToken) {
-    // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken); // Use localStorage instead of sessionStorage
-
-    // Use history.push('/') instead of window.location.assign('/') to navigate without full reload
-    window.location.assign('/');
-  }
-
-  logout() {
-    // Clear user token and profile data from localStorage
-    localStorage.removeItem('id_token'); // Use localStorage instead of sessionStorage
-
-    // Use history.push('/') instead of window.location.assign('/') to navigate without full reload
-    window.location.assign('/');
-  }
+  return req;
 }
-
-const authService = new AuthService();
-
-// Export the instance as the default module
-module.exports = authService;
+};
