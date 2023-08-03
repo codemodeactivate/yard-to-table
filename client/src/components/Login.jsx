@@ -1,48 +1,54 @@
-import React, { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
+import React, { useState } from "react";
+import { useMutation, gql } from "@apollo/client";
+import Auth from "../utils/auth";
+import { LOGIN_MUTATION } from "../utils/mutations";
 
-export const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        id
-        email
-      }
-    }
-  }
-`;
-
-function LoginForm() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const [login, { loading }] = useMutation(LOGIN_MUTATION);
+function LoginForm(props) {
+  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [login, { error }] = useMutation(LOGIN_MUTATION);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    if (!email || !password) {
-      console.log('Please enter all required fields.');
-      return;
-    }
-
     try {
-      const { data } = await login({
-        variables: { email, password },
+      const mutationResponse = await login({
+        variables: {
+          email: formState.email,
+          password: formState.password,
+        },
       });
-
-      if(data && data.login && data.login.token) {
-        localStorage.setItem('token', data.login.token);
-      }
-      // if successful redirect to user's profile page
-      console.log('Login data:', data);
-      window.location.replace('/profile');
-    } catch (error) {
-     // if unsuccessful, display error message
-      console.log('Incorrect Email or Password', error);
+      const token = mutationResponse.data.login;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
     }
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({ ...formState, [name]: value });
+  };
+
+  // if (!email || !password) {
+  //   console.log('Please enter all required fields.');
+  //   return;
+  // }
+
+  //   try {
+  //     const { data } = await login({
+  //       variables: { email, password },
+  //     });
+
+  //     if(data && data.login && data.login.token) {
+  //       localStorage.setItem('token', data.login.token);
+  //     }
+  //     // if successful redirect to user's profile page
+  //     console.log('Login data:', data);
+  //     window.location.replace('/profile');
+  //   } catch (error) {
+  //    // if unsuccessful, display error message
+  //     console.log('Incorrect Email or Password', error);
+  //   }
+  // };
 
   return (
     <div className="login-page">
@@ -50,17 +56,22 @@ function LoginForm() {
       <form onSubmit={handleLogin}>
         <label htmlFor="email">Email:</label>
         <input
+          placeholder="yourEmail@test.com"
           type="text"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
         />
         <div className="login-page">
-        <label htmlFor="password">Password:</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <label htmlFor="password">Password:</label>
+          <input
+            placeholder="******"
+            type="password"
+            id="password"
+            onChange={handleChange}
+          />
         </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
+        <button type="submit">
+          Login
         </button>
       </form>
     </div>
