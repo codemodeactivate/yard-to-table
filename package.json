@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "npx postcss client/src/App.css -o client/src/tailwind.css --watch",
     "watch:css": "tailwindcss build -i ./client/src/App.css -o ./public/output.css --watch",
+
     "start": "react-app-rewired start",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
