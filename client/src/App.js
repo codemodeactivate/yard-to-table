@@ -20,10 +20,11 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div className="App">
+    <div className="App flex flex-col min-h-screen">
       <header className="App-header">
         <Router>
           <Nav />
+          <div className="flex-grow">
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             {/* <Route
@@ -43,6 +44,7 @@ function App() {
             <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
           </Routes>
+          </div>
           <Footer />
         </Router>
       </header>
