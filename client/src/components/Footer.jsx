@@ -7,8 +7,8 @@ const Footer = () => {
         <footer>
           <img
               className="max-w-xs"
-              src="./assets/illustrations/021-cloudy-day-picnic.png"
-              alt="Sunny day picnic"
+              src="./assets/illustrations/022-hummingbird-tulips.png"
+              alt="Hummingbird and tulips"
             />
           <ul>
             <li>
