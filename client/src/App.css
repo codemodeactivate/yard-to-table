@@ -8,3 +8,19 @@ body {
     font-family: 'Oldenburg', cursive;
   }
 
+button {
+  border-radius: 5px;
+  padding: 0.75em 1em;
+  display: inline-block;
+  margin: 10px;
+  width: fit-content;
+  font-size: 14px;
+}  
+
+.homepage-section-top {
+  padding: 50px 0;
+}
+
+.homepage-section {
+  padding: 75px 0;
+}
