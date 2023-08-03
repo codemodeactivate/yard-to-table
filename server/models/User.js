@@ -1,5 +1,50 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+
+const billingSchema = new Schema({
+  creditCardNumber: {
+    type: String,
+    required: true,
+  },
+  expirationMonth: {
+    type: Number,
+    required: true,
+  },
+  expirationYear: {
+    type: Number,
+    required: true,
+  },
+  cardholderName: {
+    type: String,
+    required: true,
+  },
+  billingAddress: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+  isDefault: {
+    type: Boolean,
+    default: false,
+  },
+  lastFourDigits: {
+    type: String,
+    required: true,
+  },
+  brand: {
+    type: String,
+    required: true,
+  },
+  // Add any other fields specific to your application or payment processor
+});
 
 const gardenerProfileSchema = new Schema({
   yearsExperience: Number,
@@ -9,8 +54,11 @@ const gardenerProfileSchema = new Schema({
   cost: Number,
   bio: String,
   photo: String,
+  billing: billingSchema,
   // other fields as needed
 });
+
+
 
 const homeownerProfileSchema = new Schema({
   //a user is a person that hs a plot but since the plot can be
@@ -118,6 +166,7 @@ userSchema.pre('save', async function (next) {
 const User = model('User', userSchema);
 const gardenerProfile = model('GardenerProfile', gardenerProfileSchema);
 const homeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
+const Billing = mongoose.model('Billing', billingSchema);
 // Removing this as I moved it to the Plot.js model - MT
 // const Plot = model('Plot', plotSchema);
 
@@ -126,4 +175,5 @@ module.exports = {
   User,
   gardenerProfile,
   homeownerProfile,
+  Billing,
 };
