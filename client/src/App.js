@@ -11,6 +11,7 @@ import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
+import Footer from "./components/Footer";
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql", // Replace with your server URL
@@ -19,33 +20,27 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Router>
+    <div className="App flex flex-col min-h-screen">
+      <Router>
+        <header className="App-header">
           <Nav />
+        </header>
+        <div className="flex-grow">
           <Routes>
             <Route path="/" exact element={<HomePage />} />
-            {/* <Route
-              path="/homeowner-profile/:zip"
-              exact
-              element={<ProfileBuilder />}
-            />
-            <Route
-              path="/gardener-profile/:zip"
-              exact
-              element={<ProfileBuilder />}
-            /> */}
-
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
           </Routes>
-        </Router>
-      </header>
+        </div>
+        <Footer />
+      </Router>
     </div>
   );
 }
+
+    
 
 export default App;
