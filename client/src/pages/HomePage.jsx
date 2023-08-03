@@ -14,12 +14,14 @@ const HomePage = () => {
     <>
 
     <div>
-      <p>Marketing YAY !!</p>
+      <a href="/" >YardtoTable</a>
+      <h2 className="text-2xl text-yard-blue" >Unlock the Abundance in Your Yard</h2>
       <HomePageCTA onProfileSelection={onProfileSelection} />
       {/* <p className="text-center"> Already a member? <Link href="/src/compnents/LoginPage">Login</Link> Here!</p> */}
       <p className="text-center"> Already a member? <Link to="/login">Login</Link> Here!</p>
       <p className="text-center"> Sign Up: <Link to="/signup">Here!</Link></p>
       {/* Other components and content as needed */}
+
     </div>
     </>
   );
