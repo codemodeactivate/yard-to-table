@@ -18,38 +18,30 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-function App() {
-  return (
-    <div className="App flex flex-col min-h-screen">
-      <header className="App-header">
-        <Router>
-          <Nav />
+    function App() {
+      return (
+        <div className="App flex flex-col min-h-screen">
+          <header className="App-header">
+            <Router>
+              <Nav />
+            </Router>
+          </header>
           <div className="flex-grow">
-          <Routes>
-            <Route path="/" exact element={<HomePage />} />
-            {/* <Route
-              path="/homeowner-profile/:zip"
-              exact
-              element={<ProfileBuilder />}
-            />
-            <Route
-              path="/gardener-profile/:zip"
-              exact
-              element={<ProfileBuilder />}
-            /> */}
-
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/profile-master" element={<MasterProfilePage />} />
-            <Route path="/search" element={<SearchPage />} />
-          </Routes>
+            <Router>
+              <Routes>
+                <Route path="/" exact element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/profile-master" element={<MasterProfilePage />} />
+                <Route path="/search" element={<SearchPage />} />
+              </Routes>
+            </Router>
           </div>
           <Footer />
-        </Router>
-      </header>
-    </div>
-  );
-}
+        </div>
+      );
+    }
+    
 
 export default App;
