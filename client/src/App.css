@@ -1,11 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css2?family=Oldenburg&display=swap');
 
 body {
-    @apply bg-white;
-    font-family: 'Oldenburg', cursive;
+  background-color: white;
+  font-family: 'Oldenburg', cursive;
+}
 
-  }
+button {
+  border-radius: 5px;
+  padding: 0.75em 1em;
+  display: inline-block;
+  margin: 10px;
+  width: fit-content;
+  font-size: 14px;
+}  
+
+.homepage-section-top {
+  padding: 50px 0;
+}
+
+.homepage-section {
+  padding: 75px 0;
+}
+
+nav ul li {
+  display: inline-block;
+  font-size: 2rem;
+  position: relative;
+  text-align: center;
+  padding-left: 10px;
+}
+
+#nav-search:hover::after {
+  content: "Search";
+  position: absolute; 
+  top: 100%; 
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem; 
+}
+
+#nav-jobs:hover::after {
+  content: "Jobs";
+  position: absolute; 
+  top: 100%; 
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem; 
+}
+
+#nav-profile:hover::after {
+  content: "Profile";
+  position: absolute; 
+  top: 100%; 
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem; 
+}
+
