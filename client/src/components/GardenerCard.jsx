@@ -8,6 +8,15 @@ const GardenerCard = ({ user }) => {
         if (cost >= 101) return '$$$$';
         return 'N/A';
     };
+    const renderSpecialtyIcon = () => {
+        if (user.gardenerProfile.specialty.includes('vegetable')) {
+          return <span className="text-yard-green mr-2">🌽</span>; // Vegetable Icon
+        }
+        if (user.gardenerProfile.specialty.includes('pollinator')) {
+          return <span className="text-yard-green mr-2">🦋</span>; // Pollinator Icon
+        }
+        return null;
+      };
 
 
     const renderSpecialtyIcon = () => {
@@ -23,6 +32,7 @@ const GardenerCard = ({ user }) => {
     const stars = Array.from({ length: user.gardenerProfile.rating }, (_, i) => '⭐').join('');
 
     return (
+
         <div key={user.id} className="p-4 border-2 border-yard-gray bg-white rounded relative flex">
           <div className="w-1/5">
             {/* Picture Placeholder */}
@@ -42,6 +52,7 @@ const GardenerCard = ({ user }) => {
             <p className="text-yard-gray">{user.gardenerProfile.bio.substring(0, 240)}...</p>
           </div>
           <button className="bg-yard-orange text-white text-sm py-4 px-7 rounded absolute top-2 right-3 ">Hire</button>
+
         </div>
       );
 
