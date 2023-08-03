@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { CREATE_GARDENER_PROFILE } from "../utils/mutations";
 
 const GardenerProfileForm = ({ onSave }) => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,8 @@ const GardenerProfileForm = ({ onSave }) => {
     bio: "",
     photo: null, // Added a new field for the photo
   });
+
+  const [addGardenerProfile] = useMutation(CREATE_GARDENER_PROFILE);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +40,42 @@ const GardenerProfileForm = ({ onSave }) => {
     setFormData({ ...formData, photo: photoFile });
   };
 
-  const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-    onSave(formData);
+
+    // Make the API call to save the gardener profile data
+    try {
+      const { yearsExperience, specialty, areaServed, cost, bio, photo } = formData;
+      const input = {
+        yearsExperience: parseInt(yearsExperience),
+        specialty,
+        areaServed,
+        cost: parseInt(cost),
+        bio,
+        photo,
+        // Upload the photo here, if needed
+      };
+
+      // Call the mutation
+      const { data } = await addGardenerProfile({ variables: { input } });
+
+      // Check the response data and update the user's role if successful
+      if (data.addGardenerProfile) {
+        // Assuming you have a function to update the user's role to gardener
+        // You can call it here, passing the user ID and setting isGardener to true
+        // updateUserRole(data.addGardenerProfile.id, true);
+
+        // Optionally, you could show a success message or redirect the user after saving
+        alert("Gardener profile saved successfully!");
+      } else {
+        // Show an error message if the API call was not successful
+        alert("Failed to save gardener profile. Please try again.");
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the API call
+      console.error("Error saving gardener profile:", error);
+      alert("An error occurred while saving the gardener profile. Please try again.");
+    }
   };
 
   return (

@@ -23,6 +23,7 @@ type HomeownerProfile {
 }
 
 type GardenerProfile {
+    id: ID!
     yearsExperience: Int
     specialty: [String] # Array of strings
     areaServed: [String] # Array of strings
@@ -31,7 +32,17 @@ type GardenerProfile {
     rating: Float,
     cost: Int
     bio: String
+    photo: String
 }
+
+input GardenerProfileInput {
+    yearsExperience: Int
+    specialty: [String]
+    areaServed: [String]
+    cost: Int
+    bio: String
+    photo: String
+  }
 
 
 
@@ -125,6 +136,9 @@ type Mutation {
     ): User
 
     signUp(input: signUpInput!): SignUpResponse!
+
+    addGardenerProfile(input: GardenerProfileInput!): GardenerProfile
+    createGardenerProfile(input: GardenerProfileInput!): GardenerProfile
 
     deleteUser(id: ID!): DeletionResponse!
 

@@ -9,6 +9,22 @@ export const SAVE_FORM_DATA_MUTATION = gql`
   }
 `;
 
+
+
+
+export const CREATE_GARDENER_PROFILE = gql`
+mutation createGardenerProfile($input: GardenerProfileInput!) {
+  createGardenerProfile(input: $input) {
+    yearsExperience
+    specialty
+    areaServed
+    cost
+    bio
+    photo
+  }
+}
+`
+
 export const GET_USERS = gql`
   query GetUsers($isGardener: Boolean, $firstName: String) {
     getUsers(isGardener: $isGardener, firstName: $firstName) {
