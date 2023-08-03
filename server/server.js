@@ -52,8 +52,7 @@ app.use(cors({
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     console.log('Request Details:');
@@ -72,6 +71,8 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     debug: true,
+    introspection: true,
+    playground: true,
     // logger: {
     //   debug: message => console.debug(message),
     //   info: message => console.info(message),
