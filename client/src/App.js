@@ -4,7 +4,7 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  createHttpLink
+  createHttpLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -19,17 +19,17 @@ import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: "http://localhost:3001/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -43,12 +43,10 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App flex flex-col min-h-screen">
-      <Router>
-
-      <header className="App-header">
-
-          <Nav />
-        </header>
+        <Router>
+          <header className="App-header">
+            <Nav />
+          </header>
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
@@ -58,14 +56,11 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
           </Routes>
 
-
           <Footer />
-      </Router>
-</div>
+        </Router>
+      </div>
     </ApolloProvider>
   );
 }
-
-
 
 export default App;
