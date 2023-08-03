@@ -19,16 +19,6 @@ const GardenerCard = ({ user }) => {
       };
 
 
-    const renderSpecialtyIcon = () => {
-        if (user.gardenerProfile.specialty.includes('vegetable')) {
-          return <span className="text-yard-green mr-2">🌽</span>; // Vegetable Icon
-        }
-        if (user.gardenerProfile.specialty.includes('pollinator')) {
-          return <span className="text-yard-green mr-2">🦋</span>; // Pollinator Icon
-        }
-        return null;
-      };
-
     const stars = Array.from({ length: user.gardenerProfile.rating }, (_, i) => '⭐').join('');
 
     return (
