@@ -5,6 +5,12 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config({ path: '../.env' });
 const { GardenerProfileModel } = require("../models")
 const { mapCostToTier } = require("../utils/utils");
+const  { ObjectId } = require("mongodb");
+const { default: mongoose } = require("mongoose");
+console.log("Resolver file loaded");
+
+
+
 
 // console.log(User);
 // console.log("User object: ", User);
@@ -12,13 +18,36 @@ const { mapCostToTier } = require("../utils/utils");
 // console.log("User.create method: ", User.create);
 // console.log("User.save method: ", User.save);
 // console.log(process.env.JWT_SECRET);
+//GLOBAL QUERIES//
 const getAllUsers = async () => {
-    return await User.find({}).populate('gardenerProfile');
+  try {
+    return await User.find({});
+  } catch (err) {
+    console.error(`Error retrieving users: ${err}`);
+    throw new Error('Failed to retrieve users');
+  }
 };
 
+const getAllGardeners = async () => {
+  try {
+    return await User.find({ isGardener: true }).populate('gardenerProfile');
+  } catch (err) {
+    console.error(`Error retrieving gardeners: ${err}`);
+    throw new Error('Failed to retrieve gardeners');
+  }
+};
+
+const getAllHomeowners = async () => {
+  try {
+    return await User.find({ isHomeowner: true }).populate('homeownerProfile');
+  } catch (err) {
+    console.error(`Error retrieving homeowners: ${err}`);
+    throw new Error('Failed to retrieve homeowners');
+  }
+};
+//ENDOFGLOBALQUERIES//
+
 const userResolver = {
-
-
 
 
     Query: {
@@ -31,18 +60,17 @@ const userResolver = {
         },
         // Get all users
         getUsers: async (parent, args, context, info) => {
-            try {
-              let users = await getAllUsers();
-
-             
-
-              console.log('Final result:', users);
-              return users;
-            } catch (err) {
-              console.error(`Error retrieving users: ${err}`);
-              throw new Error('Failed to retrieve users');
-            }
+            return await getAllUsers();
           },
+
+          getAllGardeners: async (parent, args, context, info) => {
+            return await getAllGardeners();
+          },
+          getAllHomeowners: async (parent, args, context, info) => {
+            return await getAllHomeowners();
+          },
+
+
     },
 
     Mutation: {
@@ -192,7 +220,76 @@ const userResolver = {
                 console.error(err);
                 throw new Error("An error occurred while deleting the user");
             }
-        }
+        },
+
+        // addGardenerProfile: async (parent, { input } ) => {
+        //   const { yearsExperience, specialty, areaServed, rating, cost, bio, photo } = input;
+
+        //   // Now you have the testUserId, you can use it to associate the GardenerProfile with the test user
+        //   const gardenerProfile = await gardenerProfile.create({
+        //     userId: testUserId, // Assuming you have a field in your GardenerProfile schema to store the user ID
+        //     yearsExperience,
+        //     specialty,
+        //     areaServed,
+        //     rating,
+        //     cost,
+        //     bio,
+        //     photo,
+        //   });
+
+        //   // Return the saved gardener profile
+        //   return gardenerProfile;
+        // },
+        createGardenerProfile: async (_, { input }, context) => {
+          if(!context.userId) {
+              throw new Error("You need to be logged in to create a Gardener Profile.");
+          };
+          console.log("Received createGardenerProfile mutation with input:", input);
+          console.log("Context:", context);
+          const userId = context.userId; // This is the ID of the logged-in user or tester which you can assign @ top
+          console.log("userId:", userId);
+          // Update the user's isGardener status to true
+          const updatedUser = await context.db.collection('users').findOneAndUpdate(
+              { _id: ObjectId(userId) },
+              { $set: { isGardener: true } },
+              { returnOriginal: false }
+          );
+
+          console.log("Updated user:", updatedUser.value);
+
+          // Create the GardenerProfile document
+          const gardenerProfile = {
+              userId: mongoose.Types.ObjectId(userId),
+              yearsExperience: input.yearsExperience,
+              specialty: input.specialty,
+              areaServed: input.areaServed,
+              cost: input.cost,
+              bio: input.bio,
+              photo: input.photo,
+              // Add any other GardenerProfile fields as needed
+          };
+
+
+          console.log("GardenerProfile to be inserted:", gardenerProfile);
+
+          // Insert the gardener profile into the database
+          const result = await context.db.collection("gardenerprofiles").insertOne(gardenerProfile);
+
+          console.log("Insert result:", result);
+
+          // Associate the GardenerProfile with the user
+          await context.db.collection('users').updateOne(
+              { _id: ObjectId(userId) },
+              { $set: { gardenerProfile: result.insertedId } }
+          );
+
+          console.log("Created gardenerProfile:", gardenerProfile);
+          console.log("Updated user:", updatedUser.value);
+          return updatedUser.value;
+      },
+
+
+
     },
 };
 

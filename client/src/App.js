@@ -10,7 +10,8 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
-import './index.css'
+import MasterProfilePage from "./pages/MasterProfilePage";
+
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql", // Replace with your server URL
@@ -39,7 +40,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
-
+            <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
           </Routes>
         </Router>
