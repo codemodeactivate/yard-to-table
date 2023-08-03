@@ -28,7 +28,8 @@ type GardenerProfile {
     ## storing rating directly since it will be read
     ## more often than it will be updated
     rating: Float,
-    costTier: CostTier
+    cost: Int
+    bio: String
 }
 
 

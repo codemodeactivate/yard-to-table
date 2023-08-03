@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApolloProvider } from "@apollo/client";
 import client from './client';
+import './tailwind.css';
+
 
 const root = createRoot(document.getElementById('root'));
 root.render(

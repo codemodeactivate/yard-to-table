@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import SearchComponent from './../components/Search';
-import UserCard from '../components/UserCard';
+import GardenerCard from '../components/GardenerCard';
 import { GET_USERS } from "../utils/mutations";
 
 const GardenerSearch = () => {
@@ -34,7 +34,7 @@ const GardenerSearch = () => {
       />
 
       {filteredUsers.map((user) => (
-        <UserCard key={user.id} user={user} />
+        <GardenerCard key={user.id} user={user} />
       ))}
 
 

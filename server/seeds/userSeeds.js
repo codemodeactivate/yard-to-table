@@ -37,8 +37,11 @@ async function seedUsers() {
         gardenerProfileDocument = await gardenerProfile.create({
           yearsExperience: i * 2,
           areaServed: [`Area ${i}`],
-          specialty: [`Specialty ${i}`],
+          specialty: i % 2 === 0 ? ['vegetable'] : ['pollinator'], // Example logic,
           rating: i % 5,
+          cost: (i * 10) + 50, // Example cost calculation
+          bio: `This is a sample bio for gardener number ${i}. Add more specific details here.`, // Example bio
+          photo: `path/to/photo${i}.jpg`, // Example photo path
         });
       } else {
         const plot = await Plot.create({

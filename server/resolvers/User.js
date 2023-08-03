@@ -3,6 +3,8 @@ const { User } = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config({ path: '../.env' });
+const { GardenerProfileModel } = require("../models")
+const { mapCostToTier } = require("../utils/utils");
 
 // console.log(User);
 // console.log("User object: ", User);
@@ -11,7 +13,7 @@ require('dotenv').config({ path: '../.env' });
 // console.log("User.save method: ", User.save);
 // console.log(process.env.JWT_SECRET);
 const getAllUsers = async () => {
-    return await User.find({});
+    return await User.find({}).populate('gardenerProfile');
 };
 
 const userResolver = {
@@ -29,25 +31,18 @@ const userResolver = {
         },
         // Get all users
         getUsers: async (parent, args, context, info) => {
-            // Start with all users, or however you retrieve users from your data source
-            let users = await getAllUsers();
+            try {
+              let users = await getAllUsers();
 
-            // Apply filters based on the provided arguments
-            if (args.isGardener !== undefined) {
-                users = users.filter(user => user.isGardener === args.isGardener);
-            }
-            if (args.firstName) {
-                users = users.filter(user => user.firstName.includes(args.firstName));
-            }
-            if (args.lastName) {
-                users = users.filter(user => user.lastName.includes(args.lastName));
-            }
-            if (args.address) {
-                users = users.filter(user => user.address.includes(args.address));
-            }
+             
 
-            return users;
-        },
+              console.log('Final result:', users);
+              return users;
+            } catch (err) {
+              console.error(`Error retrieving users: ${err}`);
+              throw new Error('Failed to retrieve users');
+            }
+          },
     },
 
     Mutation: {
