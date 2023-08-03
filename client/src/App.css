@@ -30,6 +30,7 @@ nav ul li {
   font-size: 2rem;
   position: relative;
   text-align: center;
+  padding-left: 10px;
 }
 
 #nav-search:hover::after {
@@ -45,7 +46,7 @@ nav ul li {
   content: "Jobs";
   position: absolute; 
   top: 100%; 
-  left: 40%; /* Move the content to the center of the li */
+  left: 50%; /* Move the content to the center of the li */
   transform: translateX(-50%);
   font-size: 1rem; 
 }

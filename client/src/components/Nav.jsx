@@ -2,11 +2,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faMagnifyingGlass,
-  faTrowel,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faTrowel } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-regular-svg-icons";
 
 const searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const trowelIcon = <FontAwesomeIcon icon={faTrowel} />;
