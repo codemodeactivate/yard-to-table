@@ -1,63 +1,56 @@
 import React, { useState } from "react";
-import { useMutation, gql } from "@apollo/client";
-import Auth from "../utils/auth";
+import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../utils/mutations";
+import { Navigate, useNavigate } from 'react-router-dom';
 
-function LoginForm(props) {
-  const [formState, setFormState] = useState({ email: "", password: "" });
+const LoginForm = (props) => {
+  const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_MUTATION);
+  const navigate = useNavigate(); // Use the useNavigate hook
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      const mutationResponse = await login({
+      const { data } = await login({
         variables: {
           email: formState.email,
-          password: formState.password,
-        },
+          password: formState.password
+        }
       });
-      const token = mutationResponse.data.login;
-      Auth.login(token);
-    } catch (e) {
-      console.log(e);
+
+      if (data && data.login && data.login.token) {
+        localStorage.setItem('token', data.login.token);
+
+        // Redirect user to the /profile page
+        navigate('/profile');
+      }
+    } catch (err) {
+      // Handle error
+      console.error(err);
     }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
-  };
-
-  // if (!email || !password) {
-  //   console.log('Please enter all required fields.');
-  //   return;
-  // }
-
-  //   try {
-  //     const { data } = await login({
-  //       variables: { email, password },
-  //     });
-
-  //     if(data && data.login && data.login.token) {
-  //       localStorage.setItem('token', data.login.token);
-  //     }
-  //     // if successful redirect to user's profile page
-  //     console.log('Login data:', data);
-  //     window.location.replace('/profile');
-  //   } catch (error) {
-  //    // if unsuccessful, display error message
-  //     console.log('Incorrect Email or Password', error);
-  //   }
-  // };
+  }
 
   return (
     <div className="login-page">
       <h2>Ready to grow more magic?</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleFormSubmit}>
         <label htmlFor="email">Email:</label>
         <input
           placeholder="yourEmail@test.com"
           type="text"
+          name="email"
           id="email"
           onChange={handleChange}
         />
@@ -65,6 +58,7 @@ function LoginForm(props) {
           <label htmlFor="password">Password:</label>
           <input
             placeholder="******"
+            name="password"
             type="password"
             id="password"
             onChange={handleChange}
@@ -74,8 +68,9 @@ function LoginForm(props) {
           Login
         </button>
       </form>
+      {error && <div>Login failed</div>} {/* Display error message */}
     </div>
   );
-}
+};
 
 export default LoginForm;

@@ -77,93 +77,111 @@ const userResolver = {
         //add a new user
 
         signUp: async (parent, args, context, info) => {
+          try {
             const { input } = args;
             let { firstName, lastName, email, password } = input;
             firstName = firstName.trim();
             lastName = lastName.trim();
-            // username = username.trim();
             email = email.trim();
             password = password.trim();
 
-            if (!firstName ||
-                !lastName ||
-                // !username ||
-                !email ||
-                !password
-                /*Commenting these out because we dont' want them to be required
-                for sign up. Once signed up they will route to the profile page
-                 to fill out the rest of their info.
-                 */
-                // !address ||
-                // isGardener == null ||
-                // isHomeowner == null
-                // plots == null
-                ) {
-                throw new Error("Please enter all required fields.");
-              }
-            //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-              // check for password length meeting requirements of regex above
-              // this one checks for at least one uppercase, one lowercase, one number, one special character,
-              // and a minimum of 8 characters
-            //   if (!passwordPattern.test(password)) {
-            //     throw new Error("Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character.");
-            //   }
-
-              const emailPattern = /^\S+@\S+\.\S+$/;
-                // check for valid email address
-            if (!emailPattern.test(email)) {
-            throw new Error("Please enter a valid email address.");
+            if (!firstName || !lastName || !email || !password) {
+              throw new Error("Please enter all required fields.");
             }
 
-              // check if username or email already in use
-              const existingUser = await User.findOne({ email: email } );
-              if (existingUser) {
-                throw new Error("A user with this email already exists.");
-              }
+            const emailPattern = /^\S+@\S+\.\S+$/;
+            if (!emailPattern.test(email)) {
+              throw new Error("Please enter a valid email address.");
+            }
 
-              // hash password
-              const salt = await bcrypt.genSalt();
-              const passwordHash = await bcrypt.hash(password, salt);
+            const existingUser = await User.findOne({ email: email });
+            if (existingUser) {
+              throw new Error("A user with this email already exists.");
+            }
 
-              // save new user
-              const newUser = new User({
-                firstName,
-                lastName,
-                // username,
-                email,
-                password: passwordHash,
-                // address,
-                // isGardener,
-                // isHomeowner,
-                // gardenerProfile,
-                // homeownerProfile,
-                // plots
-              });
+            const salt = await bcrypt.genSalt();
+            const passwordHash = await bcrypt.hash(password, salt);
 
-              await newUser.save();
-              console.log('New User:', newUser); // Add this line
-              // sign jwt
-              console.log('JWT Secret:', process.env.JWT_SECRET);
-              const token = jwt.sign(
-                {
-                  id: newUser._id,
-                },
-                process.env.JWT_SECRET
-              );
+            const newUser = new User({
+              firstName,
+              lastName,
+              email,
+              password: passwordHash,
+            });
 
-              const signUpResponse = {
+            await newUser.save();
 
-                    id: newUser._id,
-                    firstName: newUser.firstName,
-                    lastName: newUser.lastName,
-                    email: newUser.email,
-                    token: token
-                    // Add other fields related to the user
+            const token = jwt.sign(
+              {
+                id: newUser._id,
+              },
+              process.env.JWT_SECRET
+            );
 
+            const signUpResponse = {
+              id: newUser._id,
+              firstName: newUser.firstName,
+              lastName: newUser.lastName,
+              email: newUser.email,
+              token: token, // Include the token in the response
             };
 
-            return signUpResponse;
+            return signUpResponse; // Return the complete response object
+          } catch (error) {
+            console.log('Error during sign-up:', error);
+            throw new Error('Failed to sign up.');
+          }
         },
+
+
+
+
+        login: async (parent, args, context, info) => {
+          const { email, password } = args;
+
+          console.log(`Attempting to log in with email: ${email}`); // Log the email attempting to log in
+
+          const user = await User.findOne({ email });
+          if (!user) {
+            console.log(`No user found with email: ${email}`); // Log if no user is found
+            throw new Error("No user with this email exists.");
+          } else {
+            console.log(`User found with email: ${email}`); // Log if user is found
+          }
+
+          console.log('Provided password:', password);
+          console.log('Hashed stored password:', user.password);
+
+          const trimmedPassword = password.trim();
+          const trimmedStoredPassword = user.password.trim();
+
+          const isMatch = await bcrypt.compare(trimmedPassword, trimmedStoredPassword);
+          if (!isMatch) {
+            console.log(`Password does not match for email: ${email}`); // Log if passwords don't match
+            throw new Error("Invalid credentials RESOLVER.");
+          } else {
+            console.log(`Password matches for email: ${email}`); // Log if passwords match
+          }
+
+          // sign jwt
+          const token = jwt.sign(
+            {
+              id: userId._id,
+            },
+            process.env.JWT_SECRET
+          );
+          console.log('Generated token:', token); // Log the token for debugging
+
+          // console.log(`Token generated for email: ${email}`); // Log token generation
+          // console.log('Hashed provided password:', await bcrypt.hash(password, user.password.substr(0, 29)));
+          return {
+            user: {
+              email: user.email,
+            },
+            token: token,
+          }
+        },
+
 
         editUser: async (parent, { id, ...rest }, context) => {
             // Check if user id exists in the database.
@@ -198,6 +216,14 @@ const userResolver = {
                 throw new Error("An error occurred while updating the user");
             }
         },
+        logout: async (parent, args, context, info) => {
+          console.log('Logging out...');
+          return {
+            user: null,
+            token: null,
+          }
+        },
+
 
         deleteUser: async (parent, { id }, context) => {
             // Check if user id exists in the database.
