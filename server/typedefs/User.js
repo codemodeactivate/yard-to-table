@@ -14,6 +14,7 @@ type User {
     isHomeowner: Boolean,
     gardenerProfile: GardenerProfile, # Reference to GardenerProfile type
     homeownerProfile: HomeownerProfile # You might also create a HomeownerProfile type
+    billing: Billing
 
 }
 
@@ -41,7 +42,19 @@ enum CostTier {
     TIER4   # Represents $101+
 }
 
+type Billing {
+    creditCardNumber: String
+    expirationMonth: Int
+    expriationYear: Int
+    cardHolderName: String
+    billingAddress: String
+    country: String
+    postalCode: String
+    isDefault: Boolean
+    lastFourDigits: String
+    brand: String
 
+}
 
 
 type SaveFormDataResponse {
@@ -70,6 +83,8 @@ type DeletionResponse {
 type Query {
     getUser(id: ID): User
     getUsers(isGardener: Boolean, firstName: String, lastName: String, address: String): [User]
+    getAllGardeners: [User]
+    getAllHomeowners: [User]
 }
 
 input signUpInput {

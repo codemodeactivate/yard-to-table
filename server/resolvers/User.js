@@ -12,13 +12,36 @@ const { mapCostToTier } = require("../utils/utils");
 // console.log("User.create method: ", User.create);
 // console.log("User.save method: ", User.save);
 // console.log(process.env.JWT_SECRET);
+//GLOBAL QUERIES//
 const getAllUsers = async () => {
-    return await User.find({}).populate('gardenerProfile');
+  try {
+    return await User.find({});
+  } catch (err) {
+    console.error(`Error retrieving users: ${err}`);
+    throw new Error('Failed to retrieve users');
+  }
 };
 
+const getAllGardeners = async () => {
+  try {
+    return await User.find({ isGardener: true }).populate('gardenerProfile');
+  } catch (err) {
+    console.error(`Error retrieving gardeners: ${err}`);
+    throw new Error('Failed to retrieve gardeners');
+  }
+};
+
+const getAllHomeowners = async () => {
+  try {
+    return await User.find({ isHomeowner: true }).populate('homeownerProfile');
+  } catch (err) {
+    console.error(`Error retrieving homeowners: ${err}`);
+    throw new Error('Failed to retrieve homeowners');
+  }
+};
+//ENDOFGLOBALQUERIES//
+
 const userResolver = {
-
-
 
 
     Query: {
@@ -31,18 +54,17 @@ const userResolver = {
         },
         // Get all users
         getUsers: async (parent, args, context, info) => {
-            try {
-              let users = await getAllUsers();
-
-             
-
-              console.log('Final result:', users);
-              return users;
-            } catch (err) {
-              console.error(`Error retrieving users: ${err}`);
-              throw new Error('Failed to retrieve users');
-            }
+            return await getAllUsers();
           },
+
+          getAllGardeners: async (parent, args, context, info) => {
+            return await getAllGardeners();
+          },
+          getAllHomeowners: async (parent, args, context, info) => {
+            return await getAllHomeowners();
+          },
+
+
     },
 
     Mutation: {

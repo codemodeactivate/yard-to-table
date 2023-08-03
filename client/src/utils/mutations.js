@@ -37,6 +37,24 @@ export const ADD_NEW_PLOT_MUTATION = gql`
   }
 `;
 
+export const GET_GARDENERS = gql`
+query GetGardeners {
+  getAllGardeners {
+    id
+    firstName
+    lastName
+    gardenerProfile {
+      yearsExperience
+      specialty
+      areaServed
+      rating
+      cost
+      bio
+    }
+  }
+}
+`;
+
 export const GET_PLOTS = gql`
   query GetPlots {
     getPlots {
