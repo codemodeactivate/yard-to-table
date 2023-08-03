@@ -36,7 +36,8 @@ nav ul li {
   content: "Search";
   position: absolute; 
   top: 100%; 
-  left: 0; 
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
   font-size: 1rem; 
 }
 
@@ -44,7 +45,7 @@ nav ul li {
   content: "Jobs";
   position: absolute; 
   top: 100%; 
-  left: 50%; /* Move the content to the center of the li */
+  left: 40%; /* Move the content to the center of the li */
   transform: translateX(-50%);
   font-size: 1rem; 
 }
@@ -53,7 +54,8 @@ nav ul li {
   content: "Profile";
   position: absolute; 
   top: 100%; 
-  left: 0; 
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
   font-size: 1rem; 
 }
 
