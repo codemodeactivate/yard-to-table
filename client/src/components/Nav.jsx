@@ -13,7 +13,7 @@ const Nav = () => {
     // redirect to home page
     window.location.replace('/');
   };
- 
+
     return (
         <nav>
           <ul>
@@ -26,6 +26,10 @@ const Nav = () => {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
+            <li>
+              <Link to="/profile-master">Profile Master</Link>
+            </li>
+
             {loggedIn ? ( // if logged in, show logout button
             <li>
               <button onClick={handleLogout}>Logout</button>
@@ -36,12 +40,12 @@ const Nav = () => {
               <Link to="/login">Login</Link>
             </li>
           )}
-           
+
           </ul>
         </nav>
       );
     };
-    
+
 
 // Export the Nav component so it can be imported and used in other files
 export default Nav;
