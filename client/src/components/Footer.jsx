@@ -4,13 +4,13 @@ import React, { useState} from 'react';
 const Footer = () => {
 
     return (
-        <footer>
+        <footer className="flex items-end justify-between">
           <img
-              className="max-w-xs"
-              src="./assets/illustrations/022-hummingbird-tulips.png"
+              className="max-w-1 mx-10"
+              src="./assets/illustrations/023-hummingbird-tulips.png"
               alt="Hummingbird and tulips"
             />
-          <ul>
+          <ul className="text-yard-blue text-right mx-5 my-3">
             <li>
               <a href="mailto:jeff@gmail.com">Contact</a>
             </li>
