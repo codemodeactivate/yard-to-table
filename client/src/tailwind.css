@@ -1,3 +1,4 @@
+
 /*
 ! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
 *//*
@@ -478,6 +479,11 @@ video {
   --tw-backdrop-saturate:  ;
   --tw-backdrop-sepia:  ;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Oldenburg&display=swap');
 
 body {
@@ -490,7 +496,10 @@ button {
   padding: 0.75em 1em;
   display: inline-block;
   margin: 10px;
+
   width: -moz-fit-content;
+
+
   width: fit-content;
   font-size: 14px;
 }  
@@ -501,4 +510,9 @@ button {
 
 .homepage-section {
   padding: 75px 0;
+
 }
+
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkFwcC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEiLCJmaWxlIjoidGFpbHdpbmQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiQHRhaWx3aW5kIGJhc2U7XG5AdGFpbHdpbmQgY29tcG9uZW50cztcbkB0YWlsd2luZCB1dGlsaXRpZXM7XG5AaW1wb3J0IHVybCgnaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbS9jc3MyP2ZhbWlseT1PbGRlbmJ1cmcmZGlzcGxheT1zd2FwJyk7XG5cbmJvZHkge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgZm9udC1mYW1pbHk6ICdPbGRlbmJ1cmcnLCBjdXJzaXZlO1xufVxuXG5idXR0b24ge1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIHBhZGRpbmc6IDAuNzVlbSAxZW07XG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcbiAgbWFyZ2luOiAxMHB4O1xuICB3aWR0aDogZml0LWNvbnRlbnQ7XG4gIGZvbnQtc2l6ZTogMTRweDtcbn0gIFxuXG4uaG9tZXBhZ2Utc2VjdGlvbi10b3Age1xuICBwYWRkaW5nOiA1MHB4IDA7XG59XG5cbi5ob21lcGFnZS1zZWN0aW9uIHtcbiAgcGFkZGluZzogNzVweCAwO1xufSJdfQ== */
+
