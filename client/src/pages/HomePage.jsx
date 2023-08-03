@@ -17,7 +17,7 @@ const HomePage = () => {
       <p>Marketing YAY !!</p>
       <HomePageCTA onProfileSelection={onProfileSelection} />
       {/* <p className="text-center"> Already a member? <Link href="/src/compnents/LoginPage">Login</Link> Here!</p> */}
-      <p className="text-center"> Already a member? <Link to="/login">Login</Link> Here!</p>
+      <p className="text-center text-2xl"> Already a member? <Link to="/login">Login</Link> Here!</p>
       <p className="text-center"> Sign Up: <Link to="/signup">Here!</Link></p>
       {/* Other components and content as needed */}
     </div>
