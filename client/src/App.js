@@ -18,6 +18,8 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
+
+
 const httpLink = createHttpLink({
   uri: "http://localhost:3001/graphql",
 });
