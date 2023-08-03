@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
+import './index.css'
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql", // Replace with your server URL
