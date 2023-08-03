@@ -1,6 +1,12 @@
 // Import necessary libraries
 import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass, faTrowel, faUser } from '@fortawesome/free-solid-svg-icons'
+
+const searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} />
+const trowelIcon = <FontAwesomeIcon icon={faTrowel} />
+const userIcon = <FontAwesomeIcon icon={faUser} />
 
 const Nav = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -18,13 +24,13 @@ const Nav = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/search">Search</Link>
+              <Link to="/search">{ searchIcon }</Link>
             </li>
             <li>
-              <Link to="/jobs">Jobs</Link>
+              <Link to="/jobs">{ trowelIcon }</Link>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile">{ userIcon }</Link>
             </li>
             <li>
               <Link to="/profile-master">Profile Master</Link>
