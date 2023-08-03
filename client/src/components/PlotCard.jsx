@@ -5,15 +5,16 @@ import React from 'react';
 const PlotCard = ({ plot, onClick }) => {
   // The plot data is then displayed inside the component
   return (
-    <div key={plot.id} onClick={onClick}>
-      <img src={plot.image} alt={plot.name} />
-      <div>
-        <h5>{plot.name}</h5>
-        <h6>{plot.category}</h6>
-        <p>{plot.sqft} sqft</p>
-        <p>User: {plot.userID}</p>
-      </div>
-    </div>
+    <button key={plot.id} onClick={onClick} className="plot-card-button">
+  <img src={plot.image} alt={plot.name} />
+  <div>
+    <h5>{plot.name}</h5>
+    <h6>{plot.category}</h6>
+    <p>{plot.sqft} sqft</p>
+    <p>User: {plot.userID}</p>
+  </div>
+</button>
+
   );
 };
 

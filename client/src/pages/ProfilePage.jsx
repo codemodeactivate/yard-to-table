@@ -26,7 +26,7 @@ const ProfilePage = () => {
     <div>
       <h1>Your Plots</h1>
       {data.getPlots.map((plot) => (
-        <PlotCard key={plot.id} plot={plot} />
+        <PlotCard key={plot.id} plot={plot} onClick={() => toggleAddPlotModal(plot)} />
       ))}
       {showAddPlotModal && (
         <div className="modal">
@@ -38,7 +38,7 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
-           <button onClick={() => toggleAddPlotModal(null)}>+</button>
+      <button onClick={() => toggleAddPlotModal(null)}>+</button>
     </div>
   );
 };
