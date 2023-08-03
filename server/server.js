@@ -22,10 +22,12 @@ const app = express();
 //   };
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true
-  }));
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
+  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(bodyParser.json());
 
   app.use((req, res, next) => {
     // Check if it's a login request and skip authentication if so
@@ -40,10 +42,10 @@ app.use(cors({
 
     // Otherwise, check for a token and authenticate the user
     const token = req.headers.authorization;
-    if (!token) {
-      console.log('Token not found');
-      return res.status(401).json({ message: 'Not Authenticated' });
-    }
+    // if (!token) {
+    //   console.log('Token not found');
+    //   return res.status(401).json({ message: 'Not Authenticated' });
+    // }
 
     // ... validate the token and authenticate the user ...
 
@@ -52,8 +54,7 @@ app.use(cors({
 
 
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
 
 app.use((req, res, next) => {
     console.log('Request Details:');
