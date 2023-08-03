@@ -17,6 +17,13 @@ export const GET_USERS = gql`
       lastName
       address
       isGardener
+      gardenerProfile {
+        bio
+        rating
+        yearsExperience
+        cost
+        specialty
+      }
     }
   }
 `;

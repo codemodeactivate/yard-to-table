@@ -1,5 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-
+body {
+    @apply bg-gray-100; /* Adjust the shade as per your preference */
+  }

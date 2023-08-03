@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:css": "npx postcss src/index.css -o src/tailwind.css",
+    "build:css": "npx postcss client/src/index.css -o client/src/tailwind.css",
     "start": "react-app-rewired start",
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "concurrently": "^8.2.0",
     "nodemon": "^3.0.1",
+    "postcss-cli": "^10.1.0",
     "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.3.3"
   }
