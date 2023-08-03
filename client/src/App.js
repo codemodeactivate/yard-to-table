@@ -18,30 +18,29 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-    function App() {
-      return (
-        <div className="App flex flex-col min-h-screen">
-          <header className="App-header">
-            <Router>
-              <Nav />
-            </Router>
-          </header>
-          <div className="flex-grow">
-            <Router>
-              <Routes>
-                <Route path="/" exact element={<HomePage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/signup" element={<SignUpPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/profile-master" element={<MasterProfilePage />} />
-                <Route path="/search" element={<SearchPage />} />
-              </Routes>
-            </Router>
-          </div>
-          <Footer />
+function App() {
+  return (
+    <div className="App flex flex-col min-h-screen">
+      <Router>
+        <header className="App-header">
+          <Nav />
+        </header>
+        <div className="flex-grow">
+          <Routes>
+            <Route path="/" exact element={<HomePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/profile-master" element={<MasterProfilePage />} />
+            <Route path="/search" element={<SearchPage />} />
+          </Routes>
         </div>
-      );
-    }
+        <Footer />
+      </Router>
+    </div>
+  );
+}
+
     
 
 export default App;
