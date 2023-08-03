@@ -116,14 +116,14 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = model('User', userSchema);
-const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
-const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
+const gardenerProfile = model('GardenerProfile', gardenerProfileSchema);
+const homeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
 // Removing this as I moved it to the Plot.js model - MT
 // const Plot = model('Plot', plotSchema);
 
 
 module.exports = {
   User,
-  GardenerProfile,
-  HomeownerProfile,
+  gardenerProfile,
+  homeownerProfile,
 };
