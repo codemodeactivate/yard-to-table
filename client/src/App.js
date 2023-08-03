@@ -12,7 +12,6 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 
-
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql", // Replace with your server URL
   cache: new InMemoryCache(),
