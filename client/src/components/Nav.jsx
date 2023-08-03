@@ -1,8 +1,18 @@
 // Import necessary libraries
-import React from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
 
 const Nav = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const handleLogout = () => {
+    // remove token from localStorage
+    localStorage.removeItem('token');
+    // set loggedIn to false
+    setLoggedIn(false);
+    // redirect to home page
+    window.location.replace('/');
+  };
  
     return (
         <nav>
@@ -16,6 +26,16 @@ const Nav = () => {
             <li>
               <Link to="/profile">Profile</Link>
             </li>
+            {loggedIn ? ( // if logged in, show logout button
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          ) : (
+            // else show login button
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
            
           </ul>
         </nav>

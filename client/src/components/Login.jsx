@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 
-const LOGIN_MUTATION = gql`
+export const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
@@ -31,6 +31,10 @@ function LoginForm() {
       const { data } = await login({
         variables: { email, password },
       });
+
+      if(data && data.login && data.login.token) {
+        localStorage.setItem('token', data.login.token);
+      }
       // if successful redirect to user's profile page
       console.log('Login data:', data);
       window.location.replace('/profile');
