@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const SAVE_FORM_DATA_MUTATION = gql`
   mutation SaveFormData($input: SaveFormDataInput!) {
@@ -9,21 +9,18 @@ export const SAVE_FORM_DATA_MUTATION = gql`
   }
 `;
 
-
-
-
 export const CREATE_GARDENER_PROFILE = gql`
-mutation createGardenerProfile($input: GardenerProfileInput!) {
-  createGardenerProfile(input: $input) {
-    yearsExperience
-    specialty
-    areaServed
-    cost
-    bio
-    photo
+  mutation createGardenerProfile($input: GardenerProfileInput!) {
+    createGardenerProfile(input: $input) {
+      yearsExperience
+      specialty
+      areaServed
+      cost
+      bio
+      photo
+    }
   }
-}
-`
+`;
 
 export const GET_USERS = gql`
   query GetUsers($isGardener: Boolean, $firstName: String) {
@@ -54,21 +51,21 @@ export const ADD_NEW_PLOT_MUTATION = gql`
 `;
 
 export const GET_GARDENERS = gql`
-query GetGardeners {
-  getAllGardeners {
-    id
-    firstName
-    lastName
-    gardenerProfile {
-      yearsExperience
-      specialty
-      areaServed
-      rating
-      cost
-      bio
+  query GetGardeners {
+    getAllGardeners {
+      id
+      firstName
+      lastName
+      gardenerProfile {
+        yearsExperience
+        specialty
+        areaServed
+        rating
+        cost
+        bio
+      }
     }
   }
-}
 `;
 
 export const GET_PLOTS = gql`
@@ -110,14 +107,14 @@ export const EDIT_PLOT = gql`
   }
 `;
 export const SIGN_UP_MUTATION = gql`
-mutation signUp($input: signUpInput!) {
-  signUp(input: $input) {
-    firstName
-    lastName
-    email
-    token
+  mutation signUp($input: signUpInput!) {
+    signUp(input: $input) {
+      firstName
+      lastName
+      email
+      token
+    }
   }
-}
 `;
 
 export const LOGIN_MUTATION = gql`
