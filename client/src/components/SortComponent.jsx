@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { IconRating, IconExperience, IconCost, IconUp, IconDown } from "./Assets/Icons";
+
 
 const FilterComponent = ({ onFilterChange }) => {
     const [filters, setFilters] = useState([

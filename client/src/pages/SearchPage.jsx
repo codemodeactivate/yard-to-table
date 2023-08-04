@@ -7,46 +7,60 @@ import { GET_ALL_GARDENERS } from "../utils/mutations";
 import SortComponent from "../components/SortComponent";
 
 const SearchPage = () => {
-    const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
-    const [selectedSpecialties, setSelectedSpecialties] = useState([]);
-    const [ratingRange, setRatingRange] = useState([0, 5]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [filteredGardeners, setFilteredGardeners] = useState([]);
+  const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
+  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [ratingRange, setRatingRange] = useState([0, 5]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredGardeners, setFilteredGardeners] = useState([]);
+  const [sortOption, setSortOption] = useState({ option: "", direction: "down" });
 
-    useEffect(() => {
-        if (loading || error || !data || !data.getAllGardeners) return;
+  const handleSortChange = (selectedSort) => {
+    setSortOption(selectedSort);
+  };
 
-        let tempGardeners = data.getAllGardeners;
+  useEffect(() => {
+    if (loading || error || !data || !data.getAllGardeners) return;
 
-        // Apply the search term filter
-        if (searchTerm !== "") {
-            tempGardeners = tempGardeners.filter(
-                (gardener) =>
-                    gardener.firstName.includes(searchTerm) ||
-                    gardener.lastName.includes(searchTerm)
-            );
-        }
+    let tempGardeners = data.getAllGardeners;
 
-        // Apply the specialties filter
-        if (selectedSpecialties.length > 0) {
-            tempGardeners = tempGardeners.filter((gardener) =>
-                selectedSpecialties.some((specialty) =>
-                    gardener.gardenerProfile.specialty.includes(specialty)
-                )
-            );
-        }
+    // Apply the search term filter
+    if (searchTerm !== "") {
+      tempGardeners = tempGardeners.filter((gardener) =>
+        gardener.firstName.includes(searchTerm) ||
+        gardener.lastName.includes(searchTerm)
+      );
+    }
 
-        // Apply the rating range filter
-        tempGardeners = tempGardeners.filter(
-            (gardener) =>
-                gardener.gardenerProfile.rating >= ratingRange[0] &&
-                gardener.gardenerProfile.rating <= ratingRange[1]
-        );
+    // Apply the specialties filter
+    if (selectedSpecialties.length > 0) {
+      tempGardeners = tempGardeners.filter((gardener) =>
+        selectedSpecialties.some((specialty) =>
+          gardener.gardenerProfile.specialty.includes(specialty)
+        )
+      );
+    }
 
-        setFilteredGardeners(tempGardeners);
-    }, [searchTerm, selectedSpecialties, ratingRange, data]);
+    // Apply the rating range filter
+    tempGardeners = tempGardeners.filter(
+      (gardener) =>
+        gardener.gardenerProfile.rating >= ratingRange[0] &&
+        gardener.gardenerProfile.rating <= ratingRange[1]
+    );
 
-    return (
+    // Apply the sorting logic if there's a sort option selected
+    if (sortOption.option) {
+      tempGardeners.sort((a, b) => {
+        const valueA = a.gardenerProfile[sortOption.option];
+        const valueB = b.gardenerProfile[sortOption.option];
+        return sortOption.direction === "down" ? valueB - valueA : valueA - valueB;
+      });
+    }
+
+    setFilteredGardeners(tempGardeners);
+  }, [searchTerm, selectedSpecialties, ratingRange, sortOption, data, loading, error]);
+
+
+  return (
         <div id="gardener-search-with-multi-filter">
             <h1 className="text-4xl text-yard-red text-center my-8">
                 Gardeners
@@ -59,7 +73,12 @@ const SearchPage = () => {
                         ratingRange={ratingRange}
                         setRatingRange={setRatingRange}
                     />
+
+                    {/* Sthe following is the rating high to low, price high to low, experience high to low sort */}
+                    <SortComponent onSortChange={handleSortChange}/>
+
                 </div>
+
                 <div className="w-3/4 p-4">
                     <GardenerSearch
                         gardeners={filteredGardeners}
@@ -69,8 +88,7 @@ const SearchPage = () => {
                         setSearchTerm={setSearchTerm}
                     />
                 </div>
-                {/* Sthe following is the rating high to low, price high to low, experience high to low sort */}
-                <SortComponent onSortChange={handleSortChange}/>
+
 
 
 
