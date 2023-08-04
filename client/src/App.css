@@ -125,5 +125,5 @@ form input::placeholder {
   right: 10px;
   cursor: pointer;
   font-size: 20px;
-  color: #333;
+  color: var(--yard-gray);
 }

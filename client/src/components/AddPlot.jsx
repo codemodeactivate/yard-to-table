@@ -91,8 +91,6 @@ const AddPlot = ({ plot }) => {
           onChange={(e) => setImage(e.target.value)}
           placeholder="Upload a photo"
         />
-        {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
-        <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
         <button className="bg-yard-orange text-white" type="submit">Save</button>
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}

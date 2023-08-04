@@ -32,7 +32,7 @@ const ProfilePage = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close-button" onClick={() => toggleAddPlotModal(null)}>
-              &times;
+              X
             </span>
             <AddPlot plot={selectedPlot} />
           </div>
