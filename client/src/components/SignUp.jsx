@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { SIGN_UP_MUTATION } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../utils/AuthContext';
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const { setLoggedIn } = useAuth();
   // Manage form inputs
   const [formData, setFormData] = useState({
     firstName: "",
@@ -56,6 +58,7 @@ const SignUpForm = () => {
       console.log("Sign-up successful!");
       // Save the token to local storage
       localStorage.setItem("token", data.signUp.token);
+      setLoggedIn(true);
       navigate('/profile'); // Redirect to profile page after signup
     } else {
       console.log("Sign-up failed. Please try again.");
