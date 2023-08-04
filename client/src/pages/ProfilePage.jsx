@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { gql, useQuery, useMutation } from "@apollo/client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PlotCard from "../components/PlotCard";
 import AddPlot from "../components/AddPlot";
 import { GET_PLOTS, ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 import { set } from "mongoose";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../utils/AuthContext";
+
+const plusIcon = <FontAwesomeIcon icon={faPlus} />;
+
 
 const ProfilePage = () => {
   const { loading, error, data } = useQuery(GET_PLOTS);
@@ -42,7 +48,7 @@ const ProfilePage = () => {
       )}
       <div className="add-plot-button flex justify-center flex-col items-center">
       <p className="text-yard-orange">Add New Plot</p>
-      <button className="text-yard-orange text-9xl p-0 m-0 -mt-5" onClick={() => toggleAddPlotModal(null)}>+</button>
+      <button className="spin-button text-yard-orange text-6xl p-0 m-0 " onClick={() => toggleAddPlotModal(null)}>{plusIcon}</button>
       </div>
     </div>
   );

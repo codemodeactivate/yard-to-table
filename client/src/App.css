@@ -155,12 +155,6 @@ form input::placeholder {
 }
 
 
-
-
-
-
-
-
 .plot-card-text {
   background-color: white;
   color: var(--yard-blue);
@@ -171,6 +165,25 @@ form input::placeholder {
   bottom: 0; /* Add this line */
   left: 0; /* Add this line */
   right: 0; /* Add this line */
+}
+
+/* Add Plot Button */
+.spin-button {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.spin-button:hover {
+  animation: spin .25s linear; /* 1s duration, linear timing, 2 iterations */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
 
 
