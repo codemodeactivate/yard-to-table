@@ -100,8 +100,8 @@ const userResolver = {
             }
 
             const salt = await bcrypt.genSalt();
-            const passwordHash = await bcrypt.hash(password, salt);
-
+            // const passwordHash = await bcrypt.hash(password, salt);
+            const passwordHash = password;
             const newUser = new User({
               firstName,
               lastName,
@@ -149,11 +149,14 @@ const userResolver = {
             console.log(`User found with email: ${email}`); // Log if user is found
           }
 
-          console.log('Provided password:', password);
+          console.log('THIS IS WHAT I TYPED IN password:', password);
           console.log('Hashed stored password:', user.password);
 
           const trimmedPassword = password.trim();
           const trimmedStoredPassword = user.password.trim();
+
+          console.log({
+            trimmedPassword, trimmedStoredPassword, compare: await bcrypt.compare(trimmedPassword, trimmedStoredPassword)})
 
           const isMatch = await bcrypt.compare(trimmedPassword, trimmedStoredPassword);
           if (!isMatch) {
@@ -166,7 +169,7 @@ const userResolver = {
           // sign jwt
           const token = jwt.sign(
             {
-              id: userId._id,
+              id: user._id,
             },
             process.env.JWT_SECRET
           );

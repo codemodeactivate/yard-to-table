@@ -47,6 +47,7 @@ function App() {
       <div className="App flex flex-col min-h-screen">
         <Router>
           <header className="App-header">
+
             <Nav />
           </header>
           <Routes>

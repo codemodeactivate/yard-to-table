@@ -1,16 +1,40 @@
-// Import necessary libraries
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTrowel } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-
+import { useAuth } from "../utils/AuthContext";
 const searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const trowelIcon = <FontAwesomeIcon icon={faTrowel} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 
 const Nav = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { loggedIn, setLoggedIn } = useAuth();
+
+  // useEffect(() => {
+  //   // check localStorage for token
+  //   const token = localStorage.getItem("token");
+  //   // if token is found, set loggedIn to true
+  //   setLoggedIn(!!token);
+  // }, []);
+
+  // useEffect(() => {
+  //   // Listen for changes in the localStorage "token" key
+  //   const handleStorageChange = (event) => {
+  //     if (event.key === "token") {
+  //       // if token is found, set loggedIn to true
+  //       setLoggedIn(!!localStorage.getItem("token"));
+  //     }
+  //   };
+
+  //   // Add event listener for "storage" event
+  //   window.addEventListener("storage", handleStorageChange);
+
+  //   // Clean up the event listener when the component is unmounted
+  //   return () => {
+  //     window.removeEventListener("storage", handleStorageChange);
+  //   };
+  // }, []);
 
   const handleLogout = () => {
     // remove token from localStorage
@@ -52,5 +76,4 @@ const Nav = () => {
   );
 };
 
-// Export the Nav component so it can be imported and used in other files
 export default Nav;
