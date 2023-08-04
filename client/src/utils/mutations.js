@@ -22,7 +22,7 @@ export const CREATE_GARDENER_PROFILE = gql`
   }
 `;
 
-export const GET_USER = gql`
+export const GET_USERS = gql`
   query GetUsers($isGardener: Boolean, $firstName: String) {
     getUsers(isGardener: $isGardener, firstName: $firstName) {
       id
