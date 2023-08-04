@@ -174,7 +174,7 @@ const userResolver = {
           // sign jwt
           const token = jwt.sign(
             {
-              id: userId._id,
+              id: user._id,
             },
             process.env.JWT_SECRET
           );
