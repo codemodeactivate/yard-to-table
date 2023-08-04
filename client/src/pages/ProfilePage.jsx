@@ -40,7 +40,10 @@ const ProfilePage = () => {
           </div>
         </div>
       )}
-      <button onClick={() => toggleAddPlotModal(null)}>+</button>
+      <div className="add-plot-button flex justify-center flex-col items-center">
+      <p className="text-yard-orange">Add New Plot</p>
+      <button className="text-yard-orange text-9xl p-0 m-0 -mt-5" onClick={() => toggleAddPlotModal(null)}>+</button>
+      </div>
     </div>
   );
 };
