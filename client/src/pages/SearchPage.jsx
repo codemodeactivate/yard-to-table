@@ -48,7 +48,7 @@ const SearchPage = () => {
     <div id="gardener-search-with-multi-filter">
       <h1 className="text-4xl text-yard-red text-center my-8">Gardeners</h1>
       <div className="flex">
-      <div className="w-1/4 p-4">
+      <div className="w-1/4 p-4 flex flex-col items-center text-center">
         <MultiFilters
           selectedSpecialties={selectedSpecialties}
           setSelectedSpecialties={setSelectedSpecialties}

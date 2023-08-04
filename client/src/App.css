@@ -242,9 +242,29 @@ form input::placeholder {
 .icon-checkbox {
   opacity: 0.4; /* Opacity for unselected checkbox */
   transition: opacity 0.3s ease; /* Transition effect */
-  color: var(--yard-gray);
+  /* display: inline-block; */
+}
+
+.icon-checkbox .icon {
+  color: var(--yard-gray); /* Color for unselected icon */
+}
+
+.icon-checkbox .name {
+  color: var(--yard-gray); /* Color for unselected name */
 }
 
 .hidden-checkbox:checked + .icon-checkbox {
-  opacity: 100; /* Opacity for selected checkbox */
+  opacity: 1; /* Opacity for selected checkbox */
 }
+
+.hidden-checkbox:checked + .icon-checkbox .icon {
+  color: var(--yard-green); /* Color for selected icon */
+}
+
+.hidden-checkbox:checked + .icon-checkbox .name {
+  color: var(--yard-orange); /* Color for selected name */
+}
+
+/* .specialty-name::first-letter {
+  text-transform: capitalize;
+} */
