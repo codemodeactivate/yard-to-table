@@ -1,49 +1,73 @@
 // SearchPage.jsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import GardenerSearch from './../components/GardenerSearch';
-const SearchPage = () => (
-  <div>
-    <h1>Search Page</h1>
-    {/* Figure we can reuse this and present gardenersearch if that's what they want to do or if it's a homeowner logged in or something.  */}
-    <GardenerSearch />
-    {/* Other components or features can be added here */}
-  </div>
-);
+import MultiFilters from './../components/MultiFilters';
+import { GET_ALL_GARDENERS } from "../utils/mutations";
+
+const SearchPage = () => {
+  const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
+  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [ratingRange, setRatingRange] = useState([0, 5]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredGardeners, setFilteredGardeners] = useState([]);
+
+  useEffect(() => {
+    if (loading || error || !data || !data.getAllGardeners) return;
+
+    let tempGardeners = data.getAllGardeners;
+
+    // Apply the search term filter
+    if (searchTerm !== '') {
+      tempGardeners = tempGardeners.filter((gardener) =>
+        gardener.firstName.includes(searchTerm) ||
+        gardener.lastName.includes(searchTerm)
+      );
+    }
+
+    // Apply the specialties filter
+    if (selectedSpecialties.length > 0) {
+      tempGardeners = tempGardeners.filter((gardener) =>
+        selectedSpecialties.some((specialty) =>
+          gardener.gardenerProfile.specialty.includes(specialty)
+        )
+      );
+    }
+
+    // Apply the rating range filter
+    tempGardeners = tempGardeners.filter(
+      (gardener) =>
+        gardener.gardenerProfile.rating >= ratingRange[0] &&
+        gardener.gardenerProfile.rating <= ratingRange[1]
+    );
+
+    setFilteredGardeners(tempGardeners);
+  }, [searchTerm, selectedSpecialties, ratingRange, data]);
+
+  return (
+    <div id="gardener-search-with-multi-filter">
+      <h1 className="text-4xl text-yard-red text-center my-8">Gardeners</h1>
+      <div className="flex">
+      <div className="w-1/4 p-4">
+        <MultiFilters
+          selectedSpecialties={selectedSpecialties}
+          setSelectedSpecialties={setSelectedSpecialties}
+          ratingRange={ratingRange}
+          setRatingRange={setRatingRange}
+        />
+      </div>
+      <div className="w-3/4 p-4">
+        <GardenerSearch
+          gardeners={filteredGardeners}
+          loading={loading}
+          error={error}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      </div>
+    </div>
+    </div>
+  );
+};
 
 export default SearchPage;
-
-
-
-
-
-// import React from 'react';
-// import { gql, useQuery } from '@apollo/client';
-
-// import UserCard from '../components/UserCard';
-// import { GET_USERS } from "../utils/mutations";
-
-
-
-// const SearchPage = () => {
-//   const { loading, error, data } = useQuery(GET_USERS);
-
-//   if (loading) return <p>Loading...</p>;
-//   if (error) {
-//     console.log('Error message:' , error.message);
-//     console.log('Full error object:' , error);
-//     console.log('Network error:', error.networkError);
-//     console.log('GraphQL errors:', error.graphQLErrors);
-//     return <p>Error :(</p>;
-//   }
-
-//   return (
-//     <div>
-//       <h1>Users</h1>
-//       {data.getUsers.filter(user => user.isGardener).map((user) => (
-//         <UserCard key={user.id} user={user} />
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default SearchPage;

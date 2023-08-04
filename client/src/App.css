@@ -24,7 +24,7 @@ button {
   margin: 10px;
   width: fit-content;
   font-size: 14px;
-}  
+}
 
 .homepage-section-top {
   padding: 50px 0;
@@ -44,29 +44,29 @@ nav ul li {
 
 #nav-search:hover::after {
   content: "Search";
-  position: absolute; 
-  top: 100%; 
+  position: absolute;
+  top: 100%;
   left: 50%; /* Move the content to the center of the li */
   transform: translateX(-50%);
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 #nav-jobs:hover::after {
   content: "Jobs";
-  position: absolute; 
-  top: 100%; 
+  position: absolute;
+  top: 100%;
   left: 50%; /* Move the content to the center of the li */
   transform: translateX(-50%);
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 #nav-profile:hover::after {
   content: "Profile";
-  position: absolute; 
-  top: 100%; 
+  position: absolute;
+  top: 100%;
   left: 50%; /* Move the content to the center of the li */
   transform: translateX(-50%);
-  font-size: 1rem; 
+  font-size: 1rem;
 }
 
 /* Form Styling */
@@ -111,14 +111,14 @@ form input::placeholder {
   align-items: center;
   height: 100%;
   width: 100%;
-  position: relative; 
+  position: relative;
 }
 
 .plot-card-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  transition: opacity 0.3s; 
+  transition: opacity 0.3s;
 }
 
 .plot-card-text {
@@ -138,15 +138,15 @@ form input::placeholder {
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  color: transparent; 
+  color: transparent;
   font-weight: bold;
-  background: rgba(0, 0, 0, 0); 
+  background: rgba(0, 0, 0, 0);
   width: 100%;
   height: 146px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s, color 0.3s; 
+  transition: background 0.3s, color 0.3s;
 }
 
 .plot-card-button:hover::after {
@@ -158,7 +158,7 @@ form input::placeholder {
 .plot-card-text {
   background-color: white;
   color: var(--yard-blue);
-  
+
   padding: 5px;
   text-align: left;
   position: absolute; /* Add this line */
@@ -204,7 +204,7 @@ form input::placeholder {
 }
 
 .plot-modal {
- padding: 30px 0; 
+ padding: 30px 0;
 }
 
 .modal-content {
@@ -227,3 +227,24 @@ form input::placeholder {
   color: var(--yard-gray);
 }
 
+/* GARDENER SEARCH CHECKBOX FILTER */
+
+.icon-checkbox-label {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.hidden-checkbox {
+  display: none;
+}
+
+.icon-checkbox {
+  opacity: 0.4; /* Opacity for unselected checkbox */
+  transition: opacity 0.3s ease; /* Transition effect */
+  color: var(--yard-gray);
+}
+
+.hidden-checkbox:checked + .icon-checkbox {
+  opacity: 100; /* Opacity for selected checkbox */
+}
