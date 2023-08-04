@@ -49,11 +49,27 @@ async function seedUsers() {
       const userDocument = await User.create(user);
 
       if (i % 2 === 0) {
+        let specialty;
 
+      switch (i % 3) {
+        case 0:
+          specialty = ['vegetable'];
+          break;
+        case 1:
+          specialty = ['pollinator'];
+          break;
+        case 2:
+          specialty = ['vegetable', 'pollinator'];
+          break;
+        default:
+          specialty = [];
+          break;
+      }
+      //gardeners can have more than one specialty or none at all
         gardenerProfileDocument = await gardenerProfile.create({
           yearsExperience: i * 2,
           areaServed: [`Area ${i}`],
-          specialty: i % 2 === 0 ? ['vegetable'] : ['pollinator'], // Example logic,
+          specialty: specialty,  // Example logic,
           rating: i % 5,
           cost: (i * 10) + 50, // Example cost calculation
           bio: `This is a sample bio for gardener number ${i}. Add more specific details here.`, // Example bio
