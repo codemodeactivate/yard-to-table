@@ -1,5 +1,6 @@
 // MultiFilters.jsx
 import React from "react";
+
 import { GiCorn, GiButterfly } from "react-icons/gi";
 const MultiFilters = ({
     selectedSpecialties,
