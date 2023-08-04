@@ -111,48 +111,48 @@ form input::placeholder {
   align-items: center;
   height: 100%;
   width: 100%;
-  position: relative; /* Add this line */
+  position: relative; 
 }
 
 .plot-card-image {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  transition: opacity 0.3s; /* Add this line for smooth transition */
+  transition: opacity 0.3s; 
 }
 
 .plot-card-text {
   background-color: white;
   padding: 5px;
-  text-align: center;
+  text-align: left;
   position: absolute;
+  color: var(--yard-blue);
   bottom: 0;
   left: 0;
   right: 0;
 }
 
-.plot-card-container::after {
+.plot-card-button::after {
   content: "Edit";
   position: absolute;
   top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  color: transparent; /* Transparent by default */
+  color: transparent; 
   font-weight: bold;
-  background: rgba(0, 0, 0, 0); /* Transparent by default */
+  background: rgba(0, 0, 0, 0); 
   width: 100%;
   height: 146px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: background 0.3s, color 0.3s; /* Add this line for smooth transition */
+  transition: background 0.3s, color 0.3s; 
 }
 
-.plot-card-container:hover::after {
+.plot-card-button:hover::after {
   background: rgba(0, 0, 0, 0.5); /* Dark overlay on hover */
   color: white; /* Text becomes visible on hover */
 }
-This code combines the dark overlay and the "Edit" text into a single ::after pseudo-element. The text is transparent by default and becomes visible when the container is hovered, along with the dark overlay. The overlay and text are both centered within the image area, and the transition is smooth.
 
 
 

@@ -24,8 +24,8 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <h1>Your Plots</h1>
-      <div className="plot-list flex space-x-4 space-y-4 flex-wrap justify-center">
+      <h1 className="text-4xl text-yard-red text-center my-8">Your Plots</h1>
+      <div className="plot-list flex space-x-4 flex-wrap justify-center">
       {data.getPlots.map((plot) => (
         <PlotCard key={plot.id} plot={plot} onClick={() => toggleAddPlotModal(plot)} />
       ))}
