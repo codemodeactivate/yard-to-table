@@ -18,6 +18,10 @@ const SearchPage = () => {
     setSortOption(selectedSort);
   };
 
+  // const handleFilterChange = (filter) => {
+  //   console.log('Filter Changed: ', filter);
+  // };
+
   useEffect(() => {
     if (loading || error || !data || !data.getAllGardeners) return;
 
