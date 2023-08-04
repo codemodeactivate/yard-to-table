@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from "../utils/mutations";
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../utils/AuthContext';
+
 
 const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_MUTATION);
   const navigate = useNavigate(); // Use the useNavigate hook
-
+  const { setLoggedIn } = useAuth();
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,9 +32,12 @@ const LoginForm = (props) => {
         }
       });
 
+
+
+
       if (data && data.login && data.login.token) {
         localStorage.setItem('token', data.login.token);
-
+        setLoggedIn(true);
         // Redirect user to the /profile page
         navigate('/profile');
       }
