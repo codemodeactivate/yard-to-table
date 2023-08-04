@@ -6,7 +6,7 @@ const PlotCard = ({ plot, onClick }) => {
   // The plot data is then displayed inside the component
   return (
     <button key={plot.id} onClick={onClick} className="plot-card-button">
-  <img src={plot.image} alt={plot.name} />
+  <img src="https://i.stack.imgur.com/IUbDq.jpg" alt={plot.name} />
   <div>
     <h5>{plot.name}</h5>
     <h6>{plot.category}</h6>
