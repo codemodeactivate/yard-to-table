@@ -1,7 +1,7 @@
 import React from 'react';
 
 const GardenerCard = ({ user }) => {
-  console.log("User:", user);
+  // console.log("User:", user);
     const renderCostSymbol = (cost) => {
         if (cost >= 10 && cost <= 30) return '$';
         if (cost >= 31 && cost <= 60) return '$$';

@@ -265,6 +265,15 @@ form input::placeholder {
   color: var(--yard-orange); /* Color for selected name */
 }
 
+
+.active-sort .icon,
+.active-sort .name {
+  color: var(--yard-blue) !important;
+}
+.inactive-sort .icon,
+.inactive-sort .name {
+  color: var(--yard-gray) !important;
+}
 /* .specialty-name::first-letter {
   text-transform: capitalize;
 } */
