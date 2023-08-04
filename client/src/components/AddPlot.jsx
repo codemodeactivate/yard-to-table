@@ -14,7 +14,8 @@ const AddPlot = ({ plot }) => {
   const [address, setAddress] = useState(plot ? plot.address : "");
   const [sqft, setSqft] = useState(plot ? plot.sqft : 0);
   const [category, setCategory] = useState(plot ? plot.category : "");
-  // const [image, setImage] = useState("");
+  const [zip, setZip] = useState(plot ? plot.zip : "");
+  const [image, setImage] = useState("");
   // const [userID, setUserID] = useState("");
 
   const handleCreatePlot = async (event) => {
@@ -25,7 +26,8 @@ const AddPlot = ({ plot }) => {
       address,
       sqft: Number(sqft), // Convert sqft to a number
       category,
-      // image,
+      zip,
+      image,
       // userID
     };
 
@@ -51,35 +53,47 @@ const AddPlot = ({ plot }) => {
 
   return (
     <div>
-      <h1>{plot ? "Edit Plot" : "Add New Plot"}</h1>
-      <form onSubmit={handleCreatePlot}>
+      <h1 className="text-yard-red text-center">{plot ? "Edit Plot" : "Add New Plot"}</h1>
+      <form className="flex flex-col items-center" onSubmit={handleCreatePlot}>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
+          placeholder="Plot Name"
+        />
+        <input
+          type="text"
+          value={zip}
+          onChange={(e) => setZip(e.target.value)}
+          placeholder="Zip Code"
         />
         <input
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-          placeholder="Address"
+          placeholder="Street Address"
         />
         <input
           type="number"
           value={sqft}
           onChange={(e) => setSqft(e.target.value)}
-          placeholder="Sqft"
+          placeholder="Lot Square Footage"
         />
         <input
           type="text"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          placeholder="Category"
+          placeholder="Garden Type"
+        />
+         <input
+          type="text"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+          placeholder="Upload a photo"
         />
         {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
         <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
-        <button type="submit">Create Plot</button>
+        <button type="submit">Save</button>
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
     </div>
