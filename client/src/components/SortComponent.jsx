@@ -5,9 +5,9 @@ import { IconRating, IconExperience, IconCost, IconUp, IconDown } from "./Assets
 const SortComponent = ({ onSortChange }) => {
     // console.log("Sort Rating: ", user)
     const [sorts, setSorts] = useState([
-      { name: "Rating", icon: IconRating, direction: "down" },
-      { name: "Experience", icon: IconExperience, direction: "down" },
-      { name: "Cost", icon: IconCost, direction: "down" },
+      { name: "rating", icon: IconRating, direction: "down" },
+      { name: "yearsExperience", icon: IconExperience, direction: "up" },
+      { name: "cost", icon: IconCost, direction: "up" },
     ]);
 
     const handleSortChange = (index) => {
@@ -16,7 +16,7 @@ const SortComponent = ({ onSortChange }) => {
         newSorts[index].direction === "down" ? "up" : "down";
 
       setSorts(newSorts);
-      onSortChange({ option: newSorts[index].name.toLowerCase(), direction: newSorts[index].direction });// Call the prop function with the updated sort object
+      onSortChange({ option: newSorts[index].name, direction: newSorts[index].direction });// Call the prop function with the updated sort object
     };
 
     return (
@@ -29,7 +29,7 @@ const SortComponent = ({ onSortChange }) => {
           >
             <sort.icon className="mr-2" /> {/* Sort Icon */}
             {sort.name} {/* Sort Name */}
-            {sort.direction === "down" ? <IconDown /> : <IconUp />} {/* Direction Icon */}
+            {sort.direction === "down" ? <IconUp /> : <IconDown />} {/* Direction Icon */}
           </button>
         ))}
       </div>

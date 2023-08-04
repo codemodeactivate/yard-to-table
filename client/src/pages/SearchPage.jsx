@@ -12,7 +12,7 @@ const SearchPage = () => {
   const [ratingRange, setRatingRange] = useState([0, 5]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGardeners, setFilteredGardeners] = useState([]);
-  const [sortOption, setSortOption] = useState({ option: "", direction: "down" });
+  const [sortOption, setSortOption] = useState({ option: "rating", direction: "down" });
 
   const handleSortChange = (selectedSort) => {
     setSortOption(selectedSort);
