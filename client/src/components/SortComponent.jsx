@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { IconRating, IconExperience, IconCost, IconUp, IconDown } from "./Assets/Icons";
 
 const SortComponent = ({ onSortChange }) => {
+    // console.log("Sort Rating: ", user)
     const [sorts, setSorts] = useState([
       { name: "Rating", icon: IconRating, direction: "down" },
       { name: "Experience", icon: IconExperience, direction: "down" },
@@ -15,7 +16,7 @@ const SortComponent = ({ onSortChange }) => {
         newSorts[index].direction === "down" ? "up" : "down";
 
       setSorts(newSorts);
-      onSortChange(newSorts[index]); // Call the prop function with the updated sort object
+      onSortChange({ option: newSorts[index].name.toLowerCase(), direction: newSorts[index].direction });// Call the prop function with the updated sort object
     };
 
     return (
