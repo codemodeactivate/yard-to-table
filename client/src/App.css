@@ -89,6 +89,105 @@ form input::placeholder {
   text-align: center;
 }
 
+/* Plot Card */
+
+.plot-card-container {
+  max-height: 200px;
+  max-width: 300px;
+  border: 1px solid var(--yard-blue);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+
+.plot-card-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative; 
+}
+
+.plot-card-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s; 
+}
+
+.plot-card-text {
+  background-color: white;
+  padding: 5px;
+  text-align: left;
+  position: absolute;
+  color: var(--yard-blue);
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.plot-card-button::after {
+  content: "Edit";
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: transparent; 
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0); 
+  width: 100%;
+  height: 146px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s, color 0.3s; 
+}
+
+.plot-card-button:hover::after {
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay on hover */
+  color: white; /* Text becomes visible on hover */
+}
+
+
+.plot-card-text {
+  background-color: white;
+  color: var(--yard-blue);
+  
+  padding: 5px;
+  text-align: left;
+  position: absolute; /* Add this line */
+  bottom: 0; /* Add this line */
+  left: 0; /* Add this line */
+  right: 0; /* Add this line */
+}
+
+/* Add Plot Button */
+.spin-button {
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.spin-button:hover {
+  animation: spin .25s linear; /* 1s duration, linear timing, 2 iterations */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+
+
 /* Add Plot Modal */
 
 .modal {
@@ -127,3 +226,4 @@ form input::placeholder {
   font-size: 20px;
   color: var(--yard-gray);
 }
+
