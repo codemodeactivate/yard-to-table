@@ -7,7 +7,7 @@ import { GET_ALL_GARDENERS } from "../utils/mutations";
 const GardenerSearch = () => {
   const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
   const [searchTerm, setSearchTerm] = useState('');
-
+  console.log("GARDENER SEARCH DATA", data);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
@@ -17,15 +17,28 @@ const GardenerSearch = () => {
   }
 
   const handleSearch = (value) => {
-    setSearchTerm(value);
+    setSearchTerm(value.toLowerCase());
+
+
+
   };
 
   const filteredGardeners = data.getAllGardeners.filter((gardener) => {
-    if (!gardener.firstName) return false; // Exclude gardeners without a name
+    console.log("Gardener Search Specialty: ", gardener.gardenerProfile.specialty)
+    if (!gardener.firstName || !gardener.lastName) return false; // Exclude gardeners without a full name
+    const firstName = gardener.firstName.toLowerCase();
+    const lastName = gardener.lastName.toLowerCase();
+    const specialtyMatches = gardener.gardenerProfile.specialty.some((specialty) =>
+    specialty.toLowerCase().includes(searchTerm)
+  );
+
+
     return (
       searchTerm === '' ||
-      gardener.firstName.includes(searchTerm) ||
-      gardener.lastName.includes(searchTerm)
+      firstName.includes(searchTerm) ||
+      lastName.includes(searchTerm) ||
+      specialtyMatches
+
     );
   });
 
@@ -35,7 +48,7 @@ const GardenerSearch = () => {
     <div>
       <h1>Gardeners</h1>
       <SearchComponent
-        placeholder="Search for Gardeners..."
+        placeholder="Name, Specialty"
         onSearch={handleSearch}
       />
 

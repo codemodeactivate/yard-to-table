@@ -10,13 +10,15 @@ const GardenerCard = ({ user }) => {
         return 'N/A';
     };
     const renderSpecialtyIcon = () => {
-        if (user.gardenerProfile.specialty.includes('vegetable')) {
-          return <span className="text-yard-green mr-2">🌽</span>; // Vegetable Icon
+      return user.gardenerProfile.specialty.map((specialty) => {
+        if (specialty === 'vegetable') {
+          return <span key={specialty} className="text-yard-green mr-2">🌽</span>; // Vegetable Icon
         }
-        if (user.gardenerProfile.specialty.includes('pollinator')) {
-          return <span className="text-yard-green mr-2">🦋</span>; // Pollinator Icon
+        if (specialty === 'pollinator') {
+          return <span key={specialty} className="text-yard-green mr-2">🦋</span>; // Pollinator Icon
         }
         return null;
+      });
       };
 
 
