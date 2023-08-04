@@ -79,7 +79,7 @@ const SearchPage = () => {
                     />
 
                     {/* Sthe following is the rating high to low, price high to low, experience high to low sort */}
-                    <SortComponent onSortChange={handleSortChange}/>
+                    <SortComponent onSortChange={handleSortChange} sortOption={sortOption}/>
 
                 </div>
 
