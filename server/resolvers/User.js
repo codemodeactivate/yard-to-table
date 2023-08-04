@@ -19,23 +19,23 @@ console.log("Resolver file loaded");
 // console.log("User.save method: ", User.save);
 // console.log(process.env.JWT_SECRET);
 //GLOBAL QUERIES//
-const getAllUsers = async () => {
-  try {
-    return await User.find({});
-  } catch (err) {
-    console.error(`Error retrieving users: ${err}`);
-    throw new Error('Failed to retrieve users');
-  }
-};
+// const getAllUsersMain = async () => {
+//   try {
+//     return await User.find({});
+//   } catch (err) {
+//     console.error(`Error retrieving users: ${err}`);
+//     throw new Error('Failed to retrieve users');
+//   }
+// };
 
-const getAllGardeners = async () => {
-  try {
-    return await User.find({ isGardener: true }).populate('gardenerProfile');
-  } catch (err) {
-    console.error(`Error retrieving gardeners: ${err}`);
-    throw new Error('Failed to retrieve gardeners');
-  }
-};
+// const getAllGardeners = async () => {
+//   try {
+//     return await User.find({ isGardener: true }).populate('gardenerProfile');
+//   } catch (err) {
+//     console.error(`Error retrieving gardeners: ${err}`);
+//     throw new Error('Failed to retrieve gardeners');
+//   }
+// };
 
 const getAllHomeowners = async () => {
   try {
@@ -59,12 +59,17 @@ const userResolver = {
             return await User.findById(id);
         },
         // Get all users
-        getUsers: async (parent, args, context, info) => {
-            return await getAllUsers();
-          },
+        getAllUsers: async () => {
+            return await User.find({});
+        },
 
           getAllGardeners: async (parent, args, context, info) => {
-            return await getAllGardeners();
+            try {
+              return await User.find({ isGardener: true }).populate('gardenerProfile');
+            } catch (err) {
+              console.error(`Error retrieving gardeners: ${err}`);
+              throw new Error('Failed to retrieve gardeners');
+            }
           },
           getAllHomeowners: async (parent, args, context, info) => {
             return await getAllHomeowners();
@@ -169,7 +174,7 @@ const userResolver = {
           // sign jwt
           const token = jwt.sign(
             {
-              id: user._id,
+              id: userId._id,
             },
             process.env.JWT_SECRET
           );

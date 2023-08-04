@@ -139,6 +139,9 @@ const userSchema = new Schema({
     // required: true,
     default: false
   },
+  profilePic: {
+    type: String,
+  },
   // profile: profileSchema, // Store the step 1 and step 3 information in the profile field
   gardenerProfile: {
     type: Schema.Types.ObjectId,

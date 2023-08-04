@@ -9,7 +9,7 @@ type User {
     email: String!
     address: String,
     zip: String,
-    profilePic: String
+    profilePic: String,
     isGardener: Boolean,
     isHomeowner: Boolean,
     gardenerProfile: GardenerProfile, # Reference to GardenerProfile type
@@ -100,6 +100,10 @@ type Query {
     getAllHomeowners: [User]
 
 }
+
+type Query {
+    getAllUsers: [User]
+  }
 
 input signUpInput {
     firstName: String!

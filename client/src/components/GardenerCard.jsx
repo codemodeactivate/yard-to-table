@@ -1,6 +1,7 @@
 import React from 'react';
 
 const GardenerCard = ({ user }) => {
+  console.log("User:", user);
     const renderCostSymbol = (cost) => {
         if (cost >= 10 && cost <= 30) return '$';
         if (cost >= 31 && cost <= 60) return '$$';
@@ -26,7 +27,7 @@ const GardenerCard = ({ user }) => {
         <div key={user.id} className="p-4 border-2 border-yard-gray bg-white rounded relative flex">
           <div className="w-1/5">
             {/* Picture Placeholder */}
-            <img src={user.photo} alt={`${user.firstName} ${user.lastName}`} className="w-full h-48 object-cover mb-4" />
+            <img src={user.profilePic} alt={`${user.firstName} ${user.lastName}`} className="w-full h-48 object-cover mb-4" />
           </div>
           <div className="w-4/5 pl-10">
             {/* Content */}

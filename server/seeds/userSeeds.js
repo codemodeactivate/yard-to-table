@@ -2,6 +2,18 @@ const mongoose = require('mongoose');
 const db = require('../config/connection');
 const { User, gardenerProfile, homeownerProfile } = require('../models/User');
 const Plot = require('../models/Plot');
+const axios = require('axios');
+
+
+async function getRandomHeadshotUrl() {
+  try {
+    const response = await axios.get('https://randomuser.me/api/');
+    return response.data.results[0].picture.large;
+  } catch (error) {
+    console.error('Failed to fetch headshot:', error);
+    return null; // Return null or a default image URL if the fetch fails
+  }
+}
 
 async function seedUsers() {
   await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/yard-to-table', {
@@ -21,6 +33,8 @@ async function seedUsers() {
       let gardenerProfileDocument = null;
       let homeownerProfileDocument = null;
 
+      const profilePic = await getRandomHeadshotUrl(); // Get the random headshot URL
+
       const user = {
         firstName: `Test User ${i + 1}`,
         lastName: `Test Last ${i + 1}`,
@@ -29,11 +43,13 @@ async function seedUsers() {
         address: `123 Test St ${i + 1}`,
         isGardener: i % 2 === 0,
         isHomeowner: i % 2 !== 0,
+        profilePic,
       };
 
       const userDocument = await User.create(user);
 
       if (i % 2 === 0) {
+
         gardenerProfileDocument = await gardenerProfile.create({
           yearsExperience: i * 2,
           areaServed: [`Area ${i}`],
@@ -41,7 +57,7 @@ async function seedUsers() {
           rating: i % 5,
           cost: (i * 10) + 50, // Example cost calculation
           bio: `This is a sample bio for gardener number ${i}. Add more specific details here.`, // Example bio
-          photo: `path/to/photo${i}.jpg`, // Example photo path
+          // photo: headshotUrl || `path/to/default/photo.jpg`, // Example photo path
         });
       } else {
         const plot = await Plot.create({

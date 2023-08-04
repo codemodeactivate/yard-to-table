@@ -22,7 +22,7 @@ export const CREATE_GARDENER_PROFILE = gql`
   }
 `;
 
-export const GET_USERS = gql`
+export const GET_USER = gql`
   query GetUsers($isGardener: Boolean, $firstName: String) {
     getUsers(isGardener: $isGardener, firstName: $firstName) {
       id
@@ -30,6 +30,27 @@ export const GET_USERS = gql`
       lastName
       address
       isGardener
+      profilePic
+      gardenerProfile {
+        bio
+        rating
+        yearsExperience
+        cost
+        specialty
+      }
+    }
+  }
+`;
+
+export const GET_ALL_USERS = gql`
+  query {
+    getAllUsers {
+      id
+      firstName
+      lastName
+      address
+      isGardener
+      profilePic
       gardenerProfile {
         bio
         rating
@@ -50,12 +71,13 @@ export const ADD_NEW_PLOT_MUTATION = gql`
   }
 `;
 
-export const GET_GARDENERS = gql`
-  query GetGardeners {
+export const GET_ALL_GARDENERS = gql`
+  query GetAllGardeners {
     getAllGardeners {
       id
       firstName
       lastName
+      profilePic
       gardenerProfile {
         yearsExperience
         specialty

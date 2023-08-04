@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import SearchComponent from './../components/Search';
 import GardenerCard from '../components/GardenerCard';
-import { GET_GARDENERS } from "../utils/mutations";
+import { GET_ALL_GARDENERS } from "../utils/mutations";
 
 const GardenerSearch = () => {
-  const { loading, error, data } = useQuery(GET_GARDENERS);
+  const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
   const [searchTerm, setSearchTerm] = useState('');
 
   if (loading) return <p>Loading...</p>;
