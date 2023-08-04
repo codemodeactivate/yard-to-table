@@ -5,6 +5,7 @@ import React from 'react';
 const PlotCard = ({ plot, onClick }) => {
   // The plot data is then displayed inside the component
   return (
+    <div className="plot-card-container">
     <button key={plot.id} onClick={onClick} className="plot-card-button">
   <img src="https://i.stack.imgur.com/IUbDq.jpg" alt={plot.name} />
   <div>
@@ -14,6 +15,7 @@ const PlotCard = ({ plot, onClick }) => {
     <p>User: {plot.userID}</p>
   </div>
 </button>
+</div>
 
   );
 };

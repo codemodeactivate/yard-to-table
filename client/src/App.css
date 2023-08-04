@@ -89,6 +89,21 @@ form input::placeholder {
   text-align: center;
 }
 
+/* Plot Card */
+
+.plot-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+  max-height: 150px;
+}
+
+.plot-card-container img {
+  width: ;
+}
+
 /* Add Plot Modal */
 
 .modal {
@@ -127,3 +142,4 @@ form input::placeholder {
   font-size: 20px;
   color: var(--yard-gray);
 }
+
