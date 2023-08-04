@@ -30,15 +30,15 @@ app.use(cors({
   app.use(bodyParser.json());
 
   app.use((req, res, next) => {
-    // Check if it's a login request and skip authentication if so
-    if (
-      req.originalUrl === '/graphql' &&
-      req.method === 'POST' &&
-      req.body &&
-      req.body.operationName === 'login'
-    ) {
-      return next();
-    }
+    // // Check if it's a login request and skip authentication if so
+    // if (
+    //   req.originalUrl === '/graphql' &&
+    //   req.method === 'POST' &&
+    //   req.body &&
+    //   req.body.operationName === 'login'
+    // ) {
+    //   return next();
+    // }
 
     // Otherwise, check for a token and authenticate the user
     const token = req.headers.authorization;
