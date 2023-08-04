@@ -12,7 +12,7 @@ const AddPlot = ({ plot }) => {
   // Variables are empty strings by default unless plot prop is provided
   const [name, setName] = useState(plot ? plot.name : "");
   const [address, setAddress] = useState(plot ? plot.address : "");
-  const [sqft, setSqft] = useState(plot ? plot.sqft : 0);
+  const [sqft, setSqft] = useState(plot ? plot.sqft : "");
   const [category, setCategory] = useState(plot ? plot.category : "");
   const [zip, setZip] = useState(plot ? plot.zip : "");
   const [image, setImage] = useState("");
@@ -54,7 +54,7 @@ const AddPlot = ({ plot }) => {
   return (
     <div>
       <h1 className="text-yard-red text-center">{plot ? "Edit Plot" : "Add New Plot"}</h1>
-      <form className="flex flex-col items-center" onSubmit={handleCreatePlot}>
+      <form className="plot-modal flex flex-col items-center" onSubmit={handleCreatePlot}>
         <input
           type="text"
           value={name}
@@ -93,7 +93,7 @@ const AddPlot = ({ plot }) => {
         />
         {/* <input type="text" value={image} onChange={(e) => setImage(e.target.value)} placeholder="Image" />
         <input type="text" value={userID} onChange={(e) => setUserID(e.target.value)} placeholder="User ID" /> */}
-        <button type="submit">Save</button>
+        <button className="bg-yard-orange text-white" type="submit">Save</button>
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
     </div>
