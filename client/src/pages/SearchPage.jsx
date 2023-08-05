@@ -63,7 +63,7 @@ const SearchPage = () => {
     setFilteredGardeners(tempGardeners);
   }, [searchTerm, selectedSpecialties, ratingRange, sortOption, data, loading, error]);
 
-
+  
   return (
         <div id="gardener-search-with-multi-filter">
             <h1 className="text-4xl text-yard-red text-center my-8">
@@ -83,6 +83,8 @@ const SearchPage = () => {
 
                 </div>
 
+
+                {/* RIGHT HAND SIDE THE GARDENER CARDS */}
                 <div className="w-3/4 p-4">
                     <GardenerSearch
                         gardeners={filteredGardeners}

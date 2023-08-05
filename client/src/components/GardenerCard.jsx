@@ -1,6 +1,6 @@
 import React from 'react';
-
-const GardenerCard = ({ user }) => {
+import { renderSpecialtyIcon } from '../utils/utils';
+const GardenerCard = ({ user, onCardClick }) => {
   // console.log("User:", user);
     const renderCostSymbol = (cost) => {
         if (cost >= 10 && cost <= 30) return '$';
@@ -24,6 +24,12 @@ const GardenerCard = ({ user }) => {
 
     const stars = Array.from({ length: user.gardenerProfile.rating }, (_, i) => '⭐').join('');
 
+    // // STARS FOR MODAL
+    // const renderStars = (rating) => {
+    //   return Array.from({ length: rating }, (_, i) => '⭐').join('');
+    // };
+
+
     return (
 
         <div key={user.id} className="p-4 border-2 border-yard-gray bg-white rounded relative flex">
@@ -44,7 +50,7 @@ const GardenerCard = ({ user }) => {
             </div>
             <p className="text-yard-gray">{user.gardenerProfile.bio.substring(0, 240)}...</p>
           </div>
-          <button className="bg-yard-orange text-white text-sm py-4 px-7 rounded absolute top-2 right-3 ">Hire</button>
+          <button className="bg-yard-orange text-white text-sm py-4 px-7 rounded absolute top-2 right-3" onClick={() => onCardClick(user)}>Hire</button>
 
         </div>
       );
