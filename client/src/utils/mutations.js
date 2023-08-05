@@ -62,12 +62,37 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
-export const ADD_NEW_PLOT_MUTATION = gql`
-  mutation AddNewPlot($input: AddNewPlotInput!) {
-    addNewPlot(input: $input) {
-      success
-      message
+export const ADD_PLOT = gql`
+  mutation AddPlot($plotData: PlotInput!) {
+    addPlot(plotData: $plotData) {
+      id
+      name
+      zip
+      address
+      sqft
+      category
+      image
     }
+  }
+`;
+
+export const EDIT_PLOT = gql`
+  mutation EditPlot($id: ID!, $plotData: PlotInput) {
+    editPlot(id: $id, plotData: $plotData) {
+      id
+      name
+      zip
+      address
+      sqft
+      category
+      image
+    }
+  }
+`;
+
+export const DELETE_PLOT = gql`
+  mutation DeletePlot($id: ID!) {
+    deletePlot(id: $id)
   }
 `;
 
@@ -95,6 +120,7 @@ export const GET_PLOTS = gql`
     getPlots {
       id
       name
+      zip
       address
       sqft
       category
@@ -103,31 +129,6 @@ export const GET_PLOTS = gql`
   }
 `;
 
-export const ADD_PLOT = gql`
-  mutation AddPlot($plotData: PlotInput!) {
-    addPlot(plotData: $plotData) {
-      id
-      name
-      address
-      sqft
-      category
-      image
-    }
-  }
-`;
-
-export const EDIT_PLOT = gql`
-  mutation EditPlot($id: ID!, $plotData: PlotInput) {
-    editPlot(id: $id, plotData: $plotData) {
-      id
-      name
-      address
-      sqft
-      category
-      image
-    }
-  }
-`;
 export const SIGN_UP_MUTATION = gql`
   mutation signUp($input: signUpInput!) {
     signUp(input: $input) {
