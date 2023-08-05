@@ -10,6 +10,7 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
+import PlotsPage from "./pages/PlotsPage";
 import client from './client'; // Importing the client object from client.js
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/plots" element={<PlotsPage />} />
           </Routes>
           <Footer />
         </Router>
