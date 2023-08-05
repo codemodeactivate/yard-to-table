@@ -177,4 +177,3 @@ export const DELETE_JOB_MUTATOIN = gql`
     }
   }
 `;
-

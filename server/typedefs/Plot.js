@@ -21,8 +21,8 @@ const plotTypeDefs = gql`
     image: String
     userID: ID
   }
-  
-  
+
+
   extend type Query {
     getPlot(id: ID!): Plot
     getPlots: [Plot]!
@@ -31,9 +31,9 @@ const plotTypeDefs = gql`
   extend type Mutation {
     addPlot(plotData: PlotInput!): Plot
     editPlot(id: ID!, plotData: PlotInput): Plot
-    deletePlot(id: ID!): Boolean
+    deletePlot(id: ID!): ID!
   }
-  
+
 `;
 
 module.exports = plotTypeDefs;
