@@ -72,6 +72,7 @@ export const ADD_PLOT = gql`
       sqft
       category
       image
+      userID
     }
   }
 `;

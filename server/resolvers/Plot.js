@@ -1,5 +1,5 @@
 const Plot = require("../models/Plot");
-const { User } = require("../models/User");
+const { User, HomeownerProfile } = require("../models/User");
 
 const plotResolvers = {
   Query: {
@@ -15,24 +15,46 @@ const plotResolvers = {
 
   Mutation: {
     // create a plot
-    addPlot: async (parent, { plotData }, context) => {
-      // Log the plotData argument to see what's being passed to the resolver
+    addPlot: async (parent, { plotData }, { userId }) => {
       console.log("Received plotData:", plotData);
 
-      // Create the new plot and log the result to see what's being returned from the database
+      // This will create a new plot
       const newPlot = await Plot.create(plotData);
       console.log("New plot created:", newPlot);
 
-      // Then, update the User document with the new plot ID
-      const userUpdateResult = await User.findOneAndUpdate(
-        { _id: plotData.userID },
-        { $push: { plots: newPlot.id } },
-        { new: true }
-      );
-      console.log("User update result:", userUpdateResult);
+      // This will find a user based on the userId
+      const user = await User.findById(userId);
+      console.log("Found user:", user);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      if (!user.homeownerProfile) {
+        // If a user does not have a homeowner profile, this will create a new homeownerProfile and add the new plot id to its plots array
+        const homeownerProfile = new HomeownerProfile({ plots: [newPlot.id] });
+        await homeownerProfile.save();
+        console.log("Created new homeownerProfile:", homeownerProfile);
+
+        // Then, it will update the user with this homeownerProfile id
+        user.homeownerProfile = homeownerProfile.id;
+      } else {
+        // If a user already has a homeowner profile, this will find that profile
+        const homeownerProfile = await HomeownerProfile.findById(user.homeownerProfile);
+        // Then, it will add the new plot id to the homeownerProfile's plots array
+        homeownerProfile.plots.push(newPlot.id);
+        await homeownerProfile.save();
+        console.log("Updated existing homeownerProfile:", homeownerProfile);
+      }
+
+      user.isHomeowner = true;
+      await user.save();
+      console.log("Updated user:", user);
 
       return newPlot;
     },
+
+
 
     editPlot: async (parent, { id, plotData }, context) => {
       // find a plot by ID and update it with new data.

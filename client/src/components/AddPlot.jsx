@@ -81,6 +81,7 @@ try {
 
       // If the plot prop is not provided, use the addPlot mutation
       await addPlot({
+        mutation: ADD_PLOT,
         variables: {
           plotData,
         },
