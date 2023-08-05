@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { CREATE_GARDENER_PROFILE } from "../utils/mutations";
-
+import { AuthContext } from "../utils/AuthContext";
 const GardenerProfileForm = ({ onSave }) => {
+  const context = useContext(AuthContext);
   const [formData, setFormData] = useState({
     yearsExperience: 0,
     specialty: [],
@@ -42,11 +43,12 @@ const GardenerProfileForm = ({ onSave }) => {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const userId = context.userId;
     // Make the API call to save the gardener profile data
     try {
       const { yearsExperience, specialty, areaServed, cost, bio, photo } = formData;
       const input = {
+        userId,
         yearsExperience: parseInt(yearsExperience),
         specialty,
         areaServed,
@@ -61,7 +63,7 @@ const handleSubmit = async (e) => {
 
       // Check the response data and update the user's role if successful
       if (data.addGardenerProfile) {
-        // Assuming you have a function to update the user's role to gardener
+        // Create function to update the user's role to gardener
         // You can call it here, passing the user ID and setting isGardener to true
         // updateUserRole(data.addGardenerProfile.id, true);
 
