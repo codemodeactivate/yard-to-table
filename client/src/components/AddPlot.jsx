@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
-const AddPlot = ({ plot }) => {
+const AddPlot = ({ plot, onClose }) => {
   const [addPlot, { loading: addPlotLoading, error: addPlotError }] =
     useMutation(ADD_PLOT);
   const [editPlot, { loading: editPlotLoading, error: editPlotError }] =
     useMutation(EDIT_PLOT);
+
+// Additional state for success and message
+const [isSuccess, setIsSuccess] = useState(false);
+const [message, setMessage] = useState('');
 
   // Create state variables for each input field.
   // Variables are empty strings by default unless plot prop is provided
@@ -30,27 +34,31 @@ const AddPlot = ({ plot }) => {
       image,
       // userID,
     };
-
+try {
     if (plot) {
       // If the plot prop is provided, use the editPlot mutation
 
-      editPlot({
+     await editPlot({
         variables: {
           id: plot.id,
           plotData,
         },
       });
+      setIsSuccess(true);
+      setMessage('Plot updated successfully!');
     } else {
 
       // If the plot prop is not provided, use the addPlot mutation
-      addPlot({
+      await addPlot({
         variables: {
           plotData,
         },
       });
     }
+  } catch (error) {
+    setMessage('An error occurred while saving the plot.', error.message);
+  }
   };
-
   return (
     <div>
       <h1 className="text-yard-red text-center">{plot ? "Edit Plot" : "Add New Plot"}</h1>
