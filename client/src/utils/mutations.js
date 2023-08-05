@@ -149,3 +149,31 @@ export const LOGIN_MUTATION = gql`
     }
   }
 `;
+
+export const GET_JOBS = gql`
+  query GetJobs {
+    getJobs {
+      id
+      title
+      description
+      location
+      date
+      budget
+      user {
+        id
+        firstName
+        lastName
+        profilePic
+      }
+    }
+  }
+`;
+
+export const DELETE_JOB_MUTATOIN = gql`
+  mutation DeleteJob($id: ID!) {
+    deleteJob(id: $id) {
+      id
+    }
+  }
+`;
+

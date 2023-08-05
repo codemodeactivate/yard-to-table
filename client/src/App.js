@@ -18,6 +18,7 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
+import JobsPage from "./pages/JobsPage";
 
 
 const httpLink = createHttpLink({
@@ -57,6 +58,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/jobs" element={<JobsPage />} />
           </Routes>
 
           <Footer />
