@@ -50,8 +50,25 @@ editPlot: async (parent, { id, plotData }, context) => {
 },
 
   
-    // delete a plot by ID
+    // delete a plot
     deletePlot: async (parent, { id }) => {
+      // Find the plot by ID
+      const plot = await Plot.findById(id);
+      if (!plot) {
+        throw new Error('Plot not found');
+      }
+    
+      // If the plot has a userId, find the user and remove the plot from their plots
+      if (plot.userId) {
+        const user = await User.findById(plot.userId); // Find the user
+        if (user) { // If the user was found...
+          user.plots = user.plots.filter // Filter the user's plots array to remove the plot ID
+          (plotId => !plotId.equals(id)); // Remove the plot's ID from the user's plots array
+          await user.save(); // Save the user
+        }
+      }
+    
+      // Delete the plot
       return await Plot.findByIdAndRemove(id);
     },
   },

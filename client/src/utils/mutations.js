@@ -90,6 +90,12 @@ export const EDIT_PLOT = gql`
   }
 `;
 
+export const DELETE_PLOT = gql`
+  mutation DeletePlot($id: ID!) {
+    deletePlot(id: $id)
+  }
+`;
+
 export const GET_ALL_GARDENERS = gql`
   query GetAllGardeners {
     getAllGardeners {
@@ -122,9 +128,6 @@ export const GET_PLOTS = gql`
     }
   }
 `;
-
-
-
 
 export const SIGN_UP_MUTATION = gql`
   mutation signUp($input: signUpInput!) {

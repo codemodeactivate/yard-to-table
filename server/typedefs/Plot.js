@@ -31,7 +31,7 @@ const plotTypeDefs = gql`
   extend type Mutation {
     addPlot(plotData: PlotInput!): Plot
     editPlot(id: ID!, plotData: PlotInput): Plot
-    deletePlot(id: ID!): Plot
+    deletePlot(id: ID!): Boolean
   }
   
 `;
