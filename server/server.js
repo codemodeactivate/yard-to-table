@@ -59,10 +59,12 @@ const server = new ApolloServer({
   context: ({ req }) => {
     console.log('Context:', req.user); // Log the user object
     return {
-      user: req.user, // Attach the user object to the context
+      user: req.user,
+      userId: req.user ? req.user.id : null, // Attach the user object to the context
     };
   },
 });
+
 
 
 // app.get('/', (req, res) => {
