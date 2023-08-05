@@ -71,9 +71,10 @@ try {
           variables: { id: plot.id },
         });
         setIsSuccess(true);
-        // Optionally, you can add logic to close the modal or navigate to a different page
+        setMessage('Plot deleted successfully.');
       } catch (error) {
-        // handle error here
+        setMessage('An error occurred while deleting the plot.', error.message);
+        console.log(error);
       }
     }
   };
@@ -118,7 +119,7 @@ try {
           onChange={(e) => setImage(e.target.value)}
           placeholder="Upload a photo"
         />
-        {isSuccess && <div className="text-yard-green">Plot saved successfully!</div>}
+        {isSuccess && <div className="text-yard-green">{message}</div>} {/* Display the correct message */}
         <button className="bg-yard-orange text-white" type="submit">Save</button>
         {plot && <button className="bg-yard-red text-white" onClick={handleDeletePlot}>Delete</button>}
       </form>
