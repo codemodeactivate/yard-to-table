@@ -37,13 +37,13 @@ const GardenerCard = ({ user, onCardClick }) => {
             {/* Picture Placeholder */}
             <img src={user.profilePic} alt={`${user.firstName} ${user.lastName}`} className="w-full h-48 object-cover mb-4" />
           </div>
-          <div className="w-4/5 pl-10">
+          <div className="w-4/5 pl-10 gap-2">
             {/* Content */}
-            <div className="flex items-center mb-5">
+            <div className="flex items-center">
               <h5 className="text-yard-orange text-2xl font-semibold mr-2">{user.firstName} {user.lastName}</h5>
               {renderSpecialtyIcon()}
             </div>
-            <p className="text-yard-blue text-lg mb-2">{user.gardenerProfile.yearsExperience} years of experience</p>
+            <p className="text-yard-blue text-lg">{user.gardenerProfile.yearsExperience} years of experience</p>
             <p className="text-lg mb-2">{stars}</p>
             <div className="flex mb-2">
               <p className="text-yard-green text-xl mr-2">{renderCostSymbol(user.gardenerProfile.cost)}</p>
