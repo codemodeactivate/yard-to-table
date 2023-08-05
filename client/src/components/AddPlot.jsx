@@ -28,7 +28,7 @@ const AddPlot = ({ plot }) => {
       category,
       zip,
       image,
-      // userID
+      // userID,
     };
 
     if (plot) {

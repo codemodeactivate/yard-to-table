@@ -9,6 +9,10 @@ const plotSchema = new Schema({
     type: String,
     // required: true,
   },
+  zip: {
+    type: String,
+    // required: true,
+  },
   sqft: {
     type: Number,
     // required: true,

@@ -25,17 +25,20 @@ const plotResolvers = {
 
   // Then, update the User document with the new plot ID
   const userUpdateResult = await User.findOneAndUpdate(
-    { id: plotData.userID },
-    { $push: { plots: newPlot.id } }
+    { _id: plotData.userID },
+    { $push: { plots: newPlot.id } },
+    { new: true }
   );
   console.log("User update result:", userUpdateResult);
 
   return newPlot;
 },
 
-    editPlot: async (parent, { id, ...rest }, context) => {
-      // find a plot by ID and update it with new data.
-      const plot = await Plot.findByIdAndUpdate(id, rest, { new: true });
+editPlot: async (parent, { id, plotData }, context) => {
+  // find a plot by ID and update it with new data.
+  const updatedPlot = await Plot.findByIdAndUpdate(id, plotData, { new: true });
+      
+      
   
       // if a userID was included in ...rest, update the user's plots as well
       if (rest.userId) {
@@ -45,7 +48,7 @@ const plotResolvers = {
           await user.save();
       }
   
-      return plot;
+      return updatedPlot;
   },
   
     // delete a plot by ID
