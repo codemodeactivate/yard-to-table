@@ -10,30 +10,9 @@ import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
-
+import PlotsPage from "./pages/PlotsPage";
 import JobsPage from "./pages/JobsPage";
 
-
-const httpLink = createHttpLink({
-  uri: "http://localhost:3001/graphql",
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem("id_token");
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    },
-  };
-});
-
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
 
 
 
@@ -52,6 +31,8 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/profile-master" element={<MasterProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/plots" element={<PlotsPage />} />
+
             <Route path="/jobs" element={<JobsPage />} />
           </Routes>
           <Footer />

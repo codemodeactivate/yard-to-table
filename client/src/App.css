@@ -69,6 +69,33 @@ nav ul li {
   font-size: 1rem;
 }
 
+#nav-plots:hover::after {
+  content: "Plots";
+  position: absolute;
+  top: 100%;
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
+#nav-login:hover::after {
+  content: "Login";
+  position: absolute;
+  top: 100%;
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
+#nav-logout:hover::after {
+  content: "Logout";
+  position: absolute;
+  top: 100%;
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem;
+}
+
 /* Form Styling */
 
 
