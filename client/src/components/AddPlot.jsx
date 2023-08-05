@@ -10,12 +10,12 @@ const AddPlot = ({ plot }) => {
 
   // Create state variables for each input field.
   // Variables are empty strings by default unless plot prop is provided
-  const [name, setName] = useState(plot ? plot.name : "");
-  const [address, setAddress] = useState(plot ? plot.address : "");
-  const [sqft, setSqft] = useState(plot ? plot.sqft : "");
-  const [category, setCategory] = useState(plot ? plot.category : "");
-  const [zip, setZip] = useState(plot ? plot.zip : "");
-  const [image, setImage] = useState("");
+  const [name, setName] = useState(plot ? plot.name || '' : ''); // The OR operator is used to prevent a warning in the console if name is null
+  const [address, setAddress] = useState(plot ? plot.address || '' : '');
+  const [sqft, setSqft] = useState(plot ? plot.sqft || '' : '');
+  const [category, setCategory] = useState(plot ? plot.category || '' : '');
+  const [zip, setZip] = useState(plot ? plot.zip || '' : '');
+  const [image, setImage] = useState(plot ? plot.image || '' : '');
   // const [userID, setUserID] = useState("");
 
   const handleCreatePlot = async (event) => {

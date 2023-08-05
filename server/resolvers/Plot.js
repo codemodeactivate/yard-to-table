@@ -37,19 +37,18 @@ const plotResolvers = {
 editPlot: async (parent, { id, plotData }, context) => {
   // find a plot by ID and update it with new data.
   const updatedPlot = await Plot.findByIdAndUpdate(id, plotData, { new: true });
-      
-      
-  
-      // if a userID was included in ...rest, update the user's plots as well
-      if (rest.userId) {
-          // find the user and add the plot to their plots
-          const user = await User.findById(rest.userId);
-          user.plots.push(plot.id);
-          await user.save();
-      }
-  
-      return updatedPlot;
-  },
+
+  // if a userID was included in plotData, update the user's plots as well
+  if (plotData.userId) {
+    // find the user and add the plot to their plots
+    const user = await User.findById(plotData.userId);
+    user.plots.push(updatedPlot.id); // Make sure to use the updated plot's ID here
+    await user.save();
+  }
+
+  return updatedPlot;
+},
+
   
     // delete a plot by ID
     deletePlot: async (parent, { id }) => {
