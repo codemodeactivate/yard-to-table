@@ -1,5 +1,5 @@
 const express = require("express");
-const { User } = require("../models").User;
+const { User, gardenerProfile } = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config({ path: '../.env' });
@@ -275,56 +275,61 @@ const userResolver = {
         //   return gardenerProfile;
         // },
         createGardenerProfile: async (_, { input }, context) => {
-          if(!context.userId) {
-              throw new Error("You need to be logged in to create a Gardener Profile.");
-          };
-          console.log("Received createGardenerProfile mutation with input:", input);
-          console.log("Context:", context);
-          const userId = context.userId; // This is the ID of the logged-in user or tester which you can assign @ top
-          console.log("userId:", userId);
-          // Update the user's isGardener status to true
-          const updatedUser = await context.db.collection('users').findOneAndUpdate(
-              { _id: ObjectId(userId) },
-              { $set: { isGardener: true } },
-              { returnOriginal: false }
-          );
+          try {
+            // Get the user ID from the context (make sure it's passed in the context in your server setup)
+            const userId = context.userId;
+            console.log(userId);
+            if (!userId) {
+              throw new Error('User not authenticated');
+            }
+            console.log('Context userId:', userId); // Add this log
+            // Check if the user already has a gardener profile
+            let profile = await gardenerProfile.findOne({ userId });
 
-          console.log("Updated user:", updatedUser.value);
+            // If the user already has a gardener profile, update it
+            if (profile) {
+              profile.yearsExperience = input.yearsExperience;
+              profile.specialty = input.specialty;
+              profile.areaServed = input.areaServed;
+              profile.cost = input.cost;
+              profile.bio = input.bio;
+              profile.photo = input.photo;
+            } else {
+              // Otherwise, create a new gardener profile
+              profile = new gardenerProfile({
+                userId,
+                ...input,
+              });
+            }
 
-          // Create the GardenerProfile document
-          const gardenerProfile = {
-              userId: mongoose.Types.ObjectId(userId),
-              yearsExperience: input.yearsExperience,
-              specialty: input.specialty,
-              areaServed: input.areaServed,
-              cost: input.cost,
-              bio: input.bio,
-              photo: input.photo,
-              // Add any other GardenerProfile fields as needed
-          };
+            // Save the profile (either newly created or updated)
+            await profile.save();
 
+            // Find the user and update the gardenerProfile field and possibly the isGardener field
+            const user = await User.findByIdAndUpdate(
+              userId,
+              {
+                $set: {
+                  gardenerProfile: profile._id,
+                  isGardener: true, // Update this field if necessary
+                },
+              },
+              { new: true } // Return the updated document
+            );
+              console.log('Updated user:', user); // Add this log
+            if (!user) {
+              throw new Error('User not found');
+            }
 
-          console.log("GardenerProfile to be inserted:", gardenerProfile);
-
-          // Insert the gardener profile into the database
-          const result = await context.db.collection("gardenerprofiles").insertOne(gardenerProfile);
-
-          console.log("Insert result:", result);
-
-          // Associate the GardenerProfile with the user
-          await context.db.collection('users').updateOne(
-              { _id: ObjectId(userId) },
-              { $set: { gardenerProfile: result.insertedId } }
-          );
-
-          console.log("Created gardenerProfile:", gardenerProfile);
-          console.log("Updated user:", updatedUser.value);
-          return updatedUser.value;
+            // Return the new or updated gardener profile, modify this based on your return type
+            return profile;
+          } catch (error) {
+            console.error(error);
+            throw new Error('Failed to create gardener profile');
+          }
+        },
       },
 
-
-
-    },
 };
 
 // console.log('User Model loaded');
