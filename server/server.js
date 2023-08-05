@@ -57,10 +57,9 @@ const server = new ApolloServer({
   introspection: true,
   playground: true,
   context: ({ req }) => {
-    const authReq = authMiddleware({ req });
-    console.log('Context:', authReq); // Log the context to check if userId is available
+    console.log('Context:', req.user); // Log the user object
     return {
-      user: authReq.user,
+      user: req.user, // Attach the user object to the context
     };
   },
 });

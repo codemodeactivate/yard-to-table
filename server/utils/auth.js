@@ -1,21 +1,9 @@
 const jwt = require('jsonwebtoken');
-const expiration = '2h';
 const secret = process.env.JWT_SECRET;
+const expiration = '2h';
 module.exports = {
-  authMiddleware: function (reqOrObject, res, next) {
-    let req;
-    if (res && next) {
-      req = reqOrObject;
-      next();
-    } else {
-      req = reqOrObject.req;
-    }
-
-    console.log('authMiddleware is being executed'); // Log when the function is called
-    // console.log("HEADERS: ", req.headers);
-    // console.log("REQ BODY: ", req.body);
-    // console.log("REQ QUERY :", req.query);
-
+  authMiddleware: function (req, res, next) {
+    console.log('authMiddleware is being executed');
     let token = req.body.token || req.query.token || req.headers.authorization;
 
     if (req.headers.authorization) {
@@ -24,19 +12,19 @@ module.exports = {
 
     if (!token) {
       console.log('No token found');
-      return req;
+      return next(); // Continue to next middleware if no token found
     }
 
-    console.log('Token found:', token); // Log the token
+    console.log('Token found:', token);
 
     try {
       const data  = jwt.verify(token, secret, { maxAge: expiration });
-      console.log('Token verified:', data); // Log the decoded token data
+      console.log('Token verified:', data);
       req.user = data;
     } catch (error) {
-      console.log('Invalid token:', error); // Log the error if the token is invalid
+      console.log('Invalid token:', error);
     }
 
-    return req;
+    return next(); // Continue to next middleware
   }
 };
