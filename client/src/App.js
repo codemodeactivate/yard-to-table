@@ -1,23 +1,16 @@
 import React from "react";
-//import ReactDOM from 'react-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
+import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
-// import ProfileBuilder from "./components/ProfileBuilder";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
 import MasterProfilePage from "./pages/MasterProfilePage";
 import Footer from "./components/Footer";
+
 import JobsPage from "./pages/JobsPage";
 
 
@@ -42,13 +35,14 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+
+
 function App() {
   return (
-    <ApolloProvider client={client}>
+
       <div className="App flex flex-col min-h-screen">
         <Router>
           <header className="App-header">
-
             <Nav />
           </header>
           <Routes>
@@ -60,11 +54,10 @@ function App() {
             <Route path="/search" element={<SearchPage />} />
             <Route path="/jobs" element={<JobsPage />} />
           </Routes>
-
           <Footer />
         </Router>
       </div>
-    </ApolloProvider>
+
   );
 }
 

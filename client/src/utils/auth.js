@@ -1,3 +1,6 @@
+
+
+
 import decode from 'jwt-decode';
 
 class AuthService {
@@ -39,7 +42,7 @@ class AuthService {
     localStorage.removeItem('id_token');
     // this will reload the page and reset the state of the application
     this.user = null;
-    
+
     window.location.assign('/');
   }
 }

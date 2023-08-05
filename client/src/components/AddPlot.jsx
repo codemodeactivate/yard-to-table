@@ -2,20 +2,26 @@ import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
 
-const AddPlot = ({ plot }) => {
+const AddPlot = ({ plot, onClose }) => {
   const [addPlot, { loading: addPlotLoading, error: addPlotError }] =
     useMutation(ADD_PLOT);
   const [editPlot, { loading: editPlotLoading, error: editPlotError }] =
     useMutation(EDIT_PLOT);
+    const [deletePlot, { loading: deletePlotLoading, error: deletePlotError }] =
+    useMutation(DELETE_PLOT);
+
+// Additional state for success and message
+const [isSuccess, setIsSuccess] = useState(false);
+const [message, setMessage] = useState('');
 
   // Create state variables for each input field.
   // Variables are empty strings by default unless plot prop is provided
-  const [name, setName] = useState(plot ? plot.name : "");
-  const [address, setAddress] = useState(plot ? plot.address : "");
-  const [sqft, setSqft] = useState(plot ? plot.sqft : "");
-  const [category, setCategory] = useState(plot ? plot.category : "");
-  const [zip, setZip] = useState(plot ? plot.zip : "");
-  const [image, setImage] = useState("");
+  const [name, setName] = useState(plot ? plot.name || '' : ''); // The OR operator is used to prevent a warning in the console if name is null
+  const [address, setAddress] = useState(plot ? plot.address || '' : '');
+  const [sqft, setSqft] = useState(plot ? plot.sqft || '' : '');
+  const [category, setCategory] = useState(plot ? plot.category || '' : '');
+  const [zip, setZip] = useState(plot ? plot.zip || '' : '');
+  const [image, setImage] = useState(plot ? plot.image || '' : '');
   // const [userID, setUserID] = useState("");
 
   const handleCreatePlot = async (event) => {
@@ -28,26 +34,48 @@ const AddPlot = ({ plot }) => {
       category,
       zip,
       image,
-      // userID
+      // userID,
     };
-
+try {
     if (plot) {
       // If the plot prop is provided, use the editPlot mutation
 
-      editPlot({
+     await editPlot({
         variables: {
           id: plot.id,
           plotData,
         },
       });
+      setIsSuccess(true);
+      setMessage('Plot updated successfully!');
     } else {
 
       // If the plot prop is not provided, use the addPlot mutation
-      addPlot({
+      await addPlot({
         variables: {
           plotData,
         },
       });
+      setIsSuccess(true);
+      setMessage('Plot updated successfully!');
+    }
+  } catch (error) {
+    setMessage('An error occurred while saving the plot.', error.message);
+  }
+  };
+
+  const handleDeletePlot = async () => {
+    if (plot) {
+      try {
+        await deletePlot({
+          variables: { id: plot.id },
+        });
+        setIsSuccess(true);
+        setMessage('Plot deleted successfully.');
+      } catch (error) {
+        setMessage('An error occurred while deleting the plot.', error.message);
+        console.log(error);
+      }
     }
   };
 
@@ -91,7 +119,9 @@ const AddPlot = ({ plot }) => {
           onChange={(e) => setImage(e.target.value)}
           placeholder="Upload a photo"
         />
+        {isSuccess && <div className="text-yard-green">{message}</div>} {/* Display the correct message */}
         <button className="bg-yard-orange text-white" type="submit">Save</button>
+        {plot && <button className="bg-yard-red text-white" onClick={handleDeletePlot}>Delete</button>}
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
     </div>

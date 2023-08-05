@@ -4,6 +4,7 @@ const plotTypeDefs = gql`
   type Plot {
     id: ID!
     name: String
+    zip: String
     address: String
     sqft: Int
     category: String
@@ -14,6 +15,7 @@ const plotTypeDefs = gql`
   input PlotInput {
     name: String
     address: String
+    zip: String
     sqft: Int
     category: String
     image: String
@@ -29,7 +31,7 @@ const plotTypeDefs = gql`
   extend type Mutation {
     addPlot(plotData: PlotInput!): Plot
     editPlot(id: ID!, plotData: PlotInput): Plot
-    deletePlot(id: ID!): Plot
+    deletePlot(id: ID!): Boolean
   }
   
 `;
