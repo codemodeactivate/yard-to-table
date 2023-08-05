@@ -7,7 +7,7 @@ module.exports = {
     // Code to handle both Express middleware and ApolloServer context
     let token = req.body.token || req.query.token || req.headers.authorization;
 
-    if (req.body.operationName === 'login') {
+    if (req.method === 'GET' || (req.body && req.body.operationName === 'login')) {
       if (next) next();
       return req;
     }

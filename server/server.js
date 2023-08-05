@@ -61,6 +61,7 @@ const server = new ApolloServer({
     return {
       user: req.user,
       userId: req.user ? req.user.id : null, // Attach the user object to the context
+      db: db,
     };
   },
 });
