@@ -167,7 +167,7 @@ userSchema.pre('save', async function (next) {
 });
 
 const User = model('User', userSchema);
-const gardenerProfile = model('GardenerProfile', gardenerProfileSchema);
+const GardenerProfile = model('GardenerProfile', gardenerProfileSchema);
 const HomeownerProfile = model('HomeownerProfile', homeownerProfileSchema);
 const Billing = mongoose.model('Billing', billingSchema);
 // Removing this as I moved it to the Plot.js model - MT
@@ -176,7 +176,7 @@ const Billing = mongoose.model('Billing', billingSchema);
 
 module.exports = {
   User,
-  gardenerProfile,
+  GardenerProfile,
   HomeownerProfile,
   Billing,
 };
