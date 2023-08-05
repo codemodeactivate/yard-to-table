@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT, GET_PLOTS } from "../utils/mutations";
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthContext";
+
 
 const AddPlot = ({ plot, onClose }) => {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+  // const { currentUser } = useContext(AuthContext);
+  const [userID, setUserID] = useState(currentUser ? currentUser.id : '');
   const [addPlot, { loading: addPlotLoading, error: addPlotError }] =
   useMutation(ADD_PLOT, {
     update(cache, { data: { addPlot } }) {
@@ -56,7 +63,7 @@ const [message, setMessage] = useState('');
       category,
       zip,
       image,
-      // userID,
+      userID: currentUser?.id,
     };
 try {
     if (plot) {
