@@ -99,12 +99,9 @@ try {
           onChange={(e) => setImage(e.target.value)}
           placeholder="Upload a photo"
         />
-        {message && <div>{message}</div>}
-        <button className="bg-yard-orange text-white" type="submit" disabled={isSuccess}>
-          {isSuccess ? 'Close' : 'Save'}
-        </button>
+        {isSuccess && <div>Plot saved successfully!</div>}
+        <button className="bg-yard-orange text-white" type="submit">Save</button>
       </form>
-      {isSuccess && <button onClick={onClose}>Close</button>}
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
     </div>
   );
