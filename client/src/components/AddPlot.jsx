@@ -7,6 +7,8 @@ const AddPlot = ({ plot, onClose }) => {
     useMutation(ADD_PLOT);
   const [editPlot, { loading: editPlotLoading, error: editPlotError }] =
     useMutation(EDIT_PLOT);
+    const [deletePlot, { loading: deletePlotLoading, error: deletePlotError }] =
+    useMutation(DELETE_PLOT);
 
 // Additional state for success and message
 const [isSuccess, setIsSuccess] = useState(false);
@@ -61,6 +63,21 @@ try {
     setMessage('An error occurred while saving the plot.', error.message);
   }
   };
+
+  const handleDeletePlot = async () => {
+    if (plot) {
+      try {
+        await deletePlot({
+          variables: { id: plot.id },
+        });
+        setIsSuccess(true);
+        // Optionally, you can add logic to close the modal or navigate to a different page
+      } catch (error) {
+        // handle error here
+      }
+    }
+  };
+
   return (
     <div>
       <h1 className="text-yard-red text-center">{plot ? "Edit Plot" : "Add New Plot"}</h1>
@@ -103,6 +120,7 @@ try {
         />
         {isSuccess && <div className="text-yard-green">Plot saved successfully!</div>}
         <button className="bg-yard-orange text-white" type="submit">Save</button>
+        {plot && <button className="bg-yard-red text-white" onClick={handleDeletePlot}>Delete</button>}
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
     </div>
