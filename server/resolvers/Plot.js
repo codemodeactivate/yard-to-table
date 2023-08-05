@@ -42,6 +42,7 @@ const plotResolvers = {
 
       // if a userID was included in plotData, update the user's plots as well
       if (plotData.userId) {
+        console.log(User.userId);
         // find the user and add the plot to their plots
         const user = await User.findById(plotData.userId);
         user.plots.push(updatedPlot.id); // Make sure to use the updated plot's ID here
@@ -70,11 +71,12 @@ const plotResolvers = {
       }
 
       // Delete the plot
-      const deletedPlot = await Plot.findByIdAndRemove(id);
+      await Plot.findByIdAndRemove(id);
 
-      // Return true if the plot was found and deleted, false otherwise
-      return deletedPlot != null;
+      // Return the ID of the deleted plot
+      return id;
     },
+
   },
 };
 

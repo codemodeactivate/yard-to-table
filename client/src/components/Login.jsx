@@ -4,12 +4,12 @@ import { LOGIN_MUTATION } from "../utils/mutations";
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext';
 
-
 const LoginForm = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  const [login, { error }] = useMutation(LOGIN_MUTATION);
+  const [loginMutation, { error }] = useMutation(LOGIN_MUTATION);
   const navigate = useNavigate(); // Use the useNavigate hook
-  const { setLoggedIn } = useAuth();
+  const { login } = useAuth(); // Get the new login function from AuthContext
+
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,20 +25,15 @@ const LoginForm = (props) => {
     event.preventDefault();
 
     try {
-      const { data } = await login({
+      const { data } = await loginMutation({
         variables: {
           email: formState.email,
           password: formState.password
         }
       });
 
-
-
-
       if (data && data.login && data.login.token) {
-        localStorage.setItem('token', data.login.token);
-        setLoggedIn(true);
-        // Redirect user to the /profile page
+        login(data.login); // Use the new login function
         navigate('/profile');
       }
     } catch (err) {

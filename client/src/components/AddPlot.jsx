@@ -1,14 +1,43 @@
 import React, { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT } from "../utils/mutations";
+import { ADD_PLOT, EDIT_PLOT, DELETE_PLOT, GET_PLOTS } from "../utils/mutations";
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthContext";
+
 
 const AddPlot = ({ plot, onClose }) => {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+  // const { currentUser } = useContext(AuthContext);
+  const [userID, setUserID] = useState(currentUser ? currentUser.id : '');
   const [addPlot, { loading: addPlotLoading, error: addPlotError }] =
-    useMutation(ADD_PLOT);
-  const [editPlot, { loading: editPlotLoading, error: editPlotError }] =
-    useMutation(EDIT_PLOT);
-    const [deletePlot, { loading: deletePlotLoading, error: deletePlotError }] =
-    useMutation(DELETE_PLOT);
+  useMutation(ADD_PLOT, {
+    update(cache, { data: { addPlot } }) {
+      const data = cache.readQuery({ query: GET_PLOTS });
+      const newData = [...data.getPlots, addPlot];
+      cache.writeQuery({ query: GET_PLOTS, data: {getPlots: newData} });
+    }
+  });
+
+const [editPlot, { loading: editPlotLoading, error: editPlotError }] =
+  useMutation(EDIT_PLOT, {
+    update(cache, { data: { editPlot } }) {
+      const data = cache.readQuery({ query: GET_PLOTS });
+      const newData = data.getPlots.map(plot =>
+        plot.id === editPlot.id ? editPlot : plot
+      );
+      cache.writeQuery({ query: GET_PLOTS, data: {getPlots: newData} });
+    }
+  });
+
+const [deletePlot, { loading: deletePlotLoading, error: deletePlotError }] =
+  useMutation(DELETE_PLOT, {
+    update(cache, { data: { deletePlot: deletedPlotId } }) {
+      const data = cache.readQuery({ query: GET_PLOTS });
+      const newData = data.getPlots.filter(plot => plot.id !== deletedPlotId);
+      cache.writeQuery({ query: GET_PLOTS, data: {getPlots: newData} });
+    }
+  });
 
 // Additional state for success and message
 const [isSuccess, setIsSuccess] = useState(false);
@@ -34,7 +63,7 @@ const [message, setMessage] = useState('');
       category,
       zip,
       image,
-      // userID,
+      userID: currentUser?.id,
     };
 try {
     if (plot) {
