@@ -4,7 +4,9 @@ const JobsResolver = {
   Query: {
     // Get all jobs
     getJobs: async (parent, args, context) => {
-      return await Jobs.find({});
+      const jobs = await Jobs.find({});
+      console.log("Jobs Resolver Get Jobs - SERVER GET JOBS: ", jobs);
+      return jobs;
     },
     // Get a single job by ID
     getJob: async (parent, { id }, context) => {
