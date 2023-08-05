@@ -54,6 +54,8 @@ try {
           plotData,
         },
       });
+      setIsSuccess(true);
+      setMessage('Plot updated successfully!');
     }
   } catch (error) {
     setMessage('An error occurred while saving the plot.', error.message);
@@ -99,7 +101,7 @@ try {
           onChange={(e) => setImage(e.target.value)}
           placeholder="Upload a photo"
         />
-        {isSuccess && <div>Plot saved successfully!</div>}
+        {isSuccess && <div className="text-yard-green">Plot saved successfully!</div>}
         <button className="bg-yard-orange text-white" type="submit">Save</button>
       </form>
       {addPlotError && <p>Error creating plot: {addPlotError.message}</p>}
