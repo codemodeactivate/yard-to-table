@@ -68,8 +68,11 @@ const SearchPage = () => {
   return (
         <div id="gardener-search-with-multi-filter">
             <h1 className="text-4xl text-yard-red text-center my-8">
-                Gardeners
+                Gardener Search
             </h1>
+            {/* <p className="text-lg text-yard-green text-center">
+                Gardeners are shown that are active in your area
+            </p> */}
             <div className="flex">
                 <div className="w-1/4 p-4 flex flex-col">
                     <MultiFilters
