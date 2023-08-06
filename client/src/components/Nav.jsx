@@ -55,9 +55,13 @@ const Nav = () => {
   };
 
   return (
-    <nav className="flex float-right p-8">
-
-  <ul className="text-yard-blue ">
+    <nav className="flex justify-between p-8">
+<a href="/" className="">
+          <span className=" text-yard-orange">Yard</span>
+          <span className="text-yard-green">to</span>
+          <span className="text-yard-blue">Table</span>
+        </a>
+  <ul className="text-yard-blue">
     {loggedIn ? (
       <>
         {/* <li className="hover:text-yard-orange">
