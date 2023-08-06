@@ -54,9 +54,9 @@ const Nav = () => {
   return (
     <nav className="flex float-right p-8">
       <ul className="text-yard-blue ">
-        <li className="hover:text-yard-orange">
+        {/* <li className="hover:text-yard-orange">
           <Link to="/profile-master">Profile Master</Link>
-        </li>
+        </li> */}
 
 
         <li id="nav-search" className="hover:text-yard-orange">
