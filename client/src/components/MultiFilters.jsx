@@ -30,7 +30,7 @@ const MultiFilters = ({
     return (
         <div id="multi-filters-component">
             <div className="filters-container flex flex-col text-left">
-                <h2 className="text-3xl font-semi-bold text-yard-orange mb-2">Filter</h2>
+                <h2 className="text-2xl font-semi-bold text-yard-orange mb-2">Filter</h2>
 
                 {specialties.map((specialty, idx) => (
 

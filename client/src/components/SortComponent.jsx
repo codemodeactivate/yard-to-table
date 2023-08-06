@@ -23,7 +23,10 @@ const SortComponent = ({ onSortChange, sortOption }) => {
     };
 
     return (
-      <div className="flex flex-col space-y-2">
+      
+      <div className="sort-component">
+      <h2 className="text-2xl text-left text-yard-blue pt-10">Sort by:</h2>
+      <div className="sort-button-container justify-start flex flex-col float-left space-y-2">
         {sorts.map((sort, index) => {
         //   console.log("Rendering :", sort.name);
         //   console.log("sort.name: ", sort.name);
@@ -34,7 +37,7 @@ const SortComponent = ({ onSortChange, sortOption }) => {
             <button
               key={index}
               onClick={() => handleSortChange(index)}
-              className={`btn-sort flex items-center text-2xl mb-3 ${sortOption.option === sort.name.toLowerCase() ? 'active-sort' : 'inactive-sort'}`}
+              className={`btn-sort flex items-center text-2xl m-5 p-0 ${sortOption.option === sort.name.toLowerCase() ? 'active-sort' : 'inactive-sort'}`}
             >
                 {console.log('sortOption.option: ', sortOption.option)}
                 {console.log('sort.name: ', sort.name)}
@@ -46,6 +49,7 @@ const SortComponent = ({ onSortChange, sortOption }) => {
             </button>
           );
         })}
+      </div>
       </div>
     );
   };
