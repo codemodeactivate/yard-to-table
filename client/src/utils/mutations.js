@@ -9,6 +9,28 @@ export const SAVE_FORM_DATA_MUTATION = gql`
   }
 `;
 
+export const GET_CURRENT_USER = gql`
+  query GetCurrentUser {
+    getCurrentUser {
+      id
+      firstName
+      lastName
+      email
+      address
+      isGardener
+      isHomeowner
+      profilePic
+      gardenerProfile {
+        bio
+        rating
+        yearsExperience
+        cost
+        specialty
+      }
+  }
+  }`
+
+
 export const CREATE_GARDENER_PROFILE = gql`
   mutation createGardenerProfile($input: GardenerProfileInput!) {
     createGardenerProfile(input: $input) {
@@ -72,6 +94,7 @@ export const ADD_PLOT = gql`
       sqft
       category
       image
+      userID
     }
   }
 `;

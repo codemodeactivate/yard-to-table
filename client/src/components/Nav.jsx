@@ -56,12 +56,14 @@ const Nav = () => {
 
   return (
     <nav className="flex float-right p-8">
+
   <ul className="text-yard-blue ">
     {loggedIn ? (
       <>
         <li className="hover:text-yard-orange">
           <Link to="/profile-master">Profile Master</Link>
         </li>
+
         <li id="nav-search" className="hover:text-yard-orange">
           <Link to="/search">{searchIcon}</Link>
         </li>
