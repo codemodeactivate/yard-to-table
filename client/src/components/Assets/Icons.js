@@ -13,9 +13,9 @@ export const IconExperience = () => <span style={{ fontSize: '24px' }}>#</span>;
 export const IconCost = () => <span style={{ fontSize: '24px' }}>$</span>;
 
 export const IconUp = () => (
-  <div style={{ width: 0, height: 0, borderLeft: '10px solid transparent', borderRight: '10px solid transparent', borderBottom: '10px solid black' }} />
+  <div style={{ width: 0, height: 0, marginLeft: '5px', marginTop: '2px', borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '10px solid gray' }} />
 );
 
 export const IconDown = () => (
-  <div style={{ width: 0, height: 0, borderLeft: '10px solid transparent', borderRight: '10px solid transparent', borderTop: '10px solid black' }} />
+  <div style={{ width: 0, height: 0, marginLeft: '5px', marginTop: '2px', borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '10px solid gray' }} />
 );
