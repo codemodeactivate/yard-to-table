@@ -60,9 +60,9 @@ const Nav = () => {
   <ul className="text-yard-blue ">
     {loggedIn ? (
       <>
-        <li className="hover:text-yard-orange">
+        {/* <li className="hover:text-yard-orange">
           <Link to="/profile-master">Profile Master</Link>
-        </li>
+        </li> */}
 
         <li id="nav-search" className="hover:text-yard-orange">
           <Link to="/search">{searchIcon}</Link>
