@@ -309,12 +309,14 @@ form input::placeholder {
 
 
 .active-sort .icon,
-.active-sort .name {
-  color: var(--yard-blue) !important;
+.active-sort .name,
+.active-sort span {
+  color: var(--yard-blue);
 }
 .inactive-sort .icon,
-.inactive-sort .name {
-  color: var(--yard-gray) !important;
+.inactive-sort .name,
+.inactive-sort span {
+  color: var(--yard-gray);
 }
 /* .specialty-name::first-letter {
   text-transform: capitalize;

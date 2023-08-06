@@ -8,7 +8,7 @@ import SortComponent from "../components/SortComponent";
 
 const SearchPage = () => {
   const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
-  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [selectedSpecialties, setSelectedSpecialties] = useState(['vegetable', 'pollinator']);
   const [ratingRange, setRatingRange] = useState([0, 5]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGardeners, setFilteredGardeners] = useState([]);
