@@ -32,7 +32,7 @@ const GardenerCard = ({ user, onCardClick }) => {
 
     return (
 
-        <div key={user.id} className="p-4 border-2 border-yard-gray bg-white rounded relative flex">
+        <div key={user.id} className="p-4 my-10 mx-5 shadow-[0_1px_5px_rgb(0,0,0,0.2)]  relative flex">
           <div className="w-1/5">
             {/* Picture Placeholder */}
             <img src={user.profilePic} alt={`${user.firstName} ${user.lastName}`} className="w-full h-36 object-cover mb-4" />
@@ -40,17 +40,14 @@ const GardenerCard = ({ user, onCardClick }) => {
           <div className="w-4/5 pl-10 gap-2">
             {/* Content */}
             <div className="flex items-center">
-              <h5 className="text-yard-orange text-xl font-semibold mr-2">{user.firstName} {user.lastName}</h5>
+              <h5 className="text-yard-orange text-xl mr-2">{user.firstName} {user.lastName}</h5>
               {renderSpecialtyIcon()}
             </div>
             <p className="text-yard-blue text-md">{user.gardenerProfile.yearsExperience} years of experience</p>
-            <p className="text-sm mb-2">{stars}</p>
-            <div className="flex mb-2">
-              <p className="text-yard-green text-sm mr-2">{renderCostSymbol(user.gardenerProfile.cost)}</p>
-            </div>
+            <span className="text-sm mb-2 pr-5">{stars}</span><span className="text-yard-green text-sm mr-2">{renderCostSymbol(user.gardenerProfile.cost)}</span>
             <p className="text-yard-gray text-sm">{user.gardenerProfile.bio.substring(0, 240)}...</p>
           </div>
-          <button className="bg-yard-orange text-white text-sm py-4 px-7 rounded absolute top-2 right-3" onClick={() => onCardClick(user)}>Hire</button>
+          <button className="bg-yard-orange text-white text-sm  absolute top-2 right-3" onClick={() => onCardClick(user)}>Hire</button>
 
         </div>
       );
