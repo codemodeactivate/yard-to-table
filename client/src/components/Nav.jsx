@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faTrowel, faSeedling, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import { useAuth } from "../utils/AuthContext";
 // import { react-icons } from "react-icons";
 import { MdLogin, MdLogout } from "react-icons/md";
@@ -10,8 +11,10 @@ const searchIcon = <FontAwesomeIcon icon={faMagnifyingGlass} />;
 const trowelIcon = <FontAwesomeIcon icon={faTrowel} />;
 const userIcon = <FontAwesomeIcon icon={faUser} />;
 const plotIcon = <FontAwesomeIcon icon={faSeedling} />;
+const signUpIcon = <PersonAddAltOutlinedIcon style={{ fontSize: '2.75rem', marginBottom: '18px' }}/>;
 const logOutIcon = <MdLogout />;
 const logInIcon = <MdLogin />;
+
 
 
 const Nav = () => {
@@ -53,11 +56,13 @@ const Nav = () => {
 
   return (
     <nav className="flex float-right p-8">
-      <ul className="text-yard-blue ">
-        {/* <li className="hover:text-yard-orange">
-          <Link to="/profile-master">Profile Master</Link>
-        </li> */}
 
+  <ul className="text-yard-blue ">
+    {loggedIn ? (
+      <>
+        <li className="hover:text-yard-orange">
+          <Link to="/profile-master">Profile Master</Link>
+        </li>
 
         <li id="nav-search" className="hover:text-yard-orange">
           <Link to="/search">{searchIcon}</Link>
@@ -71,18 +76,23 @@ const Nav = () => {
         <li id="nav-profile" className="hover:text-yard-orange">
           <Link to="/profile">{userIcon}</Link>
         </li>
-        {loggedIn ? ( // if logged in, show logout button
-          <li id="nav-logout" className="hover:text-yard-orange">
-            <Link to="/" onClick={handleLogout}>{logOutIcon}</Link>
-          </li>
-        ) : (
-          // else show login button
-          <li id="nav-login" className="hover:text-yard-orange">
-            <Link to="/login">{logInIcon}</Link>
-          </li>
-        )}
-      </ul>
-    </nav>
+        <li id="nav-logout" className="hover:text-yard-orange">
+          <Link to="/" onClick={handleLogout}>{logOutIcon}</Link>
+        </li>
+      </>
+    ) : (
+      <>
+        <li id="nav-signup" className="hover:text-yard-orange">
+          <Link to="/signup"  className="signup-icon-link">{signUpIcon}</Link>
+        </li>
+        <li id="nav-login" className="hover:text-yard-orange">
+          <Link to="/login">{logInIcon}</Link>
+        </li>
+      </>
+    )}
+  </ul>
+</nav>
+
   );
 };
 

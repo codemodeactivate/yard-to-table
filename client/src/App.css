@@ -96,6 +96,21 @@ nav ul li {
   font-size: 1rem;
 }
 
+/* .signup-icon-link {
+  font-size: 3rem;
+  margin-bottom: 2px;
+} */
+
+
+#nav-signup:hover::after {
+  content: "Sign Up";
+  position: absolute;
+  top: 65%;
+  left: 50%; /* Move the content to the center of the li */
+  transform: translateX(-50%);
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
 /* Form Styling */
 
 
