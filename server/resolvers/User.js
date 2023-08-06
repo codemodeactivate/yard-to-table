@@ -74,6 +74,19 @@ const userResolver = {
           getAllHomeowners: async (parent, args, context, info) => {
             return await getAllHomeowners();
           },
+          getCurrentUser: async (parent, args, context) => {
+            // If no user is authenticated, return null
+            if (!context.user) {
+              return null;
+            }
+
+            // Retrieve the user's ID from the context
+            const id = context.user.id;
+
+            // Fetch the user from the database
+            return await User.findById(id);
+          },
+
 
 
     },
