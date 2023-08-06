@@ -1,3 +1,4 @@
+/* GLOBAL */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,6 +27,8 @@ button {
   font-size: 14px;
 }
 
+/* HOMEPAGE */
+
 .homepage-section-top {
   padding: 50px 0;
 }
@@ -34,6 +37,7 @@ button {
   padding: 75px 0;
 }
 
+/* NAVIGATION */
 nav ul li {
   display: inline-block;
   font-size: 2rem;
@@ -111,8 +115,9 @@ nav ul li {
   font-size: 1rem;
   margin-bottom: 18px;
 }
-/* Form Styling */
 
+
+/* GLOBAL FORM */
 
 form input {
   color: var(--yard-blue);
@@ -131,7 +136,13 @@ form input::placeholder {
   text-align: center;
 }
 
-/* Plot Card */
+/*  SIGN UP PAGE */
+.signup-daisy {
+  width: 125px;
+}
+
+
+/* PLOT CARD */
 
 .plot-card-container {
   max-height: 200px;
