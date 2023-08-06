@@ -177,21 +177,12 @@ export const LOGIN_MUTATION = gql`
 export const GET_JOBS = gql`
   query GetJobs {
     getJobs {
-      id
-      title
-      description
-      location
-      date
-      budget
-      user {
-        id
-        firstName
-        lastName
-        profilePic
-      }
+      _id
+      homeowner
+      gardener
+      plot
     }
-  }
-`;
+  }`;
 
 export const DELETE_JOB_MUTATOIN = gql`
   mutation DeleteJob($id: ID!) {
@@ -200,3 +191,13 @@ export const DELETE_JOB_MUTATOIN = gql`
     }
   }
 `;
+
+
+export const GET_HOMEOWNERS = gql`
+  query getAllHomeowners {
+    getAllHomeowners {
+      id
+      firstName
+      lastName
+    }
+  }`;

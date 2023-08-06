@@ -1,30 +1,71 @@
-import React, { useState } from "react";
-import { gql, useQuery, useMutation } from "@apollo/client";
-import JobCard from "../components/PlotCard";
-import { GET_JOBS, DELETE_JOB_MUTATOIN } from "../utils/mutations";
+import React from "react";
+import { gql, useQuery } from "@apollo/client";
+import JobCard from "../components/JobCard";
+import { GET_JOBS, GET_HOMEOWNERS, GET_ALL_GARDENERS, GET_PLOTS } from "../utils/mutations";
 import { useAuth } from "../utils/AuthContext";
 
-
 const JobsPage = () => {
-  const { loading, error, data } = useQuery(GET_JOBS);
+  const { loading: loadingHomeowners, error: errorHomeowners, data: homeownersData } = useQuery(GET_HOMEOWNERS);
+  const { loading: loadingJobs, error: errorJobs, data: jobsData } = useQuery(GET_JOBS);
+  const { loading: loadingGardeners, error: errorGardeners, data: gardenersData } = useQuery(GET_ALL_GARDENERS);
+  const { loading: loadingPlots, error: errorPlots, data: plotsData } = useQuery(GET_PLOTS);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) {
-    console.log("Error message:", error.message);
-    console.log("Full error object:", error);
+  if (loadingHomeowners || loadingJobs || loadingGardeners || loadingPlots) return <p>Loading...</p>;
+  if (errorHomeowners || errorJobs || errorGardeners || errorPlots) {
     return <p>Error :(</p>;
   }
 
-  return (
-    <div>
-      <h1 className="text-4xl text-yard-red text-center my-8">Your Jobs</h1>
-      <div className="plot-list flex space-x-4 flex-wrap justify-center">
-        {data.getJobs.map((job) => (
-          <JobCard key={job.id} job={job} />
+  // Destructure data
+  const homeowners = homeownersData?.getAllHomeowners || [];
+  const jobs = jobsData?.getJobs || [];
+  const gardeners = gardenersData?.getAllGardeners || [];
+  const plots = plotsData?.getPlots || [];
+
+    // Helper function to get homeowner by id
+    const getHomeownerById = (homeownerId) => {
+      return homeowners.find((homeowner) => homeowner.id === homeownerId);
+    };
+
+    const getGardenerById = (gardenerId) => {
+      return gardeners.find((gardener) => gardener.id === gardenerId);
+    };
+
+    const getPlotById = (plotId) => {
+      return plots.find((plot) => plot.id === plotId);
+    };
+
+    return (
+      <div>
+        <h1>Jobs with Homeowners, Gardeners, and Plots</h1>
+        {jobs.map((job) => (
+          <div key={job._id}>
+            <p>Job ID: {job._id}</p>
+            {job.homeowner ? (
+              <p>
+                Homeowner: {getHomeownerById(job.homeowner)?.firstName} {getHomeownerById(job.homeowner)?.lastName}
+              </p>
+            ) : (
+              <p>Homeowner: None</p>
+            )}
+            {job.gardener ? (
+              <p>
+                Gardener: {getGardenerById(job.gardener)?.firstName} {getGardenerById(job.gardener)?.lastName}
+              </p>
+            ) : (
+              <p>Gardener: None</p>
+            )}
+            {job.plot ? (
+              <div>
+                <p>Plot Name: {getPlotById(job.plot)?.name}</p>
+                <p>Plot Address: {getPlotById(job.plot)?.address}</p>
+              </div>
+            ) : (
+              <p>Plot: None</p>
+            )}
+          </div>
         ))}
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default JobsPage;
