@@ -6,7 +6,7 @@ import GardenerProfileComponent from "../components/GardenerProfileComponent";
 import HomeownerProfileComponent from "../components/HomeownerProfileComponent";
 import { GET_CURRENT_USER } from "../utils/mutations";
 
-const MasterProfilePage = () => {
+const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
 
@@ -68,4 +68,4 @@ const MasterProfilePage = () => {
   );
 };
 
-export default MasterProfilePage;
+export default ProfilePage;

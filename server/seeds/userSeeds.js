@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const db = require('../config/connection');
-const { User, gardenerProfile, homeownerProfile } = require('../models/User');
+const { User, GardenerProfile, HomeownerProfile } = require('../models/User');
 const Plot = require('../models/Plot');
 const axios = require('axios');
 
@@ -25,8 +25,8 @@ async function seedUsers() {
     const users = [];
     const plots = [];
     await User.deleteMany({});
-    await gardenerProfile.deleteMany({});
-    await homeownerProfile.deleteMany({});
+    await GardenerProfile.deleteMany({});
+    await HomeownerProfile.deleteMany({});
     await Plot.deleteMany({});
 
     for (let i = 0; i < 10; i++) {
@@ -66,7 +66,7 @@ async function seedUsers() {
           break;
       }
       //gardeners can have more than one specialty or none at all
-        gardenerProfileDocument = await gardenerProfile.create({
+        gardenerProfileDocument = await GardenerProfile.create({
           yearsExperience: i * 2,
           areaServed: [`Area ${i}`],
           specialty: specialty,  // Example logic,
@@ -86,7 +86,7 @@ async function seedUsers() {
 
         plots.push(plot); // Add the plot to the array
 
-        homeownerProfileDocument = await homeownerProfile.create({
+        homeownerProfileDocument = await HomeownerProfile.create({
           plots: [plot._id],
         });
       }
