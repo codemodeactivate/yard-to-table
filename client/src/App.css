@@ -321,3 +321,9 @@ form input::placeholder {
 /* .specialty-name::first-letter {
   text-transform: capitalize;
 } */
+
+/* GARDENER MODAL */ 
+
+.gardener-modal-form form input {
+  width: inherit;
+}
