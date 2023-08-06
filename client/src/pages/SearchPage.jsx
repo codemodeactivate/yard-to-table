@@ -25,7 +25,7 @@ const SearchPage = () => {
   useEffect(() => {
     if (loading || error || !data || !data.getAllGardeners) return;
 
-    let tempGardeners = data.getAllGardeners;
+    let tempGardeners = data.getAllGardeners.filter(gardener => gardener.gardenerProfile !== null);
 
     // Apply the search term filter
     if (searchTerm !== "") {
@@ -63,7 +63,8 @@ const SearchPage = () => {
     setFilteredGardeners(tempGardeners);
   }, [searchTerm, selectedSpecialties, ratingRange, sortOption, data, loading, error]);
 
-  
+
+
   return (
         <div id="gardener-search-with-multi-filter">
             <h1 className="text-4xl text-yard-red text-center my-8">

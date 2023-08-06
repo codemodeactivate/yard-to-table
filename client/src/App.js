@@ -1,14 +1,13 @@
 import React from "react";
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import ProfilePage from "./pages/ProfilePage";
 import "./App.css";
 import Nav from "./components/Nav";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SearchPage from "./pages/SearchPage";
 import SignUpPage from "./pages/SignUpPage";
-import MasterProfilePage from "./pages/MasterProfilePage";
+import ProfilePage from "./pages/ProfilePage";
 import Footer from "./components/Footer";
 import PlotsPage from "./pages/PlotsPage";
 import JobsPage from "./pages/JobsPage";
@@ -29,7 +28,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/profile-master" element={<MasterProfilePage />} />
+            <Route path="/profile-master" element={<ProfilePage />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/plots" element={<PlotsPage />} />
 
