@@ -13,11 +13,7 @@ const HomePage = () => {
   return (
     <>
       <div>
-        <a href="/" className="m-8">
-          <span className=" text-yard-orange">Yard</span>
-          <span className="text-yard-green">to</span>
-          <span className="text-yard-blue">Table</span>
-        </a>
+        
         <section className="homepage-section-top flex justify-evenly">
           <section className="cta-group px-10 flex flex-col justify-end">
             <h2 className="text-4xl text-yard-orange py-10">
