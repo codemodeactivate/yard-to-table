@@ -2,20 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Oldenburg&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oldenburg&display=swap");
 
 :root {
-  --yard-blue: #4893CC;
-  --yard-orange: #DF7E07;
-  --yard-red: #D84861;
+  --yard-blue: #4893cc;
+  --yard-orange: #df7e07;
+  --yard-red: #d84861;
   --yard-green: #399349;
-  --yard-yellow: #FFD15C;
+  --yard-yellow: #ffd15c;
   --yard-gray: #848484;
 }
 
 body {
   background-color: white;
-  font-family: 'Oldenburg', cursive;
+  font-family: "Oldenburg", cursive;
 }
 
 button {
@@ -105,7 +105,6 @@ nav ul li {
   margin-bottom: 2px;
 } */
 
-
 #nav-signup:hover::after {
   content: "Sign Up";
   position: absolute;
@@ -115,7 +114,6 @@ nav ul li {
   font-size: 1rem;
   margin-bottom: 18px;
 }
-
 
 /* GLOBAL FORM */
 
@@ -139,8 +137,10 @@ form input::placeholder {
 /*  SIGN UP PAGE */
 .signup-daisy {
   width: 125px;
+  position: absolute;
+  top: 5%;
+  right: 10%;
 }
-
 
 /* PLOT CARD */
 
@@ -207,7 +207,6 @@ form input::placeholder {
   color: white; /* Text becomes visible on hover */
 }
 
-
 .plot-card-text {
   background-color: white;
   color: var(--yard-blue);
@@ -227,7 +226,7 @@ form input::placeholder {
 }
 
 .spin-button:hover {
-  animation: spin .25s linear; /* 1s duration, linear timing, 2 iterations */
+  animation: spin 0.25s linear; /* 1s duration, linear timing, 2 iterations */
 }
 
 @keyframes spin {
@@ -238,8 +237,6 @@ form input::placeholder {
     transform: rotate(180deg);
   }
 }
-
-
 
 /* Add Plot Modal */
 
@@ -257,7 +254,7 @@ form input::placeholder {
 }
 
 .plot-modal {
- padding: 30px 0;
+  padding: 30px 0;
 }
 
 .modal-content {
@@ -269,7 +266,6 @@ form input::placeholder {
   width: 100%;
   position: relative;
 }
-
 
 .close-button {
   position: absolute;
@@ -317,7 +313,6 @@ form input::placeholder {
 .hidden-checkbox:checked + .icon-checkbox .name {
   color: var(--yard-orange); /* Color for selected name */
 }
-
 
 .active-sort .icon,
 .active-sort .name {

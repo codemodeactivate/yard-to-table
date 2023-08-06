@@ -88,7 +88,7 @@ const SignUpForm = () => {
         <div>
           <h2 className="text-4xl text-yard-red text-center my-8">Let's get started!</h2>
           <img className="signup-daisy" src="./assets/illustrations/002-daisy.png"></img>
-        <form onSubmit={handleSubmit} className="flex-col mx-auto">
+        <form onSubmit={handleSubmit} className="flex-col mx-auto w-full">
             <div>
                 {/* <label htmlFor="firstName">First Name</label> */}
                 <input
