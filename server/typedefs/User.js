@@ -35,6 +35,11 @@ type GardenerProfile {
     photo: String
 }
 
+type Query {
+    getCurrentUser: User
+  }
+
+
 input GardenerProfileInput {
     yearsExperience: Int
     specialty: [String]
