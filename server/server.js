@@ -14,6 +14,7 @@ console.log("SERVER.JS IS BEING EXECUTED")
 const PORT = process.env.PORT || 3001;
 const app = express();
 
+const uri = process.env.MONGODB_URI;
 
 app.use(cors({
   origin: 'http://localhost:3000',
