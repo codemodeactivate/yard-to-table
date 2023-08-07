@@ -15,7 +15,7 @@
 * Yard to Table is a web application that allows users to get their lawns refurbished from professional agriculturilst. Users can create an account, post informations about their lots, and find the perfect gardener for their home. Users can also view their order history and update their account and plot information.
 
 ## Visuals
-* This website is live at the following URL:
+* This website is live at the following URL: https://yard-to-table-5841951867b0.herokuapp.com/
 
 ## Installation
 * To install this application, clone the repository to your local machine. Once cloned, navigate to the root directory of the repository and run `npm install` to install all dependencies. You will also need to create a `.env` file in the root directory and add the following variables:
@@ -45,7 +45,7 @@ STRIPE_SECRET=your-secret
 
 
 ## License
-* This application is covered under the [MIT](https://choosealicense.com/licenses/mit/) license
+* This application is covered under the [MIT](https://choosealicense.com/licenses/mit/) license.
 
 ## Contributing
 1. Fork the repository and clone it to your local machine.
@@ -56,10 +56,16 @@ STRIPE_SECRET=your-secret
 
 
 ## Support
-* For support, the best form of contact will be by email at
+* For support, the best form of contact will be by email at jkrieger11@gmail.com . Please allow up to 24 hours for a response. Please fell free to conatact any other contributors with questions or concerns regarding this application.
 
 ## Roadmap
-* In no specific order:
+In no specific order:
+1. Connect Homeowners to Gardeners with an in app messaging system
+2. Add a calendar to the dashboard to show upcoming appointments
+3. Add a map to the dashboard to show the location of the gardener
+4. Add a rating system for Gardeners to rate Homeowners
+5. Add a payment system for Gardeners to receive depost payments to avoid no payments after service
+6. Ability to signup as both a homeowner and a gardener
 
 
 ## Authors and acknowledgment
