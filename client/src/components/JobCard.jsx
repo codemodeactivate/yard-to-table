@@ -1,4 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const JobCard = ({ job, homeowners, gardeners, plots, onClick }) => {
   const getHomeownerById = (homeownerId) => {
@@ -11,6 +13,10 @@ const JobCard = ({ job, homeowners, gardeners, plots, onClick }) => {
 
   const getPlotById = (plotId) => {
     return plots.find((plot) => plot.id === plotId);
+  };
+
+  const handleDelete = (jobId) => {
+    onClick(job._id);
   };
 
   return (
@@ -47,8 +53,7 @@ const JobCard = ({ job, homeowners, gardeners, plots, onClick }) => {
       </ol>
       </div>
       <div className="delete-job-button flex justify-center flex-col items-center"> 
-       <p className="text-yard-orange">Delete Job</p> 
-       <button className="spin-button text-yard-orange text-6xl p-0 m-0 " ></button> 
+       <button className="fa-bounce text-yard-orange text-6sm p-0 m-0 o" onCLick={handleDelete}><FontAwesomeIcon icon={faTrash} /></button> 
       </div>
     </div>
   );
