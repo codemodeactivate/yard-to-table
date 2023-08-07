@@ -24,7 +24,7 @@ const GardenerProfileComponent = ({user: currentUser}) => {
 
   return (
     <div>
-      <h1>Gardener Profile</h1>
+      <h1 className="mx-auto text-center">Gardener Profile</h1>
       {/* <GardenerCard user={{ gardenerProfile: gardenerProfileData }} /> */}
       {/* Commented out the GardenerCard component for now */}
 

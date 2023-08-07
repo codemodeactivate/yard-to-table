@@ -144,7 +144,7 @@ form input::placeholder {
 
 /* PROFILE PAGE AND FORMS */
 
-.homeowner-form input {
+.homeowner-form .gardener-form .billing-form input {
   width: 100%;
   max-width: 600px;
 
