@@ -73,31 +73,49 @@ const server = new ApolloServer({
   },
 });
 
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-});
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
-  });
-
-//Create a new instance of ApolloServer with the GraphQL schema
+// Add this before your other routes
 const startApolloServer = async () => {
-    // Wait for the server to start
-    await server.start();
-
-    // Apply the ApolloServer middleware after it has started
-    server.applyMiddleware({ app });
-
-    // Start the express server
-    db.once('open', () => {
-        app.listen(PORT, () => {
-            console.log(`Now listening on localhost:${PORT}, BANNNNGGGGG!!!!!!!!!!!!!!`);
-            console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-        });
-    });
-}
+  await server.start();
+  server.applyMiddleware({ app }); // This adds the /graphql route to your app
+};
 
 startApolloServer();
+
+
+
+// Only handle these routes in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.get('*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
+}
+
+db.once('open', () => {
+  app.listen(PORT, () => {
+      console.log(`Now listening on localhost:${PORT}`);
+      console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+});
+
+
+
+
+// //Create a new instance of ApolloServer with the GraphQL schema
+// const startApolloServer = async () => {
+//     // Wait for the server to start
+//     await server.start();
+
+//     // Apply the ApolloServer middleware after it has started
+//     server.applyMiddleware({ app });
+
+//     // Start the express server
+//     db.once('open', () => {
+//         app.listen(PORT, () => {
+//             console.log(`Now listening on localhost:${PORT}, BANNNNGGGGG!!!!!!!!!!!!!!`);
+//             console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+//         });
+//     });
+// }
+
+// startApolloServer();
