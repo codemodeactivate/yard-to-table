@@ -178,9 +178,11 @@ export const GET_JOBS = gql`
   query GetJobs {
     getJobs {
       _id
+      title
       homeowner
       gardener
       plot
+      status
     }
   }`;
 

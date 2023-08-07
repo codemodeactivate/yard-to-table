@@ -25,7 +25,7 @@ console.log(gardeners);
 
   return (
     <div className="job-card-container mb-8 border border-yard-blue rounded-lg p-4">
-      <h1>{job.title}</h1>
+
       <div className="job-card-text z-1">
       <ol>
         {/* <p>{job.description}</p>
@@ -33,9 +33,9 @@ console.log(gardeners);
         <p>{job.date}</p>
         <p>{job.budget}</p> */}
         {job.title ? (
-          <p>
-            Title: {job.title}
-          </p>
+          <h1 className="text-2xl text-center">
+            {job.title}
+          </h1>
         ) : (
           <p>Title: None</p>
         )}
@@ -77,9 +77,9 @@ console.log(gardeners);
         )}
       </ol>
       </div>
-      <div className="delete-job-button flex justify-center flex-col items-center"> 
-       <button className="fa-bounce text-yard-orange text-6sm p-0 m-0 o" onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /></button> 
-      </div>
+      {/* <div className="delete-job-button flex justify-center flex-col items-center">
+       <button className="fa-bounce text-yard-orange text-6sm p-0 m-0 o" onClick={handleDelete}><FontAwesomeIcon icon={faTrash} /></button>
+      </div> */}
     </div>
   );
 };
