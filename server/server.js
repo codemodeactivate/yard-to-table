@@ -14,11 +14,11 @@ console.log("SERVER.JS IS BEING EXECUTED")
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-const uri = process.env.MONGODB_URI;
+// const uri = process.env.MONGODB_URI;
 
-const client = new MongoClient(uri, {
-  tls: true,
-})
+// const client = new MongoClient(uri, {
+//   tls: true,
+// })
 
 
 app.use(cors({
