@@ -23,6 +23,7 @@ function App() {
           <header className="App-header">
             <Nav />
           </header>
+          <div className="flex-grow">
           <Routes>
             <Route path="/" exact element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
@@ -34,6 +35,7 @@ function App() {
 
             <Route path="/jobs" element={<JobsPage />} />
           </Routes>
+          </div>
           <Footer />
         </Router>
       </div>
