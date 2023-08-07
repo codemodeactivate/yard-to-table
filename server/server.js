@@ -10,6 +10,7 @@ const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth')
 const cors = require('cors');
 console.log("SERVER.JS IS BEING EXECUTED")
+console.log("Node environment:", process.env.NODE_ENV)
 
 const PORT = process.env.PORT || 3001;
 const app = express();
