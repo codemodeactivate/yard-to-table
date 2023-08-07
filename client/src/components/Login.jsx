@@ -43,34 +43,35 @@ const LoginForm = (props) => {
   }
 
   return (
-    <div className="login-page">
-      <h2>Ready to grow more magic?</h2>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor="email">Email:</label>
+    <div className="login-page flex flex-col justify-center items-center">
+      <h2 className="text-2xl text-yard-blue text-center mb-8">Ready to grow more magic?</h2>
+      <form className="flex flex-col items-center" onSubmit={handleFormSubmit}>
+        {/* <label htmlFor="email">Email:</label> */}
         <input
-          placeholder="yourEmail@test.com"
+          placeholder="Email"
           type="text"
           name="email"
           id="email"
           onChange={handleChange}
         />
-        <div className="login-page">
-          <label htmlFor="password">Password:</label>
+      
+          {/* <label htmlFor="password">Password:</label> */}
           <input
-            placeholder="******"
+            placeholder="Password"
             name="password"
             type="password"
             id="password"
             onChange={handleChange}
           />
-        </div>
-        <button type="submit">
+       
+        <button className="bg-yard-orange text-white " type="submit">
           Login
         </button>
       </form>
       {error && <div>Login failed</div>} {/* Display error message */}
     </div>
   );
+  
 };
 
 export default LoginForm;

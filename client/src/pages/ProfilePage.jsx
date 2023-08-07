@@ -56,7 +56,8 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <h1>Your Profile</h1>
+      <h1 className="text-4xl text-yard-red text-center my-8">Your Profile</h1>
+      <div className="flex justify-center ">
       <Dropdown overlay={menu}>
         <span>
           <Avatar style={{ cursor: "pointer" }} size="large">{userInitials}</Avatar> {/* Replace 'U' with user's initials */}
@@ -64,6 +65,7 @@ const ProfilePage = () => {
       </Dropdown>
       {profile === 'gardener' && <GardenerProfileComponent />}
       {profile === 'homeowner' && <HomeownerProfileComponent />}
+      </div>
     </div>
   );
 };
