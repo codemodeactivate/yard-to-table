@@ -1,150 +1,77 @@
-import React, { useState, useContext } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { CREATE_GARDENER_PROFILE } from "../utils/mutations";
-import { AuthContext } from "../utils/AuthContext";
-const GardenerProfileForm = ({ onSave }) => {
-  const context = useContext(AuthContext);
-  const [formData, setFormData] = useState({
-    yearsExperience: 0,
-    specialty: [],
-    areaServed: [],
-    cost: 0,
-    bio: "",
-    photo: null, // Added a new field for the photo
+import React, { useState } from "react";
+
+const GardenerProfileForm = ({ onSave, user }) => {
+  // Set initial form state
+  const [formState, setFormState] = useState({
+    firstName: user.firstName || "",
+    lastName: user.lastName || "",
+    email: user.email || "",
+    address: user.address || "",
+    // Add other form fields here, initialized to empty strings or default values
   });
 
-  const [addGardenerProfile] = useMutation(CREATE_GARDENER_PROFILE);
+  // Function to handle form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
-  const handleSpecialtyChange = (e) => {
-    const options = e.target.options;
-    const selectedSpecialty = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selectedSpecialty.push(options[i].value);
-      }
-    }
-    setFormData({ ...formData, specialty: selectedSpecialty });
-  };
+  // Function to handle form submission
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  const handleAreaServedChange = (e) => {
-    const zipCodes = e.target.value.split(",").map((zip) => zip.trim());
-    setFormData({ ...formData, areaServed: zipCodes });
-  };
-
-  const handlePhotoChange = (e) => {
-    const photoFile = e.target.files[0];
-    setFormData({ ...formData, photo: photoFile });
-  };
-
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userId = context.userId;
-    // Make the API call to save the gardener profile data
-    try {
-      const { yearsExperience, specialty, areaServed, cost, bio, photo } = formData;
-      const input = {
-        userId,
-        yearsExperience: parseInt(yearsExperience),
-        specialty,
-        areaServed,
-        cost: parseInt(cost),
-        bio,
-        photo,
-        // Upload the photo here, if needed
-      };
-
-      // Call the mutation
-      const { data } = await addGardenerProfile({ variables: { input } });
-
-      // Check the response data and update the user's role if successful
-      if (data.addGardenerProfile) {
-        // Create function to update the user's role to gardener
-        // You can call it here, passing the user ID and setting isGardener to true
-        // updateUserRole(data.addGardenerProfile.id, true);
-
-        // Optionally, you could show a success message or redirect the user after saving
-        alert("Gardener profile saved successfully!");
-      } else {
-        // Show an error message if the API call was not successful
-        alert("Failed to save gardener profile. Please try again.");
-      }
-    } catch (error) {
-      // Handle any errors that occurred during the API call
-      console.error("Error saving gardener profile:", error);
-      alert("An error occurred while saving the gardener profile. Please try again.");
-    }
+    // Call the onSave function passed as a prop by the parent component
+    onSave(formState);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="yearsExperience">Years of Experience:</label>
-        <input
-          type="number"
-          id="yearsExperience"
-          name="yearsExperience"
-          value={formData.yearsExperience}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="specialty">Specialty:</label>
-        <select
-          id="specialty"
-          name="specialty"
-          multiple
-          value={formData.specialty}
-          onChange={handleSpecialtyChange}
-        >
-          <option value="vegetable">Vegetable</option>
-          <option value="pollinator">Pollinator</option>
-          {/* Add more specialty options as needed */}
-        </select>
-      </div>
-      <div>
-        <label htmlFor="areaServed">Areas Served (separate multiple zip codes with commas):</label>
+      <label htmlFor="firstName">
+        First Name
         <input
           type="text"
-          id="areaServed"
-          name="areaServed"
-          value={formData.areaServed.join(", ")}
-          onChange={handleAreaServedChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="cost">Avg Cost/Hr:</label>
-        <input
-          type="number"
-          id="cost"
-          name="cost"
-          value={formData.cost}
+          id="firstName"
+          name="firstName"
+          value={formState.firstName}
           onChange={handleChange}
         />
-      </div>
-      <div>
-        <label htmlFor="bio">Bio:</label>
-        <textarea
-          id="bio"
-          name="bio"
-          value={formData.bio}
+      </label>
+      <label htmlFor="lastName">
+        Last Name
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          value={formState.lastName}
           onChange={handleChange}
         />
-      </div>
-      <div>
-        <label htmlFor="photo">Profile Photo:</label>
+      </label>
+      <label htmlFor="email">
+        Email
         <input
-          type="file"
-          id="photo"
-          name="photo"
-          accept="image/*"
-          onChange={handlePhotoChange}
+          type="email"
+          id="email"
+          name="email"
+          value={formState.email}
+          onChange={handleChange}
         />
-      </div>
+      </label>
+      <label htmlFor="address">
+        Address
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={formState.address}
+          onChange={handleChange}
+        />
+      </label>
+      
+      {/* Add other form inputs here, following the same pattern */}
       <button type="submit">Save</button>
     </form>
   );

@@ -3,7 +3,7 @@ import React from "react";
 import GardenerProfileForm from "../components/GardenerProfileForm";
 import BillingForm from "../components/BillingFormComponent";
 
-const GardenerProfileComponent = () => {
+const GardenerProfileComponent = ({user: currentUser}) => {
   // Mock gardener profile data for demonstration purposes
   // Once authtoken is figured out we can use that to verify if the user is logged in
   //and if they are also a gardener
@@ -30,9 +30,9 @@ const GardenerProfileComponent = () => {
 
 
       {/* Display the gardener profile form */}
-      <GardenerProfileForm onSave={handleSaveGardenerProfile} />
+      <GardenerProfileForm onSave={handleSaveGardenerProfile} user={currentUser} />
       {/* Display the billing form */}
-      <BillingForm />
+      <BillingForm user={currentUser}/>
 
 
     </div>
