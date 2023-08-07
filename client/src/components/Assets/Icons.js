@@ -17,5 +17,5 @@ export const IconUp = () => (
 );
 
 export const IconDown = () => (
-  <div style={{ width: 0, height: 0, marginLeft: '5px', marginTop: '2px', borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderTop: '10px solid gray' }} />
+  <div style={{ width: 0, height: 0, marginLeft: '5px', marginTop: '2px', borderLeft: '6px solid transparent', borderRight: '6px solid transparent', borderBottom: '10px solid gray' }} />
 );

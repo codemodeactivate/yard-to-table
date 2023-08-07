@@ -5,7 +5,7 @@ import BillingForm from "../components/BillingFormComponent";
 import HomeownerProfileForm from "../components/HomeownerProfileForm";
 
 
-const HomeownerProfileComponent = () => {
+const HomeownerProfileComponent = ({user: currentUser}) => {
   // Mock gardener profile data for demonstration purposes
   // Once authtoken is figured out we can use that to verify if the user is logged in
   //and if they are also a gardener
@@ -25,14 +25,14 @@ const HomeownerProfileComponent = () => {
   };
 
   return (
-    <div>
+    <div  className="flex flex-col items-center w-full">
       <h1>Homeowner Profile</h1>
       {/* <GardenerCard user={{ gardenerProfile: gardenerProfileData }} /> */}
       {/* Commented out the GardenerCard component for now */}
 
 
       {/* Display the gardener profile form */}
-      <HomeownerProfileForm onSave={handleSaveHomeownerProfile} />
+      <HomeownerProfileForm onSave={handleSaveHomeownerProfile}  user={currentUser}/>
       {/* Display the billing form */}
       {/* <BillingForm /> */}
 

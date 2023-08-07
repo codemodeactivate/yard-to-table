@@ -9,7 +9,7 @@ import { GET_CURRENT_USER } from "../utils/mutations";
 const ProfilePage = () => {
   const { currentUser } = useContext(AuthContext);
   const { loading, error, data } = useQuery(GET_CURRENT_USER);
-
+  console.log(currentUser);
   const [profile, setProfile] = useState(null); // Initialize with null
 
   useEffect(() => {
@@ -53,21 +53,24 @@ const ProfilePage = () => {
       </Menu.Item>
     </Menu>
   );
+  console.log(data)
 
   return (
-    <div>
-      <h1 className="text-4xl text-yard-red text-center my-8">Your Profile</h1>
-      <div className="flex justify-center ">
-      <Dropdown overlay={menu}>
-        <span>
-          <Avatar style={{ cursor: "pointer" }} size="large">{userInitials}</Avatar> {/* Replace 'U' with user's initials */}
-        </span>
-      </Dropdown>
-      {profile === 'gardener' && <GardenerProfileComponent />}
-      {profile === 'homeowner' && <HomeownerProfileComponent />}
+    <div className="flex flex-col justify-center items-center space-y-8 w-full">
+      <div className="self-end mr-20">
+        <Dropdown overlay={menu}>
+          <span>
+            <Avatar style={{ cursor: "pointer" }} size="large">{userInitials}</Avatar> {/* Replace 'U' with user's initials */}
+          </span>
+        </Dropdown>
+      </div>
+      <div className="w-full">
+        {profile === 'gardener' && <GardenerProfileComponent  user={currentUser} />}
+        {profile === 'homeowner' && <HomeownerProfileComponent  user={currentUser}/>}
       </div>
     </div>
   );
+
 };
 
 export default ProfilePage;
