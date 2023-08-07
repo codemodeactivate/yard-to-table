@@ -10,9 +10,16 @@ const db = require('./config/connection');
 const { authMiddleware } = require('./utils/auth')
 const cors = require('cors');
 console.log("SERVER.JS IS BEING EXECUTED")
+console.log("Node environment:", process.env.NODE_ENV)
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+// const uri = process.env.MONGODB_URI;
+
+// const client = new MongoClient(uri, {
+//   tls: true,
+// })
 
 
 app.use(cors({
@@ -68,13 +75,13 @@ const server = new ApolloServer({
 
 
 
-// app.get('/', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
-// });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '../client/build/index.html'));
-//   });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
 
 //Create a new instance of ApolloServer with the GraphQL schema
 const startApolloServer = async () => {
