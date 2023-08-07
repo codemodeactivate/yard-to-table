@@ -30,7 +30,7 @@ const MultiFilters = ({
     return (
         <div id="multi-filters-component">
             <div className="filters-container flex flex-col text-left">
-                <h2 className="text-3xl font-semi-bold text-yard-orange mb-2">Filter</h2>
+                <h2 className="text-xl font-semi-bold text-yard-orange mb-2">Filter</h2>
 
                 {specialties.map((specialty, idx) => (
 
@@ -46,10 +46,11 @@ const MultiFilters = ({
                             onChange={() =>
                                 handleCheckboxChange(specialty.name)
                             }
+                            checked={selectedSpecialties.includes(specialty.name)}//to make the check boxes check by default
                         />
                         <span className="icon-checkbox flex items-center">
-                            <span className="icon text-4xl lg:text-xl md:text-2xl sm:text-xl mr-3">{specialty.icon}</span>
-                            <span className="name text-3xl lg:text-xl md:text-xl sm:text-lg whitespace-nowrap">{capitalizeFirstLetter(specialty.name)} Gardens</span>
+                            <span className="icon text-lg mr-3">{specialty.icon}</span>
+                            <span className="name text-lg whitespace-nowrap">{capitalizeFirstLetter(specialty.name)} Gardens</span>
 
 
                         </span>

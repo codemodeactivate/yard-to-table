@@ -36,7 +36,7 @@ const GardenerSearch = ({ gardeners, loading, error, searchTerm, setSearchTerm }
   return (
       <div id="gardener-search">
           <SearchComponent
-              placeholder="Search for Gardeners..."
+              placeholder="Search by name..."
               onSearch={handleSearch}
           />
 

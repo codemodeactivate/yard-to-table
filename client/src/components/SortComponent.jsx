@@ -12,9 +12,9 @@ const SortComponent = ({ onSortChange, sortOption }) => {
 
     const handleSortChange = (index) => {
       const newSorts = [...sorts];
-      console.log('Sort Option: ', sortOption);
-      console.log('Selected sort: ', newSorts[index]);
-      console.log('Changing to:', { option: newSorts[index].name, direction: newSorts[index].direction });
+      
+      // console.log('Selected sort: ', newSorts[index]);
+      // console.log('Changing to:', { option: newSorts[index].name, direction: newSorts[index].direction });  
       newSorts[index].direction =
         newSorts[index].direction === "down" ? "up" : "down";
 
@@ -22,8 +22,13 @@ const SortComponent = ({ onSortChange, sortOption }) => {
       onSortChange({ option: newSorts[index].name, direction: newSorts[index].direction }); // Call the prop function with the updated sort object
     };
 
+    console.log('Sort Option: ', sortOption); 
+
     return (
-      <div className="flex flex-col space-y-2">
+      
+      <div className="sort-component">
+      <h2 className="text-xl text-left text-yard-blue pt-10">Sort by:</h2>
+      <div className="sort-button-container items-left justify-start flex flex-col space-y-2">
         {sorts.map((sort, index) => {
         //   console.log("Rendering :", sort.name);
         //   console.log("sort.name: ", sort.name);
@@ -34,18 +39,19 @@ const SortComponent = ({ onSortChange, sortOption }) => {
             <button
               key={index}
               onClick={() => handleSortChange(index)}
-              className={`btn-sort flex items-center text-2xl mb-3 ${sortOption.option === sort.name.toLowerCase() ? 'active-sort' : 'inactive-sort'}`}
+              className={`btn-sort flex justify-start items-center text-xl p-0 ${sortOption.option === sort.name.toLowerCase() ? 'active-sort' : 'inactive-sort'}`}
             >
-                {console.log('sortOption.option: ', sortOption.option)}
-                {console.log('sort.name: ', sort.name)}
-              <sort.icon className="text-4xl lg:text-xl md:text-2xl sm:text-xl mr-3 icon" /> {/* Sort Icon */}
-              <span className="name text-3xl lg:text-xl md:text-xl sm:text-lg whitespace-nowrap name">
+                {/* {console.log('sortOption.option: ', sortOption.option)} */}
+                {/* {console.log('sort.name: ', sort.name)} */}
+              <sort.icon className="text-lg  icon" /> {/* Sort Icon */}
+              <span className="name text-lg  whitespace-nowrap name ml-2">
                 {sort.label} {/* Sort Name */}
               </span>
               {sort.direction === "down" ? <IconUp /> : <IconDown />} {/* Direction Icon */}
             </button>
           );
         })}
+      </div>
       </div>
     );
   };
