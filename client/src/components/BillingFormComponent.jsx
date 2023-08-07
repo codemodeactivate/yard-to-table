@@ -41,39 +41,119 @@ const BillingForm = ({ user, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="creditCardNumber">Credit Card Number:</label>
-      <input type="text" id="creditCardNumber" name="creditCardNumber" value={formState.creditCardNumber} onChange={handleChange} required />
+    <div>
+      <h2 className="text-center" >Billing Information</h2>
+    <form className="billing-form flex-col w-full justify-center" onSubmit={handleSubmit}>
+      <label htmlFor="creditCardNumber"></label>
+      <input
+        type="text"
+        id="creditCardNumber"
+        name="creditCardNumber"
+        placeholder="Credit Card Number"
+        value={formState.creditCardNumber}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="expirationMonth">Expiration Month:</label>
-      <input type="text" id="expirationMonth" name="expirationMonth" value={formState.expirationMonth} onChange={handleChange} required />
+      <label htmlFor="expirationMonth"></label>
+      <input
+        type="text"
+        id="expirationMonth"
+        name="expirationMonth"
+        placeholder="Expiration Month"
+        value={formState.expirationMonth}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="expirationYear">Expiration Year:</label>
-      <input type="text" id="expirationYear" name="expirationYear" value={formState.expirationYear} onChange={handleChange} required />
+      <label htmlFor="expirationYear"></label>
+      <input
+        type="text"
+        id="expirationYear"
+        name="expirationYear"
+        placeholder="Expiration Year"
+        value={formState.expirationYear}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="cardholderName">Cardholder Name:</label>
-      <input type="text" id="cardholderName" name="cardholderName" value={formState.cardholderName} onChange={handleChange} required />
+      <label htmlFor="cardholderName"></label>
+      <input
+        type="text"
+        id="cardholderName"
+        name="cardholderName"
+        value={formState.cardholderName}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="billingAddress">Billing Address:</label>
-      <input type="text" id="billingAddress" name="billingAddress" value={formState.billingAddress} onChange={handleChange} required />
+      <label htmlFor="billingAddress"></label>
+      <input
+        type="text"
+        id="billingAddress"
+        name="billingAddress"
+        placeholder="Billing Address"
+        value={formState.billingAddress}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="country">Country:</label>
-      <input type="text" id="country" name="country" value={formState.country} onChange={handleChange} required />
+      <label htmlFor="country"></label>
+      <input
+        type="text"
+        id="country"
+        name="country"
+        placeholder="Country"
+        value={formState.country}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="postalCode">Postal Code:</label>
-      <input type="text" id="postalCode" name="postalCode" value={formState.postalCode} onChange={handleChange} required />
+      <label htmlFor="postalCode"></label>
+      <input
+        type="text"
+        id="postalCode"
+        name="postalCode"
+        placeholder="Postal Code"
+        value={formState.postalCode}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="isDefault">Is Default:</label>
-      <input type="checkbox" id="isDefault" name="isDefault" checked={formState.isDefault} onChange={handleChange} />
+      <label htmlFor="isDefault">Make Default Card?</label>
+      <input
+        type="checkbox"
+        id="isDefault"
+        name="isDefault"
+        checked={formState.isDefault}
+        onChange={handleChange}
+      />
 
-      <label htmlFor="lastFourDigits">Last Four Digits:</label>
-      <input type="text" id="lastFourDigits" name="lastFourDigits" value={formState.lastFourDigits} onChange={handleChange} required />
+      <label htmlFor="lastFourDigits"></label>
+      <input
+        type="text"
+        id="lastFourDigits"
+        name="lastFourDigits"
+        placeholder="Last Four Digits"
+        value={formState.lastFourDigits}
+        onChange={handleChange}
+        required
+      />
 
-      <label htmlFor="brand">Brand:</label>
-      <input type="text" id="brand" name="brand" value={formState.brand} onChange={handleChange} required />
+      <label htmlFor="brand"></label>
+      <input
+        type="text"
+        id="brand"
+        name="brand"
+        placeholder="Brand"
+        value={formState.brand}
+        onChange={handleChange}
+        required
+      />
 
-      <button type="submit">Save Billing Information</button>
+      <button className="bg-yard-orange text-white" type="submit">Save Billing Information</button>
     </form>
+    </div>
   );
 };
 
