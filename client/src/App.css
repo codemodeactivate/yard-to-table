@@ -142,6 +142,15 @@ form input::placeholder {
   right: 10%;
 }
 
+/* PROFILE PAGE AND FORMS */
+
+.homeowner-form input {
+  width: 100%;
+  max-width: 600px;
+
+}
+
+
 /* PLOT CARD */
 
 .plot-card-container {

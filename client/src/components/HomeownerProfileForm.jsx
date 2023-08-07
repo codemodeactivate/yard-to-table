@@ -46,25 +46,28 @@ const HomeownerProfileForm = ({ onSave, user }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      className="homeowner-form flex flex-col w-full items-center"
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="firstName">
-        First Name
         <input
           type="text"
           id="firstName"
           name="firstName"
           value={formState.firstName}
+          placeholder="First Name"
           onChange={handleChange}
           required
         />
       </label>
 
       <label htmlFor="lastName">
-        Last Name
         <input
           type="text"
           id="lastName"
           name="lastName"
+          placeholder="Last Name"
           value={formState.lastName}
           onChange={handleChange}
           required
@@ -72,11 +75,11 @@ const HomeownerProfileForm = ({ onSave, user }) => {
       </label>
 
       <label htmlFor="email">
-        Email
         <input
           type="email"
           id="email"
           name="email"
+          placeholder="Email"
           value={formState.email}
           onChange={handleChange}
           required
@@ -84,11 +87,11 @@ const HomeownerProfileForm = ({ onSave, user }) => {
       </label>
 
       <label htmlFor="address">
-        Address
         <input
           type="text"
           id="address"
           name="address"
+          placeholder="Address"
           value={formState.address}
           onChange={handleChange}
           required
@@ -96,28 +99,30 @@ const HomeownerProfileForm = ({ onSave, user }) => {
       </label>
 
       <label htmlFor="newPassword">
-        New Password
         <input
           type="password"
           id="newPassword"
           name="newPassword"
+          placeholder="New Password"
           value={formState.newPassword}
           onChange={handleChange}
         />
       </label>
 
       <label htmlFor="confirmNewPassword">
-        Confirm New Password
         <input
           type="password"
           id="confirmNewPassword"
           name="confirmNewPassword"
+          placeholder="Confirm New Password"
           value={formState.confirmNewPassword}
           onChange={handleChange}
         />
       </label>
 
-      <button type="submit">Save</button>
+      <button className="bg-yard-orange text-white" type="submit">
+        Save
+      </button>
     </form>
   );
 };
