@@ -144,9 +144,9 @@ const SignUpForm = () => {
                     required
                 />
             </div>
-            <div>
-                <button type="submit">Sign Up</button>
-                <button
+            <div className="flex justify-center">
+                <button className="signup-btn bg-yard-orange text-white" type="submit">Sign Up</button>
+                <button className="signup-btn border-yard-orange border text-yard-orange"
                     type="button"
                     onClick={() =>
                         setFormData({
