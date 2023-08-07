@@ -8,7 +8,7 @@ import SortComponent from "../components/SortComponent";
 
 const SearchPage = () => {
   const { loading, error, data } = useQuery(GET_ALL_GARDENERS);
-  const [selectedSpecialties, setSelectedSpecialties] = useState([]);
+  const [selectedSpecialties, setSelectedSpecialties] = useState(['vegetable', 'pollinator']);
   const [ratingRange, setRatingRange] = useState([0, 5]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredGardeners, setFilteredGardeners] = useState([]);
@@ -68,10 +68,13 @@ const SearchPage = () => {
   return (
         <div id="gardener-search-with-multi-filter">
             <h1 className="text-4xl text-yard-red text-center my-8">
-                Gardeners
+                Gardener Search
             </h1>
+            {/* <p className="text-lg text-yard-green text-center">
+                Gardeners are shown that are active in your area
+            </p> */}
             <div className="flex">
-                <div className="w-1/4 p-4 flex flex-col items-center text-center">
+                <div className="w-1/4 p-4 flex flex-col">
                     <MultiFilters
                         selectedSpecialties={selectedSpecialties}
                         setSelectedSpecialties={setSelectedSpecialties}
