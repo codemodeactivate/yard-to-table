@@ -29,50 +29,54 @@ const GardenerProfileForm = ({ onSave, user }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="gardener-form flex flex-col w-full items-center" onSubmit={handleSubmit}>
       <label htmlFor="firstName">
-        First Name
+        
         <input
           type="text"
           id="firstName"
           name="firstName"
+          placeholder="First Name"
           value={formState.firstName}
           onChange={handleChange}
         />
       </label>
       <label htmlFor="lastName">
-        Last Name
+        
         <input
           type="text"
           id="lastName"
           name="lastName"
+          placeholder="Last Name"
           value={formState.lastName}
           onChange={handleChange}
         />
       </label>
       <label htmlFor="email">
-        Email
+        
         <input
           type="email"
           id="email"
           name="email"
+          placeholder="Email"
           value={formState.email}
           onChange={handleChange}
         />
       </label>
       <label htmlFor="address">
-        Address
+        
         <input
           type="text"
           id="address"
           name="address"
+          placeholder="Address"
           value={formState.address}
           onChange={handleChange}
         />
       </label>
       
       {/* Add other form inputs here, following the same pattern */}
-      <button type="submit">Save</button>
+      <button className="bg-yard-orange text-white" type="submit">Save</button>
     </form>
   );
 };

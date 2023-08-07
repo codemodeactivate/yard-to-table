@@ -64,7 +64,8 @@ const ProfilePage = () => {
           </span>
         </Dropdown>
       </div>
-      <div className="w-full">
+      <div className="text-4xl text-yard-red text-center my-8">Profile</div>
+      <div className="w-full flex">
         {profile === 'gardener' && <GardenerProfileComponent  user={currentUser} />}
         {profile === 'homeowner' && <HomeownerProfileComponent  user={currentUser}/>}
       </div>
