@@ -85,9 +85,12 @@ const SignUpForm = () => {
   };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div>
+          <h2 className="text-4xl text-yard-red text-center my-8">Let's get started!</h2>
+          <img className="signup-daisy" src="./assets/illustrations/002-daisy.png"></img>
+        <form onSubmit={handleSubmit} className="flex-col mx-auto w-full">
             <div>
-                <label htmlFor="firstName">First Name</label>
+                {/* <label htmlFor="firstName">First Name</label> */}
                 <input
                     type="text"
                     name="firstName"
@@ -98,7 +101,7 @@ const SignUpForm = () => {
                 />
             </div>
             <div>
-                <label htmlFor="lastName">Last Name</label>
+                {/* <label htmlFor="lastName">Last Name</label> */}
                 <input
                     type="text"
                     name="lastName"
@@ -109,7 +112,7 @@ const SignUpForm = () => {
                 />
             </div>
             <div>
-                <label htmlFor="email">Email</label>
+                {/* <label htmlFor="email">Email</label> */}
                 <input
                     type="email"
                     name="email"
@@ -120,7 +123,7 @@ const SignUpForm = () => {
                 />
             </div>
             <div>
-                <label htmlFor="password">Password</label>
+                {/* <label htmlFor="password">Password</label> */}
                 <input
                     type="password"
                     name="password"
@@ -131,7 +134,7 @@ const SignUpForm = () => {
                 />
             </div>
             <div>
-                <label htmlFor="confirmPassword">Confirm Password</label>
+                {/* <label htmlFor="confirmPassword">Confirm Password</label> */}
                 <input
                     type="password"
                     name="confirmPassword"
@@ -141,9 +144,9 @@ const SignUpForm = () => {
                     required
                 />
             </div>
-            <div>
-                <button type="submit">Sign Up</button>
-                <button
+            <div className="flex justify-center">
+                <button className="signup-btn bg-yard-orange text-white" type="submit">Sign Up</button>
+                <button className="signup-btn border-yard-orange border text-yard-orange"
                     type="button"
                     onClick={() =>
                         setFormData({
@@ -157,6 +160,7 @@ const SignUpForm = () => {
                 </button>
             </div>
         </form>
+        </div>
     );
 };
 
